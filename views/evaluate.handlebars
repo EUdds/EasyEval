@@ -1,13 +1,13 @@
 <div class="container-fluid">
 <script>
   numInGroup = {{numInGroup}} + 1;
-  firstName = `{{firstName}}`;
-  groupMemberNames = {{groupMemberNames}};
-  
+  firstName = '{{firstName}}';
+  groupMemberNames = [{{groupMemberNames}}];
+
   updateSliders();
 </script>
 <div class="page-header" align="center">
-	<h1>Easy Eval</h1> 
+	<h1>Easy Eval</h1>
 	<br>
   <h1><small>Evaluate Your Group Members</small></h1>
 </div>
@@ -17,19 +17,20 @@
 	</div>
 
   <script>
-    window.onload = function() {
-	init();
-};
+    $(function() {
+      init();
+    });
+
     document.body.onmousemove = function(){
 	$(window).resize(function() {
  	chartWidth = (document.documentElement.clientWidth/standardsInAssignment - 10);
 	drawChart();
-	
-	
+
+
 	for(var i=0; i<standardsInAssignment; i++){
 		defineSliderLocation(i);
-	}	
-		
+	}
+
 });
 	for(var i=0; i<standardsInAssignment; i++){
 		updateSliders(i);

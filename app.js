@@ -22,7 +22,7 @@ var express = require('express'),
 
 
 
-	
+
 
 
 var checkMimeType = true;
@@ -35,30 +35,16 @@ app.get('/', function(req,res){
 	res.render('startGroup');
 });
 
-
-app.get('/evaluate', function(req, res) {
-	res.render('startGroup');
-});
-
-app.get('/startGroup', function(req, res) {
-	res.render('startGroup');
-	req.firstName = firstName;
-	req.numInGroup  = numInGroup;
-	req.groupMember0 = groupMemberNames;
-	
-	
-});
-
-app.post('/startGroup', function(req, res){
+app.post('/evaluate', function(req, res){
 	firstName = req.body.firstName;
 	numInGroup = req.body.numInGroup;
 	groupMemberNames = req.body.groupMember0;
 	console.log(req.body);
 	res.render('evaluate', {
-		firstName: req.body.firstName,
-		numInGroup: req.body.numInGroup,
-		groupMemberNames: req.body.groupMemberNames
-		
+		firstName: firstName,
+		numInGroup: numInGroup,
+		groupMemberNames: groupMemberNames
+
 	});
 
 })
