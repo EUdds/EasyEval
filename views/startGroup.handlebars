@@ -5,14 +5,14 @@
     <h1>Easy Eval</h1>
     <p>Evalute your group memebers with a click of a button!</p>
     <div id="formContainer" class="row" align="center">
-    
+
     <div class="col-3">
-        <form method="POST" href="/evaluate" id="form">
+        <form action="/evaluate" method="POST" id="form">
     <h4>Your Name:</h4>
     <br>
     <input onchange="updateForm()" type="text" name="firstName" id="userName">
     </div>
-    
+
     <div class="col-3">
     	<h4>Number of Other Group Members:</h4>
     	<br>
@@ -20,7 +20,7 @@
     </div>
          <br>
          <br>
-    <div class="col-3">        
+    <div class="col-3">
     <button class="btn btn-primary btn-lg" type="submit">Submit</button>
     </div>
         </form>
@@ -35,4 +35,3 @@
 <br>
 </div>
 </div>
-
