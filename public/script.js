@@ -23,7 +23,7 @@ var boxesCreated = 0;
 var inputLabel= [];
 
 
-var groupMemberNames = [firstName];
+// var groupMemberNames = [firstName];
 
 google.charts.load('current', {
 	'packages': ['corechart']
@@ -32,9 +32,9 @@ google.charts.setOnLoadCallback(drawChart);
 
 function drawSliders(chartNumber){
 for(var i=0; i< numInGroup; i++){
-	
+
 	var temp = (chartNumber*100) + i;
-	
+
 	sliderDiv[temp] = document.createElement("div");
 	sliderDiv[temp].setAttribute('class', 'slidecontainer');
 
@@ -47,27 +47,32 @@ for(var i=0; i< numInGroup; i++){
 	slider[temp].setAttribute("class", "slider");
 	slider[temp].setAttribute("id", "slider"+i.toString());
 	sliderDiv[temp].appendChild(slider[temp]);
-	
+
 	sliderLabel[temp] = document.createElement("h4");
 	sliderLabel[temp].setAttribute("id", chartNumber.toString() + "slider" + i.toString() + "Value");
 	sliderLabel[temp].innerHTML = 'Loading...';
 	sliderDiv[temp].appendChild(sliderLabel[temp]);
 	sliderOutputs[temp] = slider[temp].value;
 
-	
-	
+
+
 }
 }
 
 
 function init(){
-	groupMemberNames[0] = firstName;
+//	groupMemberNames[0] = firstName;
 	defineLocations();
+	console.log("defined Location");
 	drawChart();
+	console.log("Drew Charts");
 	defineSliders();
-	updateSliders();
-
+	console.log("Defined Sliders");
 	hasInit = true;
+	
+	updateSliders();
+	console.log("Updated Sliders");
+
 }
 
 function defineSliders(){
@@ -97,17 +102,17 @@ function defineLocations(){
 
 function drawData(chartNumber){
 		data[chartNumber] = new google.visualization.DataTable();
-		
+
 		data[chartNumber].addColumn('string', "Group Memeber Name");
 		data[chartNumber].addColumn('number', "Score");
-		
+
 		data[chartNumber].addRows(numInGroup);
-		
+
 		for(var x=0; x<numInGroup; x++){
 			var temp = (chartNumber*100) + x;
 		data[chartNumber].setCell(x, 0, groupMemberNames[x]);
 		data[chartNumber].setCell(x, 1, sliderOutputs[temp]);
-	
+
 	}
 }
 
@@ -119,44 +124,45 @@ function drawChart() {
 			width: chartWidth,
 			height: '500',
 			titleTextStyle: {color: "black", fontSize: 24, bold: true}
-		};	
-	
+		};
+
 
 	chartLocation = "chart" + i.toString();
 	chart[i] = new google.visualization.PieChart(document.getElementById(chartLocation));
-	 
+
 	chart[i].draw(data[i], options[i]);
-	
+
 	}
 
-	
+
 }
 
 
 function updateSliders(chartNumber){
-	
-	
+	if(hasInit){
+
 	for(var z=0; z<numInGroup; z++){
-		
+
 		var temp = (100*chartNumber) + z;
-				
+
 			if(slider[temp].value !== null){
 		sliderOutputs[temp] = slider[temp].value;
-		
+
 		var labelText = groupMemberNames[z] + ": " + slider[temp].value.toString();
-		
+
 		sliderLabel[temp].innerHTML = labelText;
 	}
 		}
 	drawChart();
 }
+}
 
 
 
 
 
 
-    
+
     function updateForm(){
 		groupMemberNames[0] = document.getElementById("userName").value;
 		var input = document.getElementById("numInGroupInput").value;
@@ -173,7 +179,7 @@ function updateSliders(chartNumber){
 			document.getElementById("inputBoxes").appendChild(inputBox[boxesCreated]);
 			boxesCreated ++;
 			}
-		
+
 		}else if(boxesCreated > input){
 			for(var i=boxesCreated; i>input; i--){
 			document.getElementById("inputBoxes").removeChild(inputBox[inputBox.length-1]);
@@ -183,15 +189,9 @@ function updateSliders(chartNumber){
 		}
 		if(boxesCreated != 0){
 			for(i=0; i<boxesCreated; i++){
-				groupMemberNames[i] = inputBox[i].value;
+				groupMemberNames[i+1] = inputBox[i].value;
+				localStorage.setItem("groupMemberNamesString", groupMemberNames);
 			}
 		}
-		
-		var data = getFormData(form)
- 
-console.log(JSON.stringify(data))	
 	}
-	
-var form = document.querySelector('#productForm')
- 
 

@@ -1,0 +1,29 @@
+{
+  "name": "easy-eval",
+  "version": "0.0.1",
+  "description": "Evaluating Group Members Made Easy",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express3-handlebars": "^0.5.2",
+    "express": "^4.16.3",
+    "get-form-data": "^2.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "null"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EUdds/EasyEval.git"
+  },
+  "keywords": [
+    "Easy-Eval"
+  ],
+  "author": "Eric Udlis",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/EUdds/EasyEval/issues"
+  },
+  "homepage": "https://github.com/EUdds/EasyEval#readme"
+}
