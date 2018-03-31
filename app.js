@@ -34,7 +34,9 @@ var express = require('express'),
 	// 	res.status(404).render('404');
 	//   })
 
-//File Uploads
+var teachers = require('./routes/teachers');
+
+app.use('/teachers', teachers);
 
 
 //Sessions
@@ -98,5 +100,6 @@ app.post('/evaluate', function(req, res){
 		groupMemberNames: groupMemberNames
 
 	});
+});
 
-})
+
