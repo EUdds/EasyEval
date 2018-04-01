@@ -20,6 +20,7 @@ var flash = require('connect-flash');
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var db = mongoose.connection;
+var bcrypt = require('bcryptjs');
 
 var express = require('express'),
     exphbs  = require('express3-handlebars'),
