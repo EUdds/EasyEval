@@ -1,13 +1,15 @@
-const { validationResult } = require('express-validator/check');
-
 var express = require('express');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
 var router = express.Router();
+var flash = require('connect-flash');
+
 var app = express();
+var User = require('../models/user');
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+app.use(flash());
 router.use(expressValidator());
 
 router.get('/', function(req,res){
@@ -39,16 +41,32 @@ router.post('/register', function(req,res){
     req.checkBody('password2', 'Passwords must Match').equals(req.body.password);
 
     //Errors
-    var errors = req.validationErrors;
+    var errors = req.validationErrors();
     
 
     if(errors){
+        console.log(`This is an error ` + req.validationErrors);
         res.render('register',{
             errors: errors,
             layout: 'teacherSide.handlebars'
         })
     }else{
-        console.log("Success!")
+        var newUser = new User({
+            name: name,
+            email: email,
+            username: username,
+            password: password
+        });
+
+        User.createUser(newUser, function(err, user){
+            if(err) throw err
+            console.log(user);
+        });
+        
+      //  req.flash('success', 'You have successfully registered and can login');
+
+        res.location('/teachers');
+        res.redirect('/teachers');
     }
 });
 
