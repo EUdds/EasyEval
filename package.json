@@ -16,6 +16,7 @@
     "express3-handlebars": "^0.5.2",
     "flash": "^1.1.0",
     "get-form-data": "^2.0.0",
+    "http": "0.0.0",
     "mongodb": "*",
     "mongoose": "*",
     "multer": "*",

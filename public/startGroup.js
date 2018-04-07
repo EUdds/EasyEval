@@ -10,7 +10,7 @@ function updateForm(){
         inputBox[boxesCreated].setAttribute("placeholder", `Group Member` + (boxesCreated+1).toString());
         inputBox[boxesCreated].setAttribute("onchange", "updateForm()");
         inputBox[boxesCreated].style.margin = "5px";
-        inputBox[boxesCreated].setAttribute("class", "groupMemberBox");
+        inputBox[boxesCreated].setAttribute("class", "groupMemberBox form-control mr-sm-2");
         document.getElementById("inputBoxes").appendChild(inputBox[boxesCreated]);
         boxesCreated ++;
         }

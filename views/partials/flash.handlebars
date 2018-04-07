@@ -1,0 +1,32 @@
+{{#if messages.errors}}
+  <div class="alert alert-danger">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    {{#messages.errors}}
+      {{{msg}}}
+    {{/messages.errors}}
+  </div>
+{{/if}}
+{{#if messages.info}}
+  <div class="alert alert-info">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    {{#messages.info}}
+      {{{msg}}}
+    {{/messages.info}}
+  </div>
+{{/if}}
+{{#if messages.success}}
+  <div class="alert alert-success">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    {{#messages.success}}
+      {{{msg}}}
+    {{/messages.success}}
+  </div>
+{{/if}}
+{{#if messages.warning}}
+  <div class="alert alert-warning">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    {{#messages.warning}}
+      {{{msg}}}
+    {{/messages.warning}}
+  </div>
+{{/if}}

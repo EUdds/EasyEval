@@ -1,9 +1,9 @@
 'use strict';
 
-var chartTitle = ['Work Completed', 'Communication', 'Critical Thinking', 'Teamwork', 'Other Standard', 'Memes'];
+var chartTitle = ['Work Done', 'Communication', 'Critical Thinking', 'Teamwork', 'Other Standard', 'Memes'];
 var data = [];
 var numInGroup;
-var standardsInAssignment = 4;
+var standardsInAssignment = 2;
 var sliderOutputs = [];
 var sliderLabel = [];
 var slider = [];
@@ -14,7 +14,7 @@ var chartLocation;
 var chartDiv = [];
 var sliderGroup = [];
 var chartWidth = (document.documentElement.clientWidth/standardsInAssignment - 10);
-var maxScore = 10;
+var maxScore = 4;
 var addButton = [];
 var firstName;
 var hasInit = false;
