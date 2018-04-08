@@ -21,7 +21,7 @@ var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var db = mongoose.connection;
 var bcrypt = require('bcryptjs');
-var User = require('../EasyEval/models/user');
+var User = require('./models/user');
 
 var express = require('express'),
     exphbs  = require('express3-handlebars'),
@@ -34,9 +34,34 @@ var express = require('express'),
 	app.use(bodyParser.json());
 
 
-//var teachers = require('./routes/teachers');
-
-//app.use('/teachers', teachers);
+postLogin = function(req, res, next) {
+    // req.assert('email', 'Email is not valid').isEmail();
+    // req.assert('password', 'Password cannot be blank').notEmpty();
+    // req.sanitize('email').normalizeEmail();
+  
+    var errors = req.validationErrors();
+  
+    if (errors) {
+      req.flash('errors', errors);
+      return res.redirect('/teachers/login');
+    }
+  
+    passport.authenticate('local', function(err, user, info) {
+      if (err) {
+        return next(err);
+      }
+      if (!user) {
+        req.flash('errors', info);
+        return res.redirect('/teachers/login');
+      }
+      req.logIn(user, function(err) {
+        if (err) {
+          return next(err);
+        }
+        return res.redirect('/teachers');
+      });
+    })(req, res, next);
+  };
 
 
 //Sessions
@@ -166,35 +191,22 @@ app.get('/teachers/login', function(req,res){
     });
 });
 
-app.post('/teachers/login',
-  passport.authenticate('local', 
-    {
-        failureRedirect: '/teachers/login',
-		failureFlash: true,
-		successRedirect: '/'
+app.post('/teachers/login',postLogin);
 
-}));
-
-passport.use(new LocalStrategy(
-     function(username, password, done){
- 
- User.getUserByUsername(username, function(){
-     if(err) throw err;
-     if(!user){
-         return done(null, false, {message: 'Unknown User'});
-     }
- 
-     User.comparePassword(password, user.password, function(err, isMatch){
-         if(err) return done(err);
-         if(isMatch){
-             return done(null, user);
-         }else{
-             return done(null, false, {message: 'Invalid Password'});
-         }
-     })
- })
- 
- }));
+passport.use(new LocalStrategy({ usernameField: 'email' }, function(email, password, done) {
+	User.findOne({ email: email.toLowerCase() }, function(err, user) {
+	  if (!user) {
+		return done(null, false, { msg: 'Email ' + email + ' not found.' });
+	  }
+	  user.comparePassword(password, function(err, isMatch) {
+		if (isMatch) {
+		  return done(null, user);
+		} else {
+		  return done(null, false, { msg: 'Invalid email or password.' });
+		}
+	  });
+	});
+  }));
 
 
 
