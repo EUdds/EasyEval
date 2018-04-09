@@ -1,0 +1,25 @@
+<h2 class="page-header">Register</h2>
+<p>Please Register to use Easy Eval</p>
+
+   {{#if errors}} 
+   {{#each errors}}
+   <div class="alert alert-danger">{{this.msg}}</div>
+    {{/each}}
+    {{/if}}
+
+    {{> flash}}
+    
+
+<form method="POST" action="/teachers/register" class="form-group form-control">
+    <label>Name</label>
+    <input type="text" name="name" placeholder="John Doe" class="form-group form-control">
+    <label>Email</label>
+    <input type="email" name="email" placeholder="John.Doe@Gmail.com" class="form-group form-control">
+    <label>Username</label>
+    <input type="text" name="username" placeholder="JohnD" class="form-group form-control">
+    <label>Password</label>
+    <input type="password" name="password" placeholder="Password" class="form-group form-control">
+    <label>Confirm Password</label>
+    <input type="password" name="password2" placeholder="Password" class="form-group form-control">
+    <input type="submit" class="btn btn-primary" name="Submit" value="Register" class="form-group form-control">
+</form>

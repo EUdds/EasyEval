@@ -2,7 +2,8 @@
 /* CSS Document */
 
 body{
-	background-color: white;
+    background-color: white;
+    padding: 5px;
 }
 
 .slidecontainer {
@@ -61,4 +62,13 @@ body{
 #inputBoxes{
     height: 75%;
     width: 100%;
+}
+
+#form{
+    margin: auto center;
+}
+
+.center_div{
+    margin: 0 auto;
+    width:50% /* value of your choice which suits your alignment */
 }

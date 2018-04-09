@@ -1,37 +1,31 @@
-
-
+<script src=startGroup.js></script>
 <div class="container-fluid">
-<div class="jumbotron">
-    <h1>Easy Eval</h1>
-    <p>Evalute your group memebers with a click of a button!</p>
-    <div id="formContainer" class="row" align="center">
-
-    <div class="col-3">
-        <form action="/evaluate" method="POST" id="form">
-    <h4>Your Name:</h4>
-    <br>
-    <input onchange="updateForm()" type="text" name="firstName" id="userName">
-    </div>
-
-    <div class="col-3">
-    	<h4>Number of Other Group Members:</h4>
-    	<br>
-    	<input onchange="updateForm()"  type="number" name="numInGroup" id="numInGroupInput" min="0" max="98">
-    </div>
-         <br>
-         <br>
-    <div class="col-3">
-    <button class="btn btn-primary btn-lg" type="submit">Submit</button>
-    </div>
-        </form>
-        </div>
-<br>
-<br>
-<div id="inputBoxes" class="input-group"></div>
-
-<br>
-<br>
-<br>
-<br>
-</div>
-</div>
+   <div class="jumbotron">
+      <div id="container" class="" align="center">
+         <h1>Easy Eval</h1>
+         <p>Evalute your group memebers with a click of a button!</p>
+         <div id="formContainer" class="row center_div" align="center">
+            <form action="/evaluate" method="POST" id="form" class="form-inline center_div" align="center">
+               <label class="sr-only" for="firstName">Your Name</label>
+               <input type="text" onchange="updateForm()" class="form-control mb-2 mr-sm-2" id="userName" name="firstName" placeholder="John Doe">
+               <label class="sr-only" for="numInGroup">Number of Other Group Members</label>
+               <div class="input-group mb-2 mr-sm-2">
+                  <input onChange="updateForm()" type="number" class="form-control" id="numInGroupInput" name="numInGroup" placeholder="0" min="0" max="98">
+               </div>
+               &nbsp;
+               <button type="submit" class="btn btn-primary mb-2">Submit</button>
+            </form>
+         </div>
+      </div>
+      <br>
+      <br>
+      <form id="formInputBoxes" class="form-inline">
+          <div id="inputBoxes" class="input-group"></div>
+      </form>
+      
+      <br>
+      <br>
+      <br>
+      <br>
+   </div>
+</di
