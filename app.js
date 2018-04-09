@@ -9,6 +9,7 @@ var boxesCreated;
 var http = require("http");
 var path = require("path");
 var fs = require("fs");
+var ejs = require('ejs');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var passport = require('passport');
@@ -22,6 +23,7 @@ var mongoose = require('mongoose');
 var db = mongoose.connection;
 var bcrypt = require('bcryptjs');
 var User = require('./models/user');
+var Project = require('./models/project');
 var passportConfig = require('./config/passport');
 
 var express = require('express'),
@@ -62,13 +64,9 @@ var express = require('express'),
   }));
   
   app.use(flash());
-  app.use(function(req, res, next) {
-    res.locals.user = req.user;
-    next();
-  });
-  
-  app.get('*', function(req,res,next){
+ app.get('*', function(req,res,next){
     res.locals.user = req.user || null;
+    console.log(req.user);
     next();
   })
 
@@ -147,11 +145,26 @@ postSignup = function(req, res, next) {
     });
   });
   };
-
-//Sessions
-
-
-
+  postCreateProject = function(req, res, next) {
+    var project = new Project({
+      ProjectTitle: req.body.projectName,
+      standardsInAssignment: req.body.numStandards,
+        standards: ejs.render(content, {standards: standards}),
+        maxScore: req.body.maxScore
+    });
+  
+    User.findOne({ ProjectTitle: req.body.projectName }, function(err, existingProject) {
+      if (existingProject) {
+        req.flash('errors', { msg: 'Project with that title already exists!' });
+        return res.redirect('/teachers/createProject');
+      }
+      user.save(function(err) {
+        if (err) {
+          return next(err);
+        }  
+        });
+      });
+  };
 
 
 
@@ -207,7 +220,14 @@ app.get('/teachers/logout', function(req,res){
   res.redirect('/teachers/login');
 })
 
+app.get('/teachers/createProject',passportConfig.isAuthenticated, function(req,res){
+  res.render('createProject',{
+    layout: 'teacherSide.handlebars',
+    title: 'EasyEval- Create Project'
+  });
+});
 
+app.post('/teachers/createProject', postCreateProject);
 
 
 

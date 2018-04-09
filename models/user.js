@@ -20,7 +20,10 @@ var userSchema = mongoose.Schema({
         type: String,
         unique: false
     },
-    name: {
+    firstName: {
+        type: String
+    },
+    lastName:{
         type: String
     }
 });
