@@ -1,6 +1,5 @@
 <!doctype html>
 <html>
-
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,9 +25,16 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
+      {{#if user}}
+       <li class="nav-item">
         <a class="nav-link" href="/teachers">Dashboard<span class="sr-only">(current)</span></a>
       </li>
+      <ul class="navbar-nav navbar-right">
+         <li class="nav-item">
+        <a class="nav-link" href="/teachers/logout">Logout</a>
+        </li>
+        </ul>
+        {{else}}
       <li class="nav-item">
         <a class="nav-link" href="/teachers/register">Register</a>
       </li>
@@ -36,11 +42,8 @@
         <a class="nav-link" href="/teachers/login">Login</a>
       </li>
     </ul>
-    <ul class="navbar-nav navbar-right">
-         <li class="nav-item">
-        <a class="nav-link" href="/teachers/logout">Logout</a>
-      </li>
-    </ul>
+    
+    {{/if}}
   </div>
 </nav>
     {{{body}}}

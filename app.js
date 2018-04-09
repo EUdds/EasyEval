@@ -22,6 +22,7 @@ var mongoose = require('mongoose');
 var db = mongoose.connection;
 var bcrypt = require('bcryptjs');
 var User = require('./models/user');
+var passportConfig = require('./config/passport');
 
 var express = require('express'),
     exphbs  = require('express3-handlebars'),
@@ -31,21 +32,59 @@ var express = require('express'),
 
 	app.use(express.static('public'));
 	app.use(bodyParser.urlencoded({extended : true}));
-	app.use(bodyParser.json());
-
+  app.use(bodyParser.json());
+  app.use(session({
+    secret: 'secret',
+    saveUninitialized: true,
+    resave: true
+  }));
+  
+  //Passport Austh
+  app.use(passport.initialize());
+  app.use(passport.session());
+  
+  //Validator
+  app.use(ExpressValidator({
+    errorFormatter: function(param, msg, value){
+      var namespace = param.split('.')
+      , root		  = namespace.shift()
+      , formParam   = root;
+  
+      while(namespace.length){
+        formParam += '[' * namespace.shift(); + ']';
+      }
+      return {
+        param: formParam,
+        msg  : msg,
+        value: value
+      };
+    }
+  }));
+  
+  app.use(flash());
+  app.use(function(req, res, next) {
+    res.locals.user = req.user;
+    next();
+  });
+  
+  app.get('*', function(req,res,next){
+    res.locals.user = req.user || null;
+    next();
+  })
 
 postLogin = function(req, res, next) {
-    // req.assert('email', 'Email is not valid').isEmail();
-    // req.assert('password', 'Password cannot be blank').notEmpty();
-    // req.sanitize('email').normalizeEmail();
+    req.assert('email', 'Email is not valid').isEmail();
+    req.assert('password', 'Password cannot be blank').notEmpty();
+    req.sanitize('email').normalizeEmail();
   
     var errors = req.validationErrors();
-  
+    console.log(req.body.email);
+    console.log(req.body.password);
     if (errors) {
+      console.log(errors);
       req.flash('errors', errors);
       return res.redirect('/teachers/login');
     }
-  
     passport.authenticate('local', function(err, user, info) {
       if (err) {
         return next(err);
@@ -61,43 +100,55 @@ postLogin = function(req, res, next) {
         return res.redirect('/teachers');
       });
     })(req, res, next);
+   };
+
+postSignup = function(req, res, next) {
+    req.assert('email', 'Email is not valid').isEmail();
+    req.assert('password', 'Password must be at least 4 characters long').len(4);
+    req.assert('password2', 'Passwords do not match').equals(req.body.password);
+    req.sanitize('email').normalizeEmail();
+  
+    var errors = req.validationErrors();
+  
+    if (errors) {
+      req.flash('errors', errors);
+      return res.redirect('/teachers/register');
+    }
+  
+    var user = new User({
+      email: req.body.email,
+      password: req.body.password,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        username: req.body.username
+    });
+  
+    User.findOne({ email: req.body.email }, function(err, existingUser) {
+      if (existingUser) {
+        req.flash('errors', { msg: 'Account with that email address already exists.' });
+        return res.redirect('/teachers/register');
+      }
+      User.findOne({ lower: req.body.username.toLowerCase() }, function(err, existingUser) {
+        if (existingUser) {
+          req.flash('errors', { msg: 'Account with that username address already exists.' });
+          return res.redirect('/teachers/register');
+        }
+      user.save(function(err) {
+        if (err) {
+          return next(err);
+        }
+        req.logIn(user, function(err) {
+          if (err) {
+            return next(err);
+          }
+          res.redirect('/teachers/login');
+        });
+      });
+    });
+  });
   };
 
-
 //Sessions
-app.use(session({
-	secret: 'secret',
-	saveUninitialized: true,
-	resave: true
-}));
-
-//Passport Austh
-app.use(passport.initialize());
-app.use(passport.session());
-
-//Validator
-app.use(ExpressValidator({
-	errorFormatter: function(param, msg, value){
-		var namespace = param.split('.')
-		, root		  = namespace.shift()
-		, formParam   = root;
-
-		while(namespace.length){
-			formParam += '[' * namespace.shift(); + ']';
-		}
-		return {
-			param: formParam,
-			msg  : msg,
-			value: value
-		};
-	}
-}));
-
-app.use(flash());
-app.use(function(req, res, next) {
-  res.locals.user = req.user;
-  next();
-});
 
 
 
@@ -125,7 +176,7 @@ app.post('/evaluate', function(req, res){
 	});
 });
 
-app.get('/teachers', function(req,res){
+app.get('/teachers',passportConfig.isAuthenticated, function(req,res){
 	res.render('teacher',{
         layout: 'teacherSide.handlebars',
         title: 'EasyEval- Teachers'
@@ -139,50 +190,7 @@ app.get('/teachers/register',  function(req,res){
     });
 });
 
-app.post('/teachers/register', function(req,res){
-    var name = req.body.name;
-    var email= req.body.email;
-    var username = req.body.usename;
-    var password = req.body.password;
-    var password2 = req.body.password2;
-
-    req.checkBody('name', 'Name is Required').notEmpty();
-    req.checkBody('email', 'Email is Required').notEmpty();
-    req.checkBody('email', 'Email is not Valid').isEmail();
-    req.checkBody('username', 'Userame is Required').notEmpty();
-    req.checkBody('password', 'Password is Required').notEmpty();
-    req.checkBody('password2', 'Passwords must Match').equals(req.body.password);
-
-    //Errors
-    var errors = req.validationErrors();
-    
-
-    if(errors){
-        res.render('register',{
-            errors: errors,
-			layout: 'teacherSide.handlebars',
-			title: 'EasyEval-Register'
-        })
-    }else{
-        var newUser = new User({
-            name: name,
-            email: email,
-            username: username,
-            password: password
-        });
-
-        User.createUser(newUser, function(err, user){
-            if(err) throw err
-            console.log(user);
-        });
-        
-        req.flash('success', { msg: 'You have successfully registered and can login' });
-        res.render("register", {
-			layout: 'teacherSide.handlebars',
-			title: 'EasyEval- Register'
-		});
-    }
-});
+app.post('/teachers/register',postSignup);
 
 app.get('/teachers/login', function(req,res){
 	res.render('login',{
@@ -193,20 +201,12 @@ app.get('/teachers/login', function(req,res){
 
 app.post('/teachers/login',postLogin);
 
-passport.use(new LocalStrategy({ usernameField: 'email' }, function(email, password, done) {
-	User.findOne({ email: email.toLowerCase() }, function(err, user) {
-	  if (!user) {
-		return done(null, false, { msg: 'Email ' + email + ' not found.' });
-	  }
-	  user.comparePassword(password, function(err, isMatch) {
-		if (isMatch) {
-		  return done(null, user);
-		} else {
-		  return done(null, false, { msg: 'Invalid email or password.' });
-		}
-	  });
-	});
-  }));
+app.get('/teachers/logout', function(req,res){
+  req.logout();
+  req.flash('success',{msg: 'Successfully Logged Out'});
+  res.redirect('/teachers/login');
+})
+
 
 
 
@@ -215,7 +215,7 @@ passport.serializeUser(function(user, done) {
 	done(null, user.id);
 	});
 	
-	passport.deserializeUser(function(id, done) {
+passport.deserializeUser(function(id, done) {
 	User.getUserById(id, function(err, user) {
 		done(err, user);
 	});

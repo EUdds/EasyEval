@@ -1,13 +1,14 @@
 const { mongo } = require('mongoose');
-var bcrypt = require('bcryptjs');
+var bcrypt = require('bcrypt-nodejs');
 const saltRounds = 10;
+var LocalStrategy = require('passport-local').Strategy;
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/EasyEval');
 var db = mongoose.connection;
 
 //User Scheme
-var UserSchema = mongoose.Schema({
+var userSchema = mongoose.Schema({
     username: {
        type: String,
        index: true
@@ -16,14 +17,34 @@ var UserSchema = mongoose.Schema({
         type: String
     },
     email: {
-        type: String
+        type: String,
+        unique: false
     },
     name: {
         type: String
     }
 });
+userSchema.pre('save', function(next) {
+    var user = this;
+    if (!user.isModified('password')) {
+      return next();
+    }
+    bcrypt.genSalt(saltRounds, function(err, salt) {
+      if (err) {
+        return next(err);
+      }
+      console.log(salt);
+      bcrypt.hash(user.password, salt, null, function(err, hash) {
+        if (err) {
+          return next(err);
+        }
+        console.log(hash);
+        user.password = hash;
+        next();
+      });
+    });
+  });
 
-var User = module.exports = mongoose.model('User', UserSchema);
 
 module.exports.getUserById = function(id, callback){
     User.findById(id, callback);
@@ -34,8 +55,9 @@ module.exports.getUserByUsername = function(username, callback){
     User.findOne(query, callback);
 }
 
-module.exports.comparePassword = function(canditatePassword, hash, callback){
-    bcrypt.compare(canditatePassword, hash, function(err, isMatch) {
+userSchema.methods.comparePassword = function(canditatePassword, callback){
+    console.log(canditatePassword +',' + this.password);
+    bcrypt.compare(canditatePassword, this.password, function(err, isMatch) {
         callback(null, isMatch);
     });
 }
@@ -47,6 +69,6 @@ module.exports.createUser = function(newUser, callback){
             newUser.save(callback);
         });
     });
-
-
 }
+var User = mongoose.model('User', userSchema);
+module.exports = User;
