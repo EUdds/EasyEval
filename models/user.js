@@ -36,12 +36,10 @@ userSchema.pre('save', function(next) {
       if (err) {
         return next(err);
       }
-      console.log(salt);
       bcrypt.hash(user.password, salt, null, function(err, hash) {
         if (err) {
           return next(err);
         }
-        console.log(hash);
         user.password = hash;
         next();
       });
@@ -59,7 +57,6 @@ module.exports.getUserByUsername = function(username, callback){
 }
 
 userSchema.methods.comparePassword = function(canditatePassword, callback){
-    console.log(canditatePassword +',' + this.password);
     bcrypt.compare(canditatePassword, this.password, function(err, isMatch) {
         callback(null, isMatch);
     });

@@ -16,6 +16,13 @@ var projectSchema = mongoose.Schema({
     },
     maxScore: {
         type: Number
+    },
+    creator: {
+        type: String
+    },
+    connectCode:{
+        type: Number,
+        uniquie: true
     }
 });
 

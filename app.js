@@ -146,13 +146,15 @@ postCreateProject = function(req, res, next) {
   var standards = [];
   for(var i=0; i<req.body.numStandards; i++){
     standards[i] = req.body.standard[i];
-    console.log(standards[i]);
   }  
   var project = new Project({
       projectTitle: req.body.projectName,
       standardsInAssignment: req.body.numStandards,
         standards: standards.toString(),
-        maxScore: req.body.maxScore
+        maxScore: req.body.maxScore,
+        creator: req.user.username,
+        connectCode: Math.floor(Math.random()*90000) + 10000
+
     });
   
     Project.findOne({ ProjectTitle: req.body.projectName }, function(err, existingProject) {
