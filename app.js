@@ -66,7 +66,6 @@ var express = require('express'),
   app.use(flash());
  app.get('*', function(req,res,next){
     res.locals.user = req.user || null;
-    console.log(req.user);
     next();
   })
 
@@ -76,8 +75,6 @@ postLogin = function(req, res, next) {
     req.sanitize('email').normalizeEmail();
   
     var errors = req.validationErrors();
-    console.log(req.body.email);
-    console.log(req.body.password);
     if (errors) {
       console.log(errors);
       req.flash('errors', errors);
@@ -145,23 +142,29 @@ postSignup = function(req, res, next) {
     });
   });
   };
-  postCreateProject = function(req, res, next) {
-    var project = new Project({
-      ProjectTitle: req.body.projectName,
+postCreateProject = function(req, res, next) {
+  var standards = [];
+  for(var i=0; i<req.body.numStandards; i++){
+    standards[i] = req.body.standard[i];
+    console.log(standards[i]);
+  }  
+  var project = new Project({
+      projectTitle: req.body.projectName,
       standardsInAssignment: req.body.numStandards,
-        standards: ejs.render(content, {standards: standards}),
+        standards: standards.toString(),
         maxScore: req.body.maxScore
     });
   
-    User.findOne({ ProjectTitle: req.body.projectName }, function(err, existingProject) {
+    Project.findOne({ ProjectTitle: req.body.projectName }, function(err, existingProject) {
       if (existingProject) {
         req.flash('errors', { msg: 'Project with that title already exists!' });
         return res.redirect('/teachers/createProject');
       }
-      user.save(function(err) {
+      project.save(function(err) {
         if (err) {
           return next(err);
         }  
+        return res.redirect('/teachers');
         });
       });
   };

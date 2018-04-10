@@ -1,13 +1,14 @@
 <script>
     var boxesCreated = 0;
     var inputBox = [];
+    var standards = [];
     function updateForm(){
       var input = document.getElementById("numStandards").value;
     if(boxesCreated < input && input != 0){
         for(var i=boxesCreated; i<input; i++){
         inputBox[boxesCreated] = document.createElement("input");
         inputBox[boxesCreated].setAttribute("type", "text");
-        inputBox[boxesCreated].setAttribute("name", `standard` + boxesCreated);
+        inputBox[boxesCreated].setAttribute("name", "standard"+"["+boxesCreated+"]");
         inputBox[boxesCreated].setAttribute("id", `standard` + boxesCreated );
         inputBox[boxesCreated].setAttribute("placeholder", `Standard ` + (boxesCreated+1).toString());
         inputBox[boxesCreated].setAttribute("onchange", "updateForm()");

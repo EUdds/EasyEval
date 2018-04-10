@@ -12,7 +12,7 @@ var projectSchema = mongoose.Schema({
         type: Number
     },
     standards: {
-        type: [String]
+        type: String
     },
     maxScore: {
         type: Number
