@@ -5,10 +5,13 @@ var numInGroup;
 var firstName;
 var groupMemberNames;
 var boxesCreated;
+var gamePin;
+var chosenProject;
 
 var http = require("http");
 var path = require("path");
 var fs = require("fs");
+var ejs = require('ejs');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var passport = require('passport');
@@ -22,6 +25,7 @@ var mongoose = require('mongoose');
 var db = mongoose.connection;
 var bcrypt = require('bcryptjs');
 var User = require('./models/user');
+var Project = require('./models/project');
 var passportConfig = require('./config/passport');
 
 var express = require('express'),
@@ -62,12 +66,7 @@ var express = require('express'),
   }));
   
   app.use(flash());
-  app.use(function(req, res, next) {
-    res.locals.user = req.user;
-    next();
-  });
-  
-  app.get('*', function(req,res,next){
+ app.get('*', function(req,res,next){
     res.locals.user = req.user || null;
     next();
   })
@@ -78,8 +77,6 @@ postLogin = function(req, res, next) {
     req.sanitize('email').normalizeEmail();
   
     var errors = req.validationErrors();
-    console.log(req.body.email);
-    console.log(req.body.password);
     if (errors) {
       console.log(errors);
       req.flash('errors', errors);
@@ -141,17 +138,40 @@ postSignup = function(req, res, next) {
           if (err) {
             return next(err);
           }
-          res.redirect('/teachers/login');
+          res.redirect('/teachers');
         });
       });
     });
   });
   };
+postCreateProject = function(req, res, next) {
+  var standards = [];
+  for(var i=0; i<req.body.numStandards; i++){
+    standards[i] = req.body.standard[i];
+  }  
+  var project = new Project({
+      projectTitle: req.body.projectName,
+      standardsInAssignment: req.body.numStandards,
+        standards: standards.toString(),
+        maxScore: req.body.maxScore,
+        creator: req.user.username,
+        connectCode: Math.floor(Math.random()*90000) + 10000
 
-//Sessions
-
-
-
+    });
+  
+    Project.findOne({ ProjectTitle: req.body.projectName }, function(err, existingProject) {
+      if (existingProject) {
+        req.flash('errors', { msg: 'Project with that title already exists!' });
+        return res.redirect('/teachers/createProject');
+      }
+      project.save(function(err) {
+        if (err) {
+          return next(err);
+        }  
+        return res.redirect('/teachers');
+        });
+      });
+  };
 
 
 
@@ -162,7 +182,24 @@ console.log("Starting web server at " + serverUrl + ":" + port);
 app.listen(port);
 
 app.get('/', function(req,res){
-	res.render('startGroup');
+	res.render('enterPin');
+});
+
+app.post('/enterPin', function(req,res){
+   gamePin = req.body.pinNumber;
+  Project.findOne({connectCode: gamePin}, function(err, project){
+    if(!project){
+      req.flash('errors', {msg: 'Game Pin Not Reconized, Try Again'});
+      return res.redirect('/');
+    }
+    chosenProject = project;
+    res.render('startGroup',{
+      project: project
+    })
+  })
+});
+app.get('/evaluate', function(req,res){
+  res.redirect('/');
 });
 
 app.post('/evaluate', function(req, res){
@@ -171,16 +208,21 @@ app.post('/evaluate', function(req, res){
 	groupMemberNames = req.body.groupMember0;
 	res.render('evaluate', {
 		firstName: firstName,
-		numInGroup: numInGroup,
+    numInGroup: numInGroup,
+    project: chosenProject
+    
 
 	});
 });
 
 app.get('/teachers',passportConfig.isAuthenticated, function(req,res){
-	res.render('teacher',{
-        layout: 'teacherSide.handlebars',
-        title: 'EasyEval- Teachers'
+  Project.find({ creator: req.user.username }, function(err, projects) {
+    res.render('teacher', {
+      layout: 'teacherSide.handlebars',
+      title: 'EasyEval- Teachers',
+      projects:   projects
     });
+  });
 });
 
 app.get('/teachers/register',  function(req,res){
@@ -207,7 +249,14 @@ app.get('/teachers/logout', function(req,res){
   res.redirect('/teachers/login');
 })
 
+app.get('/teachers/createProject',passportConfig.isAuthenticated, function(req,res){
+  res.render('createProject',{
+    layout: 'teacherSide.handlebars',
+    title: 'EasyEval- Create Project'
+  });
+});
 
+app.post('/teachers/createProject', postCreateProject);
 
 
 

@@ -20,7 +20,10 @@ var userSchema = mongoose.Schema({
         type: String,
         unique: false
     },
-    name: {
+    firstName: {
+        type: String
+    },
+    lastName:{
         type: String
     }
 });
@@ -33,12 +36,10 @@ userSchema.pre('save', function(next) {
       if (err) {
         return next(err);
       }
-      console.log(salt);
       bcrypt.hash(user.password, salt, null, function(err, hash) {
         if (err) {
           return next(err);
         }
-        console.log(hash);
         user.password = hash;
         next();
       });
@@ -56,18 +57,8 @@ module.exports.getUserByUsername = function(username, callback){
 }
 
 userSchema.methods.comparePassword = function(canditatePassword, callback){
-    console.log(canditatePassword +',' + this.password);
     bcrypt.compare(canditatePassword, this.password, function(err, isMatch) {
         callback(null, isMatch);
-    });
-}
-
-module.exports.createUser = function(newUser, callback){
-    bcrypt.genSalt(saltRounds, function(err, salt) {
-        bcrypt.hash(newUser.password, salt, function(err, hash) {
-            newUser.password = hash;
-            newUser.save(callback);
-        });
     });
 }
 var User = mongoose.model('User', userSchema);
