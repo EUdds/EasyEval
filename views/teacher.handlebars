@@ -5,5 +5,23 @@
 <div>
 <h2>Your Projects</h2>
 <br>
-{{if }}
+<div class="container">
+    {{#if projects}}
+    {{#each projects}}
+        <div class="projectContainer">
+            <h1>{{projectTitle}}</h1>
+            <h3>Students can connect with: {{connectCode}}</h3>
+            <h3>{{standardsInAssignments}} Standards: {{standards}}</h3>
+            <h3>Max Score: {{maxScore}}</h3>
+            <div id="buttonContainer" align="center">
+            <a href="/teachers/results"><button type="button" class="btn btn-success btn-lg">View Results</button></a>
+            </div>
+        </div>
+    {{/each}}
+    {{else}}
+    <h1>You Haven't Created Any Project!</h1>
+    <h4>Make One Now</h4>
+    <a href="/teachers/createProject"><button type="button" class="btn btn-primary btn-lg" >Start a New Project!</button></a>
+    {{/if}}
+</div>
 </div>

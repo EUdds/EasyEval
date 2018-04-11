@@ -136,7 +136,7 @@ postSignup = function(req, res, next) {
           if (err) {
             return next(err);
           }
-          res.redirect('/teachers/login');
+          res.redirect('/teachers');
         });
       });
     });
@@ -180,7 +180,11 @@ console.log("Starting web server at " + serverUrl + ":" + port);
 app.listen(port);
 
 app.get('/', function(req,res){
-	res.render('startGroup');
+	res.render('enterPin');
+});
+
+app.post('/enterPin', function(req,res){
+  res.render('startGroup');
 });
 
 app.post('/evaluate', function(req, res){
@@ -195,10 +199,13 @@ app.post('/evaluate', function(req, res){
 });
 
 app.get('/teachers',passportConfig.isAuthenticated, function(req,res){
-	res.render('teacher',{
-        layout: 'teacherSide.handlebars',
-        title: 'EasyEval- Teachers'
+  Project.find({ creator: req.user.username }, function(err, projects) {
+    res.render('teacher', {
+      layout: 'teacherSide.handlebars',
+      title: 'EasyEval- Teachers',
+      projects:   projects
     });
+  });
 });
 
 app.get('/teachers/register',  function(req,res){

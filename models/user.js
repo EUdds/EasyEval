@@ -61,14 +61,5 @@ userSchema.methods.comparePassword = function(canditatePassword, callback){
         callback(null, isMatch);
     });
 }
-
-module.exports.createUser = function(newUser, callback){
-    bcrypt.genSalt(saltRounds, function(err, salt) {
-        bcrypt.hash(newUser.password, salt, function(err, hash) {
-            newUser.password = hash;
-            newUser.save(callback);
-        });
-    });
-}
 var User = mongoose.model('User', userSchema);
 module.exports = User;

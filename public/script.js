@@ -29,38 +29,10 @@ google.charts.load('current', {
 	'packages': ['corechart']
 });
 
-function drawSliders(chartNumber){
-for(var i=0; i< numInGroup; i++){
 
-	var temp = (chartNumber*100) + i;
-
-	sliderDiv[temp] = document.createElement("div");
-	sliderDiv[temp].setAttribute('class', 'slidecontainer');
-
-	document.getElementById("chart" + chartNumber.toString() +"Sliders").appendChild(sliderDiv[temp]);
-	slider[temp] = document.createElement("input");
-	slider[temp].setAttribute("type", "range");
-	slider[temp].setAttribute("min", '0');
-	slider[temp].setAttribute("max", maxScore);
-	slider[temp].setAttribute("value", "0");
-	slider[temp].setAttribute("class", "slider");
-	slider[temp].setAttribute("id", "slider"+i.toString());
-	sliderDiv[temp].appendChild(slider[temp]);
-
-	sliderLabel[temp] = document.createElement("h4");
-	sliderLabel[temp].setAttribute("id", chartNumber.toString() + "slider" + i.toString() + "Value");
-	sliderLabel[temp].innerHTML = 'Loading...';
-	sliderDiv[temp].appendChild(sliderLabel[temp]);
-	sliderOutputs[temp] = slider[temp].value;
-
-
-
-}
-}
 
 
 function init(){
-//	groupMemberNames[0] = firstName;
 	defineLocations();
 	console.log("defined Location");
 	drawChart();
@@ -68,12 +40,38 @@ function init(){
 	defineSliders();
 	console.log("Defined Sliders");
 	hasInit = true;
-	
 	updateSliders();
 	console.log("Updated Sliders");
 
 }
-
+function drawSliders(chartNumber){
+	for(var i=0; i< numInGroup; i++){
+	
+		var temp = (chartNumber*100) + i;
+	
+		sliderDiv[temp] = document.createElement("div");
+		sliderDiv[temp].setAttribute('class', 'slidecontainer');
+	
+		document.getElementById("chart" + chartNumber.toString() +"Sliders").appendChild(sliderDiv[temp]);
+		slider[temp] = document.createElement("input");
+		slider[temp].setAttribute("type", "range");
+		slider[temp].setAttribute("min", '0');
+		slider[temp].setAttribute("max", maxScore);
+		slider[temp].setAttribute("value", "0");
+		slider[temp].setAttribute("class", "slider");
+		slider[temp].setAttribute("id", "slider"+i.toString());
+		sliderDiv[temp].appendChild(slider[temp]);
+	
+		sliderLabel[temp] = document.createElement("h4");
+		sliderLabel[temp].setAttribute("id", chartNumber.toString() + "slider" + i.toString() + "Value");
+		sliderLabel[temp].innerHTML = 'Loading...';
+		sliderDiv[temp].appendChild(sliderLabel[temp]);
+		sliderOutputs[temp] = slider[temp].value;
+	
+	
+	
+	}
+	}
 function defineSliders(){
 	for(var i=0; i<standardsInAssignment; i++){
 		sliderGroup[i] = document.createElement("div");
