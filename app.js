@@ -5,6 +5,8 @@ var numInGroup;
 var firstName;
 var groupMemberNames;
 var boxesCreated;
+var gamePin;
+var chosenProject;
 
 var http = require("http");
 var path = require("path");
@@ -184,7 +186,20 @@ app.get('/', function(req,res){
 });
 
 app.post('/enterPin', function(req,res){
-  res.render('startGroup');
+   gamePin = req.body.pinNumber;
+  Project.findOne({connectCode: gamePin}, function(err, project){
+    if(!project){
+      req.flash('errors', {msg: 'Game Pin Not Reconized, Try Again'});
+      return res.redirect('/');
+    }
+    chosenProject = project;
+    res.render('startGroup',{
+      project: project
+    })
+  })
+});
+app.get('/evaluate', function(req,res){
+  res.redirect('/');
 });
 
 app.post('/evaluate', function(req, res){
@@ -193,7 +208,9 @@ app.post('/evaluate', function(req, res){
 	groupMemberNames = req.body.groupMember0;
 	res.render('evaluate', {
 		firstName: firstName,
-		numInGroup: numInGroup,
+    numInGroup: numInGroup,
+    project: chosenProject
+    
 
 	});
 });

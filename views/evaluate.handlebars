@@ -4,7 +4,10 @@ google.charts.setOnLoadCallback(drawChart);
 	
   numInGroup = {{numInGroup}} + 1;
   firstName = '{{firstName}}';
-  //groupMemberNames = ['{{firstName}}', {{groupMemberNames}}];
+	maxScore = {{project.maxScore}};
+	standardsInAssignment = {{project.standardsInAssignment}};
+	standardsString = `{{project.standards}}`;
+	chartTitle = standardsString.split(',');
 
 	groupMemberNamesString = localStorage.getItem("groupMemberNamesString");
 
@@ -16,6 +19,7 @@ google.charts.setOnLoadCallback(drawChart);
 	<h1>Easy Eval</h1>
 	<br>
   <h1><small>Evaluate Your Group Members</small></h1>
+	<h2><em>{{project.projectTitle}}</em></h2>
 </div>
 <div class="row" id="charts"></div>
 <div class="row" id="sliders"></div>

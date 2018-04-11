@@ -4,6 +4,8 @@
       <div id="container" class="" align="center">
          <h1>Easy Eval</h1>
          <p>Evalute your group memebers with a click of a button!</p>
+        <h5>{{project.projectTitle}}</h5>
+         <h5>{{project.maxScore}}</h5>
          <div id="formContainer" class="row center_div" align="center">
             <form action="/evaluate" method="POST" id="form" class="form-inline center_div" align="center">
                <label class="sr-only" for="firstName">Your Name</label>
@@ -13,7 +15,7 @@
                   <input onChange="updateForm()" type="number" class="form-control" id="numInGroupInput" name="numInGroup" placeholder="0" min="0" max="98">
                </div>
                &nbsp;
-               <button type="submit" class="btn btn-primary mb-2">Submit</button>
+               <button type="submit" class="btn btn-primary mb-2" value="submit">Submit</button>
             </form>
          </div>
       </div>
