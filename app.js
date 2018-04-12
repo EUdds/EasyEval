@@ -8,8 +8,12 @@ var boxesCreated;
 var gamePin;
 var chosenProject;
 var standards;
+var evalData = {groupMembers: null};
+var doIt = false;
 
-var http = require("http");
+var express = require('express'),
+app= module.exports.app = express();
+var http = require("http").Server(app);
 var path = require("path");
 var fs = require("fs");
 var ejs = require('ejs');
@@ -28,18 +32,17 @@ var bcrypt = require('bcryptjs');
 var User = require('./models/user');
 var Project = require('./models/project');
 var passportConfig = require('./config/passport');
+var io = require('socket.io')(http);
 
-var express = require('express'),
-    exphbs  = require('express3-handlebars'),
-	app= module.exports.app = express();
-	app.engine('handlebars', exphbs({defaultLayout: 'main'}));
-	app.set('view engine', 'handlebars');
+exphbs  = require('express3-handlebars'),
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
 
-	app.use(express.static('public'));
-	app.use(bodyParser.urlencoded({extended : true}));
-  app.use(bodyParser.json());
-  app.use(session({
-    secret: 'secret',
+app.use(express.static('public'));
+app.use(bodyParser.urlencoded({extended : true}));
+app.use(bodyParser.json());
+app.use(session({
+	secret: 'secret',
     saveUninitialized: true,
     resave: true
   }));
@@ -180,10 +183,36 @@ var checkMimeType = true;
 
 console.log("Starting web server at " + serverUrl + ":" + port);
 
-app.listen(port);
+http.listen(port);
 
 app.get('/', function(req,res){
 	res.render('enterPin');
+});
+
+app.post('/eval', function(req, res) {
+	//console.log(req.body);
+	for(var k in req.body){
+		evalData[k]=req.body[k];
+		doIt = true
+	}
+	console.log(JSON.stringify(evalData));
+	return res.redirect('/');
+
+});
+
+io.on('connection', function(socket){
+	console.log('User Connected');
+	socket.broadcast.emit('hi');
+	socket.on('disconnect', function(){
+		console.log('User Disconnected');
+	});
+
+	socket.on('groupEval', function(value){
+		console.log('Value ' + value);
+		evalData.groupMembers = value;
+		 console.log("Eval Data:  " + JSON.stringify(evalData));
+		console.log("Eval Members" + evalData.groupMembers);
+	});
 });
 
 
@@ -200,6 +229,8 @@ app.post('/', function(req,res){
     })
   })
 });
+
+
 app.get('/evaluate', function(req,res){
   res.redirect('/');
 });

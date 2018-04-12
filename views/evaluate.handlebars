@@ -9,22 +9,38 @@ google.charts.setOnLoadCallback(drawChart);
 	standardsString = `{{project.standards}}`;
 	chartTitle = standardsString.split(',');
 
+	var socket = io.connect();
+
+	function sendData(){
+		socket.emit('groupEval', groupMemberNames);
+		return false;
+	}
+
+
 	groupMemberNamesString = localStorage.getItem("groupMemberNamesString");
 
 	groupMemberNames = groupMemberNamesString.split(`,`);
 
   updateSliders();
 </script>
+<form action="/eval" method="POST">
+
+
 <div class="page-header" align="center">
 	<h1>Easy Eval</h1>
-	<br>
   <h1><small>Evaluate Your Group Members</small></h1>
 	<h2><em>{{project.projectTitle}}</em></h2>
 </div>
 <div class="row" id="charts"></div>
 <div class="row" id="sliders"></div>
+<br>
+<input name="submitter" id="submitter" value="{{firstName}}" style="display: none;">
+<a><button onclick="sendData()" name="id" type="submit" value="{{project.connectCode}}">Submit</button></a>
 	</div>
 
+
+
+</form>
   <script>
     window.onload = function(){init()};
 

@@ -26,7 +26,8 @@
     "passport-http": "*",
     "passport-local": "*",
     "req-flash": "0.0.3",
-    "request": "^2.85.0"
+    "request": "^2.85.0",
+    "socket.io": "^2.1.0"
   },
   "devDependencies": {},
   "scripts": {
