@@ -1,11 +1,11 @@
 <div class="container-fluid">
-   <div class="jumbotron">
+   <div class="jumbotron" style="margin:auto center;">
       <div id="container" class="" align="center">
          <h1>Easy Eval</h1>
          <p>Evalute your group memebers with a click of a button!</p>
          {{> flash}}
          <div id="formContainer" class="row center_div" align="center">
-            <form action="/enterPin" method="POST" id="form" class="form-inline center_div" align="center">
+            <form action="/" method="POST" id="form" class="form-inline center_div" align="center">
                <label class="sr-only" for="pinNumber">Enter Pin</label>
                <input type="number" onchange="updateForm()" class="form-control mb-2 mr-sm-2" id="pinNumber" name="pinNumber" placeholder="Pin Number">
                &nbsp;

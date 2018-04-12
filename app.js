@@ -7,6 +7,7 @@ var groupMemberNames;
 var boxesCreated;
 var gamePin;
 var chosenProject;
+var standards;
 
 var http = require("http");
 var path = require("path");
@@ -185,7 +186,8 @@ app.get('/', function(req,res){
 	res.render('enterPin');
 });
 
-app.post('/enterPin', function(req,res){
+
+app.post('/', function(req,res){
    gamePin = req.body.pinNumber;
   Project.findOne({connectCode: gamePin}, function(err, project){
     if(!project){
@@ -217,10 +219,11 @@ app.post('/evaluate', function(req, res){
 
 app.get('/teachers',passportConfig.isAuthenticated, function(req,res){
   Project.find({ creator: req.user.username }, function(err, projects) {
-    res.render('teacher', {
+	res.render('teacher', {
       layout: 'teacherSide.handlebars',
       title: 'EasyEval- Teachers',
-      projects:   projects
+	  projects:   projects,
+	  standards: standards
     });
   });
 });
