@@ -29,11 +29,6 @@
        <li class="nav-item">
         <a class="nav-link" href="/teachers">Dashboard<span class="sr-only">(current)</span></a>
       </li>
-      <ul class="navbar-nav navbar-right">
-         <li class="nav-item">
-        <a class="nav-link" href="/teachers/logout">Logout</a>
-        </li>
-        </ul>
         {{else}}
       <li class="nav-item">
         <a class="nav-link" href="/teachers/register">Register</a>
@@ -42,9 +37,18 @@
         <a class="nav-link" href="/teachers/login">Login</a>
       </li>
     </ul>
-    
     {{/if}}
+    {{#if user}}
+    <div class="collapse navbar-collapse justify-content-right">
+        <ul class="navbar-nav navbar-right">
+         <li class="nav-item">
+        <a class="nav-link" href="/teachers/logout">Log Out</a>
+        </li>
+        </ul>
+        </div>
+        {{/if}}
   </div>
+
 </nav>
     {{{body}}}
 </body>

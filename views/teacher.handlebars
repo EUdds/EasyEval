@@ -1,25 +1,29 @@
 {{> flash}}
-<h4>{{user.firstName}}'s Dashboard</h4>
-<a href="/teachers/createProject"><button type="button" class="btn btn-primary btn-lg" >Start a New Project!</button></a>
+<h1 align="center">{{user.firstName}}'s Dashboard</h1>
 <br>
+{{#if projects}}
+<div class="container" align="center"><a href="/teachers/createProject"><button type="button" class="btn btn-primary btn-lg" >Start a New Project!</button></a>
+</div>
+<br>
+
 <div>
-<h2>Your Projects</h2>
+<h2 align="center">Your Projects</h2>
 <br>
 <div class="container">
-    {{#if projects}}
+    
     {{#each projects}}
         <div class="projectContainer">
             <h1>{{projectTitle}}</h1>
             <h3>Students can connect with: {{connectCode}}</h3>
-            <h3>{{standardsInAssignments}} Standards: {{standards}}</h3>
+            <h3>{{standardsInAssignments}} Standards:  <small> {{standards}}</small></h3>
             <h3>Max Score: {{maxScore}}</h3>
             <div id="buttonContainer" align="center">
-            <a href="/teachers/results"><button type="button" class="btn btn-success btn-lg">View Results</button></a>
+            <a href="/teachers/results/{{connectCode}}"><button type="button" class="btn btn-success btn-lg">View Results</button></a>
             </div>
         </div>
     {{/each}}
     {{else}}
-    <h1>You Haven't Created Any Project!</h1>
+    <h1>You Haven't Created Any Projects!</h1>
     <h4>Make One Now</h4>
     <a href="/teachers/createProject"><button type="button" class="btn btn-primary btn-lg" >Start a New Project!</button></a>
     {{/if}}
