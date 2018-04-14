@@ -5,18 +5,15 @@ var numInGroup;
 var firstName;
 var groupMemberNames;
 var boxesCreated;
-var gamePin;
 var chosenProject;
 var standards;
 var evalData = {groupMembers: null};
-var doIt = false;
 
 var express = require('express'),
 app= module.exports.app = express();
 var http = require("http").Server(app);
 var path = require("path");
 var fs = require("fs");
-var ejs = require('ejs');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var passport = require('passport');
@@ -31,6 +28,7 @@ var db = mongoose.connection;
 var bcrypt = require('bcryptjs');
 var User = require('./models/user');
 var Project = require('./models/project');
+var Submission = require('./models/submission');
 var passportConfig = require('./config/passport');
 var io = require('socket.io')(http);
 
@@ -190,35 +188,33 @@ app.get('/', function(req,res){
 });
 
 app.post('/eval', function(req, res) {
-	//console.log(req.body);
-	for(var k in req.body){
-		evalData[k]=req.body[k];
-		doIt = true
-	}
-	console.log(JSON.stringify(evalData));
+		Project.findOne({connectCode: req.body.id}, function(err, project){
+				if(err) console.log(err);
+			User.findOne({username: project.creator}, function(err, user){
+				User.update({_id: user._id}, { $push : {submissions: req.body}},
+				function(err){
+					if(err) console.log(err);
+				})
+			});
+		});
+
 	return res.redirect('/');
 
 });
 
 io.on('connection', function(socket){
-	console.log('User Connected');
 	socket.broadcast.emit('hi');
 	socket.on('disconnect', function(){
-		console.log('User Disconnected');
 	});
 
 	socket.on('groupEval', function(value){
-		console.log('Value ' + value);
 		evalData.groupMembers = value;
-		 console.log("Eval Data:  " + JSON.stringify(evalData));
-		console.log("Eval Members" + evalData.groupMembers);
 	});
 });
 
 
 app.post('/', function(req,res){
-   gamePin = req.body.pinNumber;
-  Project.findOne({connectCode: gamePin}, function(err, project){
+  Project.findOne({connectCode: req.body.pinNumber}, function(err, project){
     if(!project){
       req.flash('errors', {msg: 'Game Pin Not Reconized, Try Again'});
       return res.redirect('/');
@@ -241,10 +237,8 @@ app.post('/evaluate', function(req, res){
 	groupMemberNames = req.body.groupMember0;
 	res.render('evaluate', {
 		firstName: firstName,
-    numInGroup: numInGroup,
-    project: chosenProject
-    
-
+		numInGroup: numInGroup,
+		project: chosenProject
 	});
 });
 
@@ -291,6 +285,44 @@ app.get('/teachers/createProject',passportConfig.isAuthenticated, function(req,r
 });
 
 app.post('/teachers/createProject', postCreateProject);
+
+app.get('/teachers/results/:code', function(req,res){
+	Project.findOne({connectCode: req.params.code}, function(err, project){
+		if(err){
+			req.flash('errors', {msg: 'Unknown Project'});
+			return res.redirect('/teachers');
+		}
+		if(!req.user){
+			req.flash('errors', {msg: 'You must sign in to view that'});
+			return res.redirect('/teachers/login');
+		}else{
+			if(project.creator != req.user.username){
+				req.flash('errors', {msg: 'You are not authorized to access this project!'});
+				return res.redirect('/teachers');
+			}
+		User.findOne({username: project.creator}, function(err, user){
+			var projectData = [];
+			for(var i=0; i<user.submissions.length; i++){
+        console.log(user.submissions[i].id);
+				if(user.submissions[i].id == project.connectCode){
+          projectData[i] = user.submissions[i];
+          console.log(user.submissions[i].id + ' , ' + project.connectCode);
+				}
+			}
+
+			var standardsArray = project.standards.split(',');
+
+			res.render('results',{
+				layout: 'teacherSide.handlebars',
+				title: 'EasyEval - Results',
+				project: project,
+				evalData: projectData,
+				standards: standardsArray
+			});
+		});
+		}
+	});
+});
 
 
 

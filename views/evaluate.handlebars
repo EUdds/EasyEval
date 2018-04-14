@@ -12,10 +12,14 @@ google.charts.setOnLoadCallback(drawChart);
 	var socket = io.connect();
 
 	function sendData(){
+		document.getElementById("groupMembers").setAttribute("value", groupMemberNamesString);
 		socket.emit('groupEval', groupMemberNames);
 		return false;
 	}
 
+	function getGroupMemberNames(){
+		return localStorage.getItem("groupMemberNamesString");
+	}
 
 	groupMemberNamesString = localStorage.getItem("groupMemberNamesString");
 
@@ -34,6 +38,7 @@ google.charts.setOnLoadCallback(drawChart);
 <div class="row" id="charts"></div>
 <div class="row" id="sliders"></div>
 <br>
+<input name="groupMembers" id="groupMembers" style="display: none;">
 <input name="submitter" id="submitter" value="{{firstName}}" style="display: none;">
 <a><button onclick="sendData()" name="id" type="submit" value="{{project.connectCode}}">Submit</button></a>
 	</div>
@@ -42,7 +47,10 @@ google.charts.setOnLoadCallback(drawChart);
 
 </form>
   <script>
-    window.onload = function(){init()};
+    window.onload = function(){
+			init(); 	
+			document.getElementById("groupMembers").setAttribute('value', getGroupMemberNames());
+			};
 
     document.body.onmousemove = function(){
 	$(window).resize(function() {

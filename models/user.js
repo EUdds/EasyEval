@@ -25,7 +25,8 @@ var userSchema = mongoose.Schema({
     },
     lastName:{
         type: String
-    }
+    },
+    submissions:[]
 });
 userSchema.pre('save', function(next) {
     var user = this;
