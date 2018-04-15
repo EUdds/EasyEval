@@ -1,0 +1,49 @@
+<script>
+    var boxesCreated = 0;
+    var inputBox = [];
+    var standards = [];
+    function updateForm(){
+      var input = document.getElementById("numStandards").value;
+    if(boxesCreated < input && input != 0){
+        for(var i=boxesCreated; i<input; i++){
+        inputBox[boxesCreated] = document.createElement("input");
+        inputBox[boxesCreated].setAttribute("type", "text");
+        inputBox[boxesCreated].setAttribute("name", "standard"+"["+boxesCreated+"]");
+        inputBox[boxesCreated].setAttribute("id", `standard` + boxesCreated );
+        inputBox[boxesCreated].setAttribute("placeholder", `Standard ` + (boxesCreated+1).toString());
+        inputBox[boxesCreated].setAttribute("onchange", "updateForm()");
+        inputBox[boxesCreated].style.margin = "5px";
+        inputBox[boxesCreated].setAttribute("class", "standardBox form-group form-control");
+        document.getElementById("standardBoxes").appendChild(inputBox[boxesCreated]);
+        boxesCreated ++;
+        }
+
+    }else if(boxesCreated > input){
+        for(var i=boxesCreated; i>input; i--){
+        document.getElementById("standardBoxes").removeChild(inputBox[inputBox.length-1]);
+        inputBox.pop();
+        boxesCreated--;
+        }
+    }
+    if(boxesCreated != 0){
+        for(i=0; i<boxesCreated; i++){
+            standards[i] = inputBox[i].value;
+        }
+    }
+}
+</script>
+<div>
+    <div align="center" style="width: 80%; margin: 0 auto; ">
+<form method="POST" action="/teachers/createProject" class="form-group form-control">
+
+    <label>Name of Project</label>
+    <input onChange="updateForm()" type="text" id="projectName" name="projectName" placeholder="My Totally Awesome Project" class="form-group form-control">
+    <label>Number of Standards</label>
+    <input type="number" onChange="updateForm()" name="numStandards" id="numStandards" placeholder="Number of Standards" class="form-group form-control" min="1">
+    <label>Standard Titles</label>
+    <div id="standardBoxes"></div>
+    <label>Max Score</label>
+    <input type="number" onChange="updateForm()" name="maxScore" min="1" max="100" id="maxScore" placeholder="The Maximum Number of Points Students Can Score" class="form-group form-control">
+    <input type="submit" class="btn btn-primary" name="Submit" value="Create Project!" class="form-group form-control">
+</form>
+</div>
