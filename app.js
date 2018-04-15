@@ -372,15 +372,28 @@
 	app.post('/teachers/createProject', postCreateProject);
 
   app.get('/teachers/results/:code', function (req, res) {
-    xcell.exportResults(req.params.code);
     Project.findOne({
-	    connectCode: req.params.code
+      connectCode: req.params.code
 	  }, function (err, project) {
-	    if (err) console.log(err);
-	    var d = new Date();
-	    var file = String('./' + project.projectTitle + "_" + (d.getMonth() + 1) + d.getDate() + '.xlsx');
-      setTimeout(function(){res.download(file)}, 5000);
-      setTimeout(function(){fs.unlinkSync(file)}, 10000);
+      if (err) console.log(err);
+      if (!req.user) {
+        req.flash('errors', {
+          msg: 'You must sign in to view that'
+	      });
+	      return res.redirect('/teachers/login');
+	    }
+      if(project.creator = req.user.username){
+        xcell.exportResults(req.params.code);
+        var d = new Date();
+        var file = String('./' + project.projectTitle + "_" + (d.getMonth() + 1) + d.getDate() + '.xlsx');
+        setTimeout(function(){res.download(file)}, 5000);
+        setTimeout(function(){fs.unlinkSync(file, function(err){
+          if(err) throw err;
+        })}, 10000);
+      }else{
+        req.flash('error', {msg: "You're not authorized to view that!"});
+        res.redirect('/teachers');
+      }
 	  })
 	});
 

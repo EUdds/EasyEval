@@ -25,51 +25,67 @@ module.exports.exportResults = function (id) {
 
             // Add Worksheets to the workbook
             var ws = wb.addWorksheet('EasyEval Results');
+            ws.row(1).freeze();
             // Create a reusable style
             var style = wb.createStyle({
                 font: {
                     color: '#000000',
                     size: 12
                 },
+             })
+             var  header = wb.createStyle({
+                font: {
+                    color: '#000000',
+                    size: 14,
+                    bold: true,
+                },
+                alignment:{
+                    horizontal: 'center',
+                    shrinkToFit: true
+                }
             });
+         
 
 
-            ws.cell(1,3).string("Group Number").style(style);
+            ws.cell(1,3).string("Group Number").style(header);
+            ws.cell(1,2).string("Name").style(header);
             for (var i = 1; i <= project.standardsInAssignment; i++) {
-                ws.cell(1, i + 3).string(String(standards[i - 1])).style(style);
+                ws.cell(1, i + 3).string(String(standards[i - 1])).style(header);
             }
             for (var i = 0; i <= project.submissions.length; i++) {
                 
                 if (project.submissions[i]) {
                     groupMemberArray[i] = project.submissions[i].groupMembers.split(',');
-                    console.log("GroupM Array Len" + groupMemberArray[i].length);
                     if(groupMemberArray[i][groupMemberArray[i].length -1] === ''){
                         groupMemberArray[i].pop();
                     }
                     if(i != 0){
-                        var   oldGroupMemberArrayLength = groupMemberArray[i-1].length;
+                        var   oldGroupMemberArrayLength = groupMemberArray[i-1].length || 0;
+                       }
+                       if(i == 0){
+                           math = 2;
+                       }if(i == 1){
+                           math = ((i* oldGroupMemberArrayLength) + i )+ 2;
+                       }if(i > 1){
+                           oldMath = math;
+                           math = oldMath +oldGroupMemberArrayLength +1
+
                        }
                     for (var z = 0; z < groupMemberArray[i].length; z++) {
-                        if(i == 0){
-                            math = z+2;
-                        }else{
-                            math = ((i* oldGroupMemberArrayLength)+i)+ z + 2;
-                        }
                         if (z == 0) {
 
                             ws.cell(math, 1).string("Submitted By:").style(style);
                         }
-                        ws.cell(math, 2).string(String(groupMemberArray[i][z])).style(style);
-                        ws.cell(math, 3).number(Number(project.submissions[i].groupNumber)).style(style);
+                        ws.cell(math+z, 2).string(String(groupMemberArray[i][z])).style(style);
+                        ws.cell(math+z, 3).number(Number(project.submissions[i].groupNumber)).style(style);
                         for (var y = 0; y < project.standardsInAssignment; y++) {
-                            ws.cell(math, y + 4).number(Number(project.submissions[i][buildSliderName(y, z)])).style(style);
+                            ws.cell(math+z, y + 4).number(Number(project.submissions[i][buildSliderName(y, z)])).style(style);
                         }
 
                     }
 
                 }
             }
-             
             console.log("Writing File");
             wb.write(buildFileName(project.projectTitle));
     });
