@@ -56,7 +56,8 @@ function drawSliders(chartNumber){
 		slider[temp].setAttribute("max", maxScore);
 		slider[temp].setAttribute("value", "0");
 		slider[temp].setAttribute("class", "slider");
-		slider[temp].setAttribute("id", "slider"+i.toString());
+		slider[temp].setAttribute("id",  (chartNumber) + "slider"+i.toString());
+		slider[temp].setAttribute("name",  (chartNumber) + "slider"+i.toString());
 		sliderDiv[temp].appendChild(slider[temp]);
 	
 		sliderLabel[temp] = document.createElement("h4");

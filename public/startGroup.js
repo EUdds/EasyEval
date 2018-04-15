@@ -25,6 +25,7 @@ function updateForm(){
     if(boxesCreated != 0){
         for(i=0; i<boxesCreated; i++){
             groupMemberNames[i+1] = inputBox[i].value;
+            console.log(groupMemberNames);
             localStorage.setItem("groupMemberNamesString", groupMemberNames);
         }
     }
