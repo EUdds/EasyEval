@@ -2,13 +2,13 @@ var xl = require('excel4node');
 var Project = require('./models/project');
 var User = require('./models/user');
 
-function buildSliderName(standard,member){
+function buildSliderName(standard, member) {
     return String(standard + "slider" + member);
 }
 
-function buildFileName(title){
+function buildFileName(title) {
     var d = new Date();
-    return String(title+"_"+ (d.getMonth()+1) + d.getDate()+'.xlsx');
+    return String(title + "_" + (d.getMonth() + 1) + d.getDate() + '.xlsx');
 }
 module.exports.exportResults = function (id) {
     Project.findOne({
@@ -31,7 +31,7 @@ module.exports.exportResults = function (id) {
             var numStandards = project.standardsInAssignment;
 
             // Add Worksheets to the workbook
-            var ws = wb.addWorksheet('Sheet 1');
+            var ws = wb.addWorksheet('EasyEval Results');
             // Create a reusable style
             var style = wb.createStyle({
                 font: {
@@ -48,7 +48,7 @@ module.exports.exportResults = function (id) {
                 if (projectData[i]) {
                     groupMemberArray[i] = projectData[i].groupMembers.split(',');
                     for (var z = 0; z < groupMemberArray[i].length; z++) {
-                        
+
                         math = (i * groupMemberArray[i].length) + z + 2;
                         if (z == 0) {
 
@@ -56,18 +56,16 @@ module.exports.exportResults = function (id) {
                         }
                         ws.cell(math, 2).string(String(groupMemberArray[i][z])).style(style);
                         var slider = buildSliderName(0, z);
-                        for(var y=0; y<numStandards; y++){
-                            ws.cell(math, y+3).number(Number(projectData[i][buildSliderName(y,z)])).style(style);
+                        for (var y = 0; y < numStandards; y++) {
+                            ws.cell(math, y + 3).number(Number(projectData[i][buildSliderName(y, z)])).style(style);
                         }
-                        
+
                     }
 
                 }
             }
-            process.chdir('../EasyEval/Exports');
-            console.log("Writing File to " + process.cwd());
+            console.log("Writing File");
             wb.write(buildFileName(project.projectTitle));
-            process.chdir('./');
         });
     });
 

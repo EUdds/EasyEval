@@ -6,7 +6,8 @@
 	var groupMemberNames;
 	var boxesCreated;
 	var chosenProject;
-	var standards;
+  var standards;
+  var isExisting = false;
 	var evalData = {
 	  groupMembers: null
 	};
@@ -195,8 +196,57 @@
 	  });
 	};
 
+	oldShowResults = function (req, res, next) {
+	  Project.findOne({
+	    connectCode: req.params.code
+	  }, function (err, project) {
+	    if (err) {
+	      req.flash('errors', {
+	        msg: 'Unknown Project'
+	      });
+	      return res.redirect('/teachers');
+	    }
+	    if (!req.user) {
+	      req.flash('errors', {
+	        msg: 'You must sign in to view that'
+	      });
+	      return res.redirect('/teachers/login');
+	    } else {
+	      if (project.creator != req.user.username) {
+	        req.flash('errors', {
+	          msg: 'You are not authorized to access this project!'
+	        });
+	        return res.redirect('/teachers');
+	      }
+	      User.findOne({
+	        username: project.creator
+	      }, function (err, user) {
+	        var projectData = [];
+	        for (var i = 0; i < user.submissions.length; i++) {
+	          console.log(user.submissions[i].id);
+	          if (user.submissions[i].id == project.connectCode) {
+	            projectData[i] = user.submissions[i];
+	            console.log(user.submissions[i].id + ' , ' + project.connectCode);
+	          }
+	        }
 
+	        var standardsArray = project.standards.split(',');
 
+	        res.render('results', {
+	          layout: 'teacherSide.handlebars',
+	          title: 'EasyEval - Results',
+	          project: project,
+	          evalData: projectData,
+	          standards: standardsArray
+	        });
+	      });
+	    }
+	  });
+	}
+
+	function sleep(ms) {
+	  return new Promise(resolve => setTimeout(resolve, ms));
+	}
 	var checkMimeType = true;
 
 	console.log("Starting web server at " + serverUrl + ":" + port);
@@ -265,7 +315,7 @@
 	});
 
 	app.get('/excel', function (req, res) {
-	  xcell.exportResults(87998);
+	  xcell.exportResults(58552);
 	  req.flash('success', {
 	    msg: "Written File"
 	  });
@@ -331,52 +381,17 @@
 
 	app.post('/teachers/createProject', postCreateProject);
 
-	app.get('/teachers/results/:code', function (req, res) {
-	  Project.findOne({
+  app.get('/teachers/results/:code', function (req, res) {
+    xcell.exportResults(req.params.code);
+    Project.findOne({
 	    connectCode: req.params.code
 	  }, function (err, project) {
-	    if (err) {
-	      req.flash('errors', {
-	        msg: 'Unknown Project'
-	      });
-	      return res.redirect('/teachers');
-	    }
-	    if (!req.user) {
-	      req.flash('errors', {
-	        msg: 'You must sign in to view that'
-	      });
-	      return res.redirect('/teachers/login');
-	    } else {
-	      if (project.creator != req.user.username) {
-	        req.flash('errors', {
-	          msg: 'You are not authorized to access this project!'
-	        });
-	        return res.redirect('/teachers');
-	      }
-	      User.findOne({
-	        username: project.creator
-	      }, function (err, user) {
-	        var projectData = [];
-	        for (var i = 0; i < user.submissions.length; i++) {
-	          console.log(user.submissions[i].id);
-	          if (user.submissions[i].id == project.connectCode) {
-	            projectData[i] = user.submissions[i];
-	            console.log(user.submissions[i].id + ' , ' + project.connectCode);
-	          }
-	        }
-
-	        var standardsArray = project.standards.split(',');
-
-	        res.render('results', {
-	          layout: 'teacherSide.handlebars',
-	          title: 'EasyEval - Results',
-	          project: project,
-	          evalData: projectData,
-	          standards: standardsArray
-	        });
-	      });
-	    }
-	  });
+	    if (err) console.log(err);
+	    var d = new Date();
+	    var file = String('./' + project.projectTitle + "_" + (d.getMonth() + 1) + d.getDate() + '.xlsx');
+      setTimeout(function(){res.download(file)}, 5000);
+      setTimeout(function(){fs.unlinkSync(file)}, 10000);
+	  })
 	});
 
 
