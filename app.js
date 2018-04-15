@@ -262,11 +262,8 @@
 	    connectCode: req.body.id
 	  }, function (err, project) {
 	    if (err) console.log(err);
-	    User.findOne({
-	      username: project.creator
-	    }, function (err, user) {
-	      User.update({
-	          _id: user._id
+	      Project.update({
+	          connectCode: project.connectCode
 	        }, {
 	          $push: {
 	            submissions: req.body
@@ -274,7 +271,6 @@
 	        },
 	        function (err) {
 	          if (err) console.log(err);
-	        })
 	    });
 	  });
 
@@ -314,22 +310,16 @@
 	  res.redirect('/');
 	});
 
-	app.get('/excel', function (req, res) {
-	  xcell.exportResults(58552);
-	  req.flash('success', {
-	    msg: "Written File"
-	  });
-	  res.redirect('/');
-	})
 
 	app.post('/evaluate', function (req, res) {
 	  firstName = req.body.firstName;
 	  numInGroup = req.body.numInGroup;
-	  groupMemberNames = req.body.groupMember0;
+	  groupNumber = req.body.groupNumber;
 	  res.render('evaluate', {
 	    firstName: firstName,
 	    numInGroup: numInGroup,
-	    project: chosenProject
+      project: chosenProject,
+      groupNumber: groupNumber
 	  });
 	});
 
