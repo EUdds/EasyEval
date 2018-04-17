@@ -36,12 +36,12 @@ module.exports.exportResults = function (id) {
              var  header = wb.createStyle({
                 font: {
                     color: '#000000',
-                    size: 14,
+                    size: 12,
                     bold: true,
                 },
                 alignment:{
                     horizontal: 'center',
-                    shrinkToFit: true
+                    wordWrap: true
                 }
             });
          

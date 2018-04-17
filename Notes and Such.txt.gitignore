@@ -1,0 +1,59 @@
+
+Dashboard with all results
+
+
+ for(var i=0; i<groupMemberArray.length; i++){
+              document.getElementById(i + "member").innerHTML = groupMemberArray[i];
+          }
+
+
+           <script>
+          var groupMemberArray = `{{this.groupMembers}}`.split(',');
+            document.getElementById("{{@index}}member").innerHTML = groupMemberArray[{{@index}}]
+         </script>
+
+
+
+
+
+          {{#each evalData}}
+         <script>
+          var groupMemberArray = `{{this.groupMembers}}`.split(',');
+            document.getElementById("{{@index}}member").innerHTML = groupMemberArray[{{@index}}]
+         </script>
+         <td id="{{@index}}member"></td>
+         {{/each}}
+       </tr>
+
+
+
+
+          ws.cell(1,3).string("Group Number").style(style);
+            for (var i = 1; i <= project.standardsInAssignment; i++) {
+                ws.cell(1, i + 3).string(String(standards[i - 1])).style(style);
+            }
+            for (var i = 0; i <= projectData.length; i++) {
+                var groupMemberArray = [];
+                if (projectData[i]) {
+                    groupMemberArray[i] = projectData[i].groupMembers.split(',');
+                    if(i != 0){
+                     var   oldGroupMemberArray = projectData[i-1].groupMembers.split(',');
+                    }
+                    for (var z = 0; z < groupMemberArray[i].length; z++) {
+                        if(i == 0){
+                            math = z+2;
+                        }else{
+                            math = ((i* oldGroupMemberArray.length)+i)+ z + 2;
+                        }
+                        if (z == 0) {
+                            ws.cell(math, 1).string("Submitted By:").style(style);
+                        }
+                        ws.cell(math, 2).string(String(groupMemberArray[i][z])).style(style);
+                        ws.cell(math, 3).number(Number(projectData[i].groupNumber)).style(style);
+                        for (var y = 0; y < numStandards; y++) {
+                            ws.cell(math, y + 4).number(Number(projectData[i][buildSliderName(y, z)])).style(style);
+                        }
+                    }
+
+                }
+            }
