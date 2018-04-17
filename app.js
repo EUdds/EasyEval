@@ -268,7 +268,7 @@
 	    if (err) console.log(err);
 	      Project.update({
 	          connectCode: project.connectCode
-	        }, {
+	        }, {	
 	          $push: {
 	            submissions: req.body
 	          }
@@ -277,7 +277,7 @@
 	          if (err) console.log(err);
 	    });
 	  });
-
+		req.flash('success', {msg: 'Successfully Submitted to Teacher!'})
 	  return res.redirect('/');
 
 	});
@@ -384,7 +384,7 @@
 		Project.findOne({connectCode: req.params.code}, function(err, project){
 			if(err){
 				req.flash('errors', {msg: "That project doesn't exist!"});
-				res.redirect('/teachers/dashboard');
+				 return res.redirect('/teachers/dashboard');
 			}
 			if(project.creator != req.user.username){
 				req.flash('errors', {msg: 'You are not authorized to view that project'});
