@@ -51,9 +51,12 @@ google.charts.setOnLoadCallback(drawChart);
     window.onload = function(){
 			init(); 	
 			document.getElementById("groupMembers").setAttribute('value', getGroupMemberNames());
+			for(var i=0; i<standardsInAssignment; i++){
+				updateSliders(i);
+			};
 			};
 
-    document.body.onmousemove = function(){
+
 	$(window).resize(function() {
  	chartWidth = (document.documentElement.clientWidth/standardsInAssignment - 10);
 	drawChart();
@@ -64,8 +67,6 @@ google.charts.setOnLoadCallback(drawChart);
 	}
 
 });
-	for(var i=0; i<standardsInAssignment; i++){
-		updateSliders(i);
-	}};
+	
 
   </script>

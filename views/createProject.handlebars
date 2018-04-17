@@ -18,7 +18,9 @@
         inputBox[boxesCreated].setAttribute("onchange", "updateForm()");
         inputBox[boxesCreated].style.margin = "5px";
         inputBox[boxesCreated].setAttribute("class", "standardBox form-group form-control");
+        {{#if project}}
         inputBox[boxesCreated].setAttribute("value", suppliedStandards[boxesCreated]);
+        {{/if}}
         document.getElementById("standardBoxes").appendChild(inputBox[boxesCreated]);
         boxesCreated ++;
         }
