@@ -82,6 +82,10 @@
 	  next();
 	})
 
+	// app.use(function (req, res, next) {
+	// 	res.status(404).render('404');
+	// })
+
 	postLogin = function (req, res, next) {
 	  req.assert('email', 'Email is not valid').isEmail();
 	  req.assert('password', 'Password cannot be blank').notEmpty();
@@ -105,7 +109,7 @@
 	      if (err) {
 	        return next(err);
 	      }
-	      return res.redirect('/teachers');
+	      return res.redirect('/teachers/dashboard');
 	    });
 	  })(req, res, next);
 	};
@@ -179,7 +183,7 @@
 	  });
 
 	  Project.findOne({
-	    ProjectTitle: req.body.projectName
+	    projectTitle: req.body.projectName
 	  }, function (err, existingProject) {
 	    if (existingProject) {
 	      req.flash('errors', {
@@ -191,7 +195,7 @@
 	      if (err) {
 	        return next(err);
 	      }
-	      return res.redirect('/teachers');
+	      return res.redirect('/teachers/dashboard');
 	    });
 	  });
 	};
@@ -323,7 +327,7 @@
 	  });
 	});
 
-	app.get('/teachers', passportConfig.isAuthenticated, function (req, res) {
+	app.get('/teachers/dashboard', passportConfig.isAuthenticated, function (req, res) {
 	  Project.find({
 	    creator: req.user.username
 	  }, function (err, projects) {
@@ -334,6 +338,13 @@
 	      standards: standards
 	    });
 	  });
+	});
+
+	app.get('/teachers', function(req, res){
+		res.render('welcome',{
+			layout: 'teacherSide.handlebars',
+			title: 'EasyEval - Teachers'
+		});
 	});
 
 	app.get('/teachers/register', function (req, res) {
@@ -369,6 +380,43 @@
 	  });
 	});
 
+	app.get('/teachers/copyProject/:code', passportConfig.isAuthenticated, function (req, res) {
+		Project.findOne({connectCode: req.params.code}, function(err, project){
+			if(err){
+				req.flash('errors', {msg: "That project doesn't exist!"});
+				res.redirect('/teachers/dashboard');
+			}
+			if(project.creator != req.user.username){
+				req.flash('errors', {msg: 'You are not authorized to view that project'});
+				res.redirect('/teachers/dashboard');
+			}
+			res.render('createProject', {
+				layout: 'teacherSide.handlebars',
+				title: 'EasyEval- Create Project',
+				project: project	
+			});
+	
+		})
+		
+	});
+
+	app.get('/teachers/deleteProject/:code', passportConfig.isAuthenticated, function(req,res){
+		Project.findOne({connectCode: req.params.code}, function(err, project){
+			if(err){
+				req.flash('errors', {msg: "That project doesn't exist!"});
+				res.redirect('/teachers/dashboard');
+			}
+			if(project.creator != req.user.username){
+				req.flash('errors', {msg:'You are not authorized to delete that project!'});
+				res.redirect('/teachers/dashboard');
+			}
+			var proj = Project.findOne().remove({connectCode: project.connectCode});
+			proj.exec();
+			res.redirect('/teachers/dashboard');
+		});
+		
+	})
+
 	app.post('/teachers/createProject', postCreateProject);
 
   app.get('/teachers/results/:code', function (req, res) {
@@ -392,7 +440,7 @@
         })}, 10000);
       }else{
         req.flash('error', {msg: "You're not authorized to view that!"});
-        res.redirect('/teachers');
+        res.redirect('/teachers/dashboard');
       }
 	  })
 	});
