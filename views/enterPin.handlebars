@@ -7,7 +7,7 @@
          <div id="formContainer" class="row center_div" align="center">
             <form action="/" method="POST" id="form" class="form-inline center_div" align="center">
                <label class="sr-only" for="pinNumber">Enter Pin</label>
-               <input type="number" onchange="updateForm()" class="form-control mb-2 mr-sm-2" id="pinNumber" name="pinNumber" placeholder="Pin Number">
+               <input type="number" onchange="updateForm()" class="form-control mb-2 mr-sm-2" id="pinNumber" name="pinNumber" min="0" placeholder="Pin Number">
                &nbsp;
                <button type="submit" class="btn btn-primary mb-2">Submit</button>
             </form>
