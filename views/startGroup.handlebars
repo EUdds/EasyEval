@@ -1,34 +1,48 @@
 <script src=startGroup.js></script>
 <div class="container-fluid">
-   <div class="jumbotron">
-      <div id="container" class="" align="center">
-         <h1>Easy Eval</h1>
-         <p>Evalute your group memebers with a click of a button!</p>
-        <h5>{{project.projectTitle}}</h5>
-         <h5>Max Score of {{project.maxScore}}</h5>
-         <div id="formContainer" class="row center_div" align="center">
-            <form action="/evaluate" method="POST" id="form" class="form-inline center_div" align="center">
-               <label class="sr-only" for="firstName">Your Name</label>
-               <input type="text" onchange="updateForm()" class="form-control mb-2 mr-sm-2" id="userName" name="firstName" placeholder="John Doe">
-               <label class="sr-only" for="numInGroup">Number of Other Group Members</label>
-               <div class="input-group mb-2 mr-sm-2">
-                  <input onChange="updateForm()" type="number" class="form-control" id="numInGroupInput" name="numInGroup" placeholder="0" min="0" max="98">
-               </div>
-                <input type="number" class="form-control mb-2 mr-sm-2" id="groupNumber" name="groupNumber" placeholder="Group Number" min="1">
-               &nbsp;
-               <button type="submit" class="btn btn-primary mb-2" value="submit">Submit</button>
+    <div class="jumbotron">
+        <div id="container" class="" align="center">
+            <h1>Easy Eval</h1>
+            <p>Evalute your group memebers with a click of a button!</p>
+            <h5>{{project.projectTitle}}</h5>
+            <h5>Max Score of {{project.maxScore}}</h5>
+            <div style="width: 55%" align="center">
+            <form class="form-inline" action="/evaluate" method="POST">
+                <label class="sr-only" for="inlineFormInputName2">Name</label>
+                <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Name</div>
+                    </div>
+                    <input type="text" class="form-control"  name="firstName" id="userName">
+                </div>
+                <label class="sr-only" for="numInGroupInput">Number of Other Group Members</label>
+                <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Number of Other Group Members</div>
+                    </div>
+                    <input type="number" class="form-control" min="0" max="98" onChange="updateForm()" name="numInGroup" id="numInGroupInput">
+                </div>
+
+                <label class="sr-only" for="groupNumber">Number of Other Group Members</label>
+                <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Group Number</div>
+                    </div>
+                    <input type="number" class="form-control" min="1" onChange="updateForm()" name="groupNumber" id="groupNumber">
+                </div>
+                    <button type="submit" class="btn btn-primary mb-2">Next</button>
             </form>
-         </div>
-      </div>
-      <br>
-      <br>
-      <form id="formInputBoxes" class="form-inline">
-          <div id="inputBoxes" class="input-group"></div>
-      </form>
-      
-      <br>
-      <br>
-      <br>
-      <br>
-   </div>
+
+            </div>
+        <br>
+        <br>
+        <form id="formInputBoxes" class="form-inline">
+            <div id="inputBoxes" class="input-group"></div>
+        </form>
+
+        <br>
+        <br>
+        <br>
+        <br>
+    </div>
 </div>
