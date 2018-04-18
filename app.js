@@ -1,5 +1,5 @@
-	var port = 8000;
-var serverUrl = "127.0.0.1";
+	var port = process.env.PORT;
+var serverUrl = process.env.IP;
 var inputData;
 var numInGroup;
 var firstName;
@@ -217,7 +217,7 @@ app.post('/evaluate', function(req, res){
 	});
 });
 
-app.get('/teachers',passportConfig.isAuthenticated, function(req,res){
+app.get('/teachers', function(req,res){
   Project.find({ creator: req.user.username }, function(err, projects) {
 	res.render('teacher', {
       layout: 'teacherSide.handlebars',
@@ -252,10 +252,17 @@ app.get('/teachers/logout', function(req,res){
   res.redirect('/teachers/login');
 })
 
-app.get('/teachers/createProject',passportConfig.isAuthenticated, function(req,res){
+app.get('/teachers/createProject', function(req,res){
   res.render('createProject',{
     layout: 'teacherSide.handlebars',
     title: 'EasyEval- Create Project'
+  });
+});
+
+app.get('/view', function(req,res){
+  res.render('teacher',{
+    layout: 'teacherSide.handlebars',
+    title: 'Test Page'
   });
 });
 
