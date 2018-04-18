@@ -12,6 +12,8 @@
 	  groupMembers: null
 	};
 
+
+	//All libraries were written and owned by their respective owners
 	var express = require('express'),
 	  app = module.exports.app = express();
 	var http = require("http").Server(app);
@@ -262,7 +264,8 @@
 	});
 
 	app.post('/eval', function (req, res) {
-	  Project.findOne({
+		console.log("posting");
+		Project.findOne({
 	    connectCode: req.body.id
 	  }, function (err, project) {
 	    if (err) console.log(err);
@@ -298,7 +301,7 @@
 	  }, function (err, project) {
 	    if (!project) {
 	      req.flash('errors', {
-	        msg: 'Game Pin Not Reconized, Try Again'
+	        msg: 'Pin Not Reconized, Try Again'
 	      });
 	      return res.redirect('/');
 	    }

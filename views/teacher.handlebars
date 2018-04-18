@@ -21,10 +21,19 @@
             <div id="buttonContainer" align="center">
             <a href="/teachers/results/{{connectCode}}"><button type="button" class="btn btn-success btn-lg">View Results</button></a>
             <a href="/teachers/copyProject/{{connectCode}}"><button type="button" class="btn btn-info btn-lg">Copy Project</button></a>
-            <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#deleteModal">Delete Project</button>
+            <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#deleteModal" data-code="{{connectCode}}">Delete Project</button>
             </div>
         </div>
 
+
+    {{/each}}
+    {{else}}
+    <h1>You Haven't Created Any Projects!</h1>
+    <h4>Make One Now</h4>
+    <a href="/teachers/createProject"><button type="button" class="btn btn-primary btn-lg" >Start a New Project!</button></a>
+    {{/if}}
+</div>
+</div>
         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -39,17 +48,22 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">No, take me back!</button>
-        <a href="/teachers/deleteProject/{{connectCode}}"><button type="button" class="btn btn-success">Yes, delete forever!</button></a>
+        <a id="buttonLink"><button type="button" class="btn btn-success">Yes, delete forever!</button></a>
       </div>
     </div>
   </div>
 </div>
-    {{/each}}
-    {{else}}
-    <h1>You Haven't Created Any Projects!</h1>
-    <h4>Make One Now</h4>
-    <a href="/teachers/createProject"><button type="button" class="btn btn-primary btn-lg" >Start a New Project!</button></a>
-    {{/if}}
-</div>
-</div>
+
+<script>
+  $('#deleteModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var code = button.data('code') // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var path = "/teachers/deleteProject/" + code.toString();
+  console.log(path);
+  var modal = $(this)
+  document.getElementById("buttonLink").setAttribute('href', path);
+})
+</script>
 
