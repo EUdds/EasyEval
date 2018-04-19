@@ -423,7 +423,7 @@
 	app.post('/teachers/createProject', postCreateProject);
 
   app.get('/teachers/results/:code', function (req, res) {
-    Project.findOne({
+		Project.findOne({
       connectCode: req.params.code
 	  }, function (err, project) {
       if (err) console.log(err);
