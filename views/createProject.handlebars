@@ -45,7 +45,11 @@ window.onload = function(){
 </script>
 {{> flash}}
 <div>
-    <div align="center" style="width: 80%; margin: 0 auto; ">
+    <div align="center" style="width: 80%; position: absolute;
+    top: 50%;
+    left: 50%;
+    resize: both;
+    transform: translate(-50%, -50%);">
 <form method="POST" action="/teachers/createProject" class="form-group form-control">
 
     <label>Name of Project</label>
