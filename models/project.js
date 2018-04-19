@@ -23,7 +23,8 @@ var projectSchema = mongoose.Schema({
     connectCode:{
         type: Number,
         uniquie: true
-    }
+    },
+    submissions:[]
 });
 
 

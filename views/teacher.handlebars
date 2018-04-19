@@ -17,10 +17,33 @@
             <h3>Students can connect with: {{connectCode}}</h3>
             <h3>{{standardsInAssignments}} Standards:  <small> {{standards}}</small></h3>
             <h3>Max Score: {{maxScore}}</h3>
+            <h3>{{submissions.length}} Responses</h3>
             <div id="buttonContainer" align="center">
             <a href="/teachers/results/{{connectCode}}"><button type="button" class="btn btn-success btn-lg">View Results</button></a>
+            <a href="/teachers/copyProject/{{connectCode}}"><button type="button" class="btn btn-info btn-lg">Copy Project</button></a>
+            <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#deleteModal">Delete Project</button>
             </div>
         </div>
+
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Woah!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this project?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">No, take me back!</button>
+        <a href="/teachers/deleteProject/{{connectCode}}"><button type="button" class="btn btn-success">Yes, delete forever!</button></a>
+      </div>
+    </div>
+  </div>
+</div>
     {{/each}}
     {{else}}
     <h1>You Haven't Created Any Projects!</h1>
@@ -29,3 +52,4 @@
     {{/if}}
 </div>
 </div>
+

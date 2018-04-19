@@ -37,7 +37,10 @@ function init(){
 	defineSliders();
 	console.log("Defined Sliders");
 	hasInit = true;
-	updateSliders();
+	for(var i=0; i<standardsInAssignment; i++){
+		updateSliders(i);
+	}
+	
 	console.log("Updated Sliders");
 
 }
@@ -56,7 +59,9 @@ function drawSliders(chartNumber){
 		slider[temp].setAttribute("max", maxScore);
 		slider[temp].setAttribute("value", "0");
 		slider[temp].setAttribute("class", "slider");
-		slider[temp].setAttribute("id", "slider"+i.toString());
+		slider[temp].setAttribute("id",  (chartNumber) + "slider"+i.toString());
+		slider[temp].setAttribute("name",  (chartNumber) + "slider"+i.toString());
+		slider[temp].setAttribute('onchange', "updateSliders("+chartNumber+")");
 		sliderDiv[temp].appendChild(slider[temp]);
 	
 		sliderLabel[temp] = document.createElement("h4");
@@ -133,7 +138,7 @@ function drawChart() {
 
 
 function updateSliders(chartNumber){
-	if(hasInit){
+
 
 	for(var z=0; z<numInGroup; z++){
 
@@ -149,4 +154,4 @@ function updateSliders(chartNumber){
 		}
 	drawChart();
 }
-}
+

@@ -7,7 +7,7 @@ function updateForm(){
         inputBox[boxesCreated].setAttribute("type", "text");
         inputBox[boxesCreated].setAttribute("name", `groupMember` + boxesCreated);
         inputBox[boxesCreated].setAttribute("id", `groupMember` + boxesCreated );
-        inputBox[boxesCreated].setAttribute("placeholder", `Group Member` + (boxesCreated+1).toString());
+        inputBox[boxesCreated].setAttribute("placeholder", `Group Member ` + (boxesCreated+1).toString());
         inputBox[boxesCreated].setAttribute("onchange", "updateForm()");
         inputBox[boxesCreated].style.margin = "5px";
         inputBox[boxesCreated].setAttribute("class", "groupMemberBox form-control mr-sm-2");
@@ -25,6 +25,7 @@ function updateForm(){
     if(boxesCreated != 0){
         for(i=0; i<boxesCreated; i++){
             groupMemberNames[i+1] = inputBox[i].value;
+            console.log(groupMemberNames);
             localStorage.setItem("groupMemberNamesString", groupMemberNames);
         }
     }
