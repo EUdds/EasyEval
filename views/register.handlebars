@@ -1,5 +1,5 @@
-<h2 class="page-header">Register</h2>
-<p>Please Register to use Easy Eval</p>
+<h2 class="page-header" style="text-align: center;color: white;">Register</h2>
+<p style="text-align:center; color:white;">Please Register to use Easy Eval</p>
 
    {{#if errors}} 
    {{#each errors}}
@@ -10,7 +10,7 @@
     {{> flash}}
     
 
-<form method="POST" action="/teachers/register" class="form-group form-control">
+<form method="POST" action="/teachers/register" class="form-group form-control" id="registerForm">
     <label>First Name</label>
     <input type="text" name="firstName" placeholder="John" class="form-group form-control">
      <label>Last Name</label>

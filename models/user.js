@@ -4,7 +4,7 @@ const saltRounds = 10;
 var LocalStrategy = require('passport-local').Strategy;
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/EasyEval');
+mongoose.connect('mongodb://' + process.env.IP + '/EasyEval');
 var db = mongoose.connection;
 
 //User Scheme
