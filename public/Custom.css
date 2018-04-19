@@ -1,79 +1,130 @@
 @charset "utf-8";
 /* CSS Document */
 
-body{
-    background-color: white;
-    padding: 5px;
+body {
+    background-color: #336B87 !important;
+    padding: 0 !important;
 }
 
 .slidecontainer {
-    width: 100px; /* Width of the outside container */
+    width: 100px;
+    /* Width of the outside container */
 }
 
 /* The slider itself */
+
 .slider {
-    -webkit-appearance: none;  /* Override default CSS styles */
+    -webkit-appearance: none;
+    /* Override default CSS styles */
     appearance: none;
-    width: 100%; /* Full-width */
-    height: 15px; /* Specified height */
-	border-radius: 5px;
-    background: #000000;/* Grey background */
-    outline: none; /* Remove outline */
-    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
-    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    width: 100%;
+    /* Full-width */
+    height: 15px;
+    /* Specified height */
+    border-radius: 5px;
+    background: #000000;
+    /* Grey background */
+    outline: none;
+    /* Remove outline */
+    opacity: 0.7;
+    /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s;
+    /* 0.2 seconds transition on hover */
     transition: opacity .2s;
 }
 
 /* Mouse-over effects */
+
 .slider:hover {
-    opacity: 1; /* Fully shown on mouse-over */
+    opacity: 1;
+    /* Fully shown on mouse-over */
 }
 
-/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */ 
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+
 .slider::-webkit-slider-thumb {
-    -webkit-appearance: none; /* Override default look */
+    -webkit-appearance: none;
+    /* Override default look */
     appearance: none;
-    width: 25px; /* Set a specific slider handle width */
-    height: 25px; /* Slider handle height */
+    width: 25px;
+    /* Set a specific slider handle width */
+    height: 25px;
+    /* Slider handle height */
     background: #1E00E1;
-    cursor: pointer; /* Cursor on hover */
-	border-radius: 50%;
-	z-index: 1000;
+    cursor: pointer;
+    /* Cursor on hover */
+    border-radius: 50%;
+    z-index: 1000;
 }
 
 .slider::-moz-range-thumb {
-    width: 25px; /* Set a specific slider handle width */
-    height: 25px; /* Slider handle height */
-    background: #1E00E1; /* Green background */
-    cursor: pointer; /* Cursor on hover */
-	border-radius: 50%;
+    width: 25px;
+    /* Set a specific slider handle width */
+    height: 25px;
+    /* Slider handle height */
+    background: #1E00E1;
+    /* Green background */
+    cursor: pointer;
+    /* Cursor on hover */
+    border-radius: 50%;
 }
 
-#chart{
-	width: 50%;
+#chart {
+    width: 50%;
 }
 
-.groupMemberBox{
+.groupMemberBox {
     margin: 5%;
     border: #000000;
     border-style: solid;
 }
 
-#inputBoxes{
+#inputBoxes {
     height: 75%;
     width: 100%;
 }
 
-#form{
+#form {
     margin: auto center;
 }
 
-.center_div{
+.center_div {
     margin: 0 auto;
-    width:50% /* value of your choice which suits your alignment */
+    width: 50%/* value of your choice which suits your alignment */
 }
 
-.projectContainer{
+.projectContainer {
     border: solid black;
     margin: 5%;
+}
+
+
+
+#enterPin {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    resize: both;
+    transform: translate(-50%, -50%);
+
+}
+
+#teacherDashboard {
+    width: 80%;
+    margin: auto;
+    margin-top: 20px;
+    background-color: #fff;
+    padding: 12px;
+    padding-top: 0!important;
+    text-align: center;
+}
+
+#registerForm {
+    background-color: white !important;
+    width: 90%;
+    margin: auto;
+}
+
+#evalPage {
+    background-color: white;
 }

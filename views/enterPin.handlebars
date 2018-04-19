@@ -1,13 +1,15 @@
 <div class="container-fluid">
-   <div class="jumbotron" style="margin:auto center;">
-      <div id="container" class="" align="center" style="width:100%">
+
+   <div class="jumbotron" style="margin:auto center;" id="enterPin">
+      <div id="container" class="" align="center">
+
          <h1>Easy Eval</h1>
          <p>Evaluate your group members with a click of a button!</p>
          {{> flash}}
          <div id="formContainer" class="center_div" align="center">
             <form action="/" method="POST" id="form" class="form-inline center_div" align="center">
 
-              <div class="center_div"><input type="tel" maxlength="5" onchange="updateForm()" class="form-control mb-2" id="pinNumber" name="pinNumber" placeholder="Pin Number" align="center"></div>
+              <div class="center_div"><input type="tel" maxlength="5" onchange="updateForm()" class="form-control mb-2" id="pinNumber" name="pinNumber" placeholder="Pin Number" align="center" style="position:relative; left:-76px;"></div>
                <br>
                
                <button type="submit" class="btn btn-primary btn-lg btn-block">Next</button>
@@ -20,4 +22,4 @@
             <a href="/teachers"><button type="button" class="btn  btn-outline-success btn-sm">Click Here!</button></a>
       </div>
    </div>
-</di
+</div>
