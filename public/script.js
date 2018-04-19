@@ -61,7 +61,7 @@ function drawSliders(chartNumber){
 		slider[temp].setAttribute("class", "slider");
 		slider[temp].setAttribute("id",  (chartNumber) + "slider"+i.toString());
 		slider[temp].setAttribute("name",  (chartNumber) + "slider"+i.toString());
-		slider[temp].setAttribute('onchange', "updateSliders("+chartNumber+")");
+		slider[temp].setAttribute('onInput', "updateSliders("+chartNumber+")");
 		sliderDiv[temp].appendChild(slider[temp]);
 	
 		sliderLabel[temp] = document.createElement("h4");
