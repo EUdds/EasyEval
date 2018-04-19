@@ -10,8 +10,6 @@ google.charts.setOnLoadCallback(drawChart);
 
 	function sendData(){
 		document.getElementById("groupMembers").setAttribute("value", groupMemberNamesString);
-		socket.emit('groupEval', groupMemberNames);
-		return false;
 	}
 
 	function getGroupMemberNames(){
@@ -24,7 +22,7 @@ google.charts.setOnLoadCallback(drawChart);
 
   updateSliders();
 </script>
-<div class="container-fluid">
+<div class="container-fluid" id="evalPage">
 <form action="/eval" method="POST">
 
 
@@ -34,7 +32,7 @@ google.charts.setOnLoadCallback(drawChart);
 	<h2><em>{{project.projectTitle}}</em></h2>
 </div>
 <div class="row" id="charts"></div>
-<div class="container-fluid" style="margin-bottom: 1%; width: 100%;" align="center"><button style="width: 100%; margin: auto center;" align="center" onclick="sendData()" type="button" class="btn btn-lg btn-block btn-primary" name="id" type="submit" value="{{project.connectCode}}">Submit to Teacher</button></div>
+<div class="container-fluid" style="margin-bottom: 1%; width: 100%;" align="center"><button style="width: 100%; margin: auto center;" align="center" onclick="sendData()" class="btn btn-lg btn-block btn-primary" name="id" type="submit" value="{{project.connectCode}}">Submit to Teacher</button></div>
 <div class="row" id="sliders" style="height:fit-content"></div>
 <br>
 <input name="groupMembers" id="groupMembers" style="display: none;">

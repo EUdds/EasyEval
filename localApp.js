@@ -1,5 +1,5 @@
-	var port = 8000;
-	var serverUrl = "127.0.0.1";
+	var port = process.env.PORT;
+	var serverUrl = process.env.IP;
 	var inputData;
 	var numInGroup;
 	var firstName;
@@ -456,7 +456,6 @@
 	    done(err, user);
 	  });
 	});
-
 
 
 	module.exports = app;

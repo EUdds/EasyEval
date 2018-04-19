@@ -1,6 +1,6 @@
 const { mongo } = require('mongoose');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/EasyEval');
+mongoose.connect('mongodb://' + process.env.IP + '/EasyEval');
 var db = mongoose.connection;
 
 //User Scheme
