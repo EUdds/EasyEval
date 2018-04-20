@@ -36,6 +36,7 @@ function init(){
 	console.log("Drew Charts");
 	defineSliders();
 	console.log("Defined Sliders");
+	//createButton();
 	hasInit = true;
 	for(var i=0; i<standardsInAssignment; i++){
 		updateSliders(i);
@@ -43,6 +44,18 @@ function init(){
 	
 	console.log("Updated Sliders");
 
+}
+function createButton(){
+	var button = document.createElement('button');
+	button.setAttribute("onClick", "sendData()");
+	button.setAttribute("class", "btn btn-lg btn-block btn-primary");
+	button.style.margin = "auto center";
+	button.style.display = "block";
+	button.setAttribute("name", "id");
+	button.setAttribute("type", "submit");
+	button.setAttribute("value", code);
+	button.innerHTML = "Submit to Teacher"
+	document.getElementById("form").appendChild(button);
 }
 function drawSliders(chartNumber){
 	for(var i=0; i< numInGroup; i++){
@@ -69,6 +82,8 @@ function drawSliders(chartNumber){
 		sliderLabel[temp].innerHTML = 'Loading...';
 		sliderDiv[temp].appendChild(sliderLabel[temp]);
 		sliderOutputs[temp] = slider[temp].value;
+
+	
 	
 	
 	

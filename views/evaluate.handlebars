@@ -7,6 +7,7 @@ google.charts.setOnLoadCallback(drawChart);
 	standardsInAssignment = {{project.standardsInAssignment}};
 	standardsString = `{{project.standards}}`;
 	chartTitle = standardsString.split(',');
+	var code= {{project.connectCode}}
 
 	function sendData(){
 		document.getElementById("groupMembers").setAttribute("value", groupMemberNamesString);
@@ -19,11 +20,9 @@ google.charts.setOnLoadCallback(drawChart);
 	groupMemberNamesString = localStorage.getItem("groupMemberNamesString");
 
 	groupMemberNames = groupMemberNamesString.split(`,`);
-
-  updateSliders();
 </script>
-<div class="container-fluid">
-<form action="/eval" method="POST">
+<div id="container" class="container-fluid">
+<form id="form" action="/eval" method="POST">
 
 
 <div class="page-header" align="center">
@@ -33,16 +32,13 @@ google.charts.setOnLoadCallback(drawChart);
 </div>
 <div class="row" id="charts"></div>
 <div class="row" id="sliders" style="height:fit-content"></div>
-<button style="margin: auto center;" align="center" onclick="sendData()" class="btn btn-lg btn-primary" name="id" type="submit" value="{{project.connectCode}}">Submit to Teacher</button>
+<button style="margin: auto center; position:fixed; bottom:0; left:0;" align="center" onclick="sendData()" class="btn btn-lg btn-block btn-primary" name="id" type="submit" value="{{project.connectCode}}">Submit to Teacher</button>
 <br>
 <input name="groupMembers" id="groupMembers" style="display: none;">
 <input name="submitter" id="submitter" value="{{firstName}}" style="display: none;">
 <input name="groupNumber" id="groupNumber" value="{{groupNumber}}" style="display: none;">
 
 	</div>
-
-
-
 </form>
   <script>
     window.onload = function(){
