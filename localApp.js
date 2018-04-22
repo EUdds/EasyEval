@@ -1,5 +1,5 @@
-	var port = 8000;
-	var serverUrl = "127.0.0.1";
+	var port = process.env.PORT;
+	var serverUrl = process.env.IP;
 	var inputData;
 	var numInGroup;
 	var firstName;
@@ -12,8 +12,6 @@
 	  groupMembers: null
 	};
 
-
-	//All libraries were written and owned by their respective owners
 	var express = require('express'),
 	  app = module.exports.app = express();
 	var http = require("http").Server(app);
@@ -264,8 +262,7 @@
 	});
 
 	app.post('/eval', function (req, res) {
-		console.log("posting");
-		Project.findOne({
+	  Project.findOne({
 	    connectCode: req.body.id
 	  }, function (err, project) {
 	    if (err) console.log(err);
@@ -301,7 +298,7 @@
 	  }, function (err, project) {
 	    if (!project) {
 	      req.flash('errors', {
-	        msg: 'Pin Not Reconized, Try Again'
+	        msg: 'Game Pin Not Reconized, Try Again'
 	      });
 	      return res.redirect('/');
 	    }
@@ -423,7 +420,7 @@
 	app.post('/teachers/createProject', postCreateProject);
 
   app.get('/teachers/results/:code', function (req, res) {
-		Project.findOne({
+    Project.findOne({
       connectCode: req.params.code
 	  }, function (err, project) {
       if (err) console.log(err);
@@ -459,7 +456,6 @@
 	    done(err, user);
 	  });
 	});
-
 
 
 	module.exports = app;
