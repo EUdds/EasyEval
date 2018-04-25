@@ -19,6 +19,7 @@ function updateForm(){
         for(var i=boxesCreated; i>input; i--){
         document.getElementById("inputBoxes").removeChild(inputBox[inputBox.length-1]);
         inputBox.pop();
+        groupMemberNames.pop();
         boxesCreated--;
         }
     }

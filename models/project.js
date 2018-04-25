@@ -24,7 +24,11 @@ var projectSchema = mongoose.Schema({
         type: Number,
         uniquie: true
     },
-    submissions:[]
+    submissions:[],
+    
+    isPointWeight:{
+        type: Boolean
+    }
 });
 
 

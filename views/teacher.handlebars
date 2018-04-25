@@ -18,6 +18,9 @@
             <h3>Students can connect with: {{connectCode}}</h3>
             <h3>{{standardsInAssignments}} Standards:  <small> {{standards}}</small></h3>
             <h3>Max Score: {{maxScore}}</h3>
+            {{#if isPointWeight}}
+            <h3><em>Students are Weighing Points</em></h3>
+            {{/if}}
             <h3>{{submissions.length}} Responses</h3>
             <div id="buttonContainer" align="center">
             <a href="/teachers/results/{{connectCode}}"><button type="button" class="btn btn-success btn-lg">View Results</button></a>
@@ -62,8 +65,6 @@
   // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
   // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
   var path = "/teachers/deleteProject/" + code.toString();
-  console.log(path);
-  var modal = $(this)
   document.getElementById("buttonLink").setAttribute('href', path);
 })
 </script>

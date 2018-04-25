@@ -7,6 +7,10 @@ function buildSliderName(standard, member) {
     return String(standard + "slider" + member);
 }
 
+function buildWeightName(member){
+    return String("pointWeightSlider" + member);
+}
+
 function buildFileName(title) {
     var d = new Date();
     return String(title + "_" + (d.getMonth() + 1) + d.getDate() + '.xlsx');
@@ -52,6 +56,9 @@ module.exports.exportResults = function (id) {
             for (var i = 1; i <= project.standardsInAssignment; i++) {
                 ws.cell(1, i + 3).string(String(standards[i - 1])).style(header);
             }
+            if(project.isPointWeight){
+                ws.cell(1, (project.standardsInAssignment + 4)).string("Point Weight").style(header);
+            }
             for (var i = 0; i <= project.submissions.length; i++) {
                 
                 if (project.submissions[i]) {
@@ -81,6 +88,10 @@ module.exports.exportResults = function (id) {
                         for (var y = 0; y < project.standardsInAssignment; y++) {
                             ws.cell(math+z, y + 4).number(Number(project.submissions[i][buildSliderName(y, z)])).style(style);
                         }
+                        if(project.isPointWeight){
+                            console.log(project.submissions[i][buildWeightName(z)]);
+                            ws.cell(math+z, (project.standardsInAssignment + 4)).number(Number(project.submissions[i][buildWeightName(z)])).style(style);
+                            }
 
                     }
 

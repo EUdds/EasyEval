@@ -4,6 +4,7 @@ google.charts.setOnLoadCallback(drawChart);
   numInGroup = {{numInGroup}} + 1;
   firstName = '{{firstName}}';
 	maxScore = {{project.maxScore}};
+	isPointWeight = {{project.isPointWeight}};
 	standardsInAssignment = {{project.standardsInAssignment}};
 	standardsString = `{{project.standards}}`;
 	chartTitle = standardsString.split(',');
@@ -22,7 +23,7 @@ google.charts.setOnLoadCallback(drawChart);
 	groupMemberNames = groupMemberNamesString.split(`,`);
 </script>
 <div class="container-fluid" id="evalPage">
-<form action="/eval" method="POST">
+<form id="submitForm" action="/eval" method="POST">
 
 
 <div class="page-header" align="center">
@@ -37,8 +38,8 @@ google.charts.setOnLoadCallback(drawChart);
 <input name="groupMembers" id="groupMembers" style="display: none;">
 <input name="submitter" id="submitter" value="{{firstName}}" style="display: none;">
 <input name="groupNumber" id="groupNumber" value="{{groupNumber}}" style="display: none;">
+</div>
 
-	</div>
 </form>
   <script>
     window.onload = function(){
