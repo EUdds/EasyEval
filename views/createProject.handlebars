@@ -45,7 +45,7 @@ window.onload = function(){
 </script>
 {{> flash}}
 <div>
-    <div align="center" style="width: 80%; margin: 0 auto; ">
+    <div align="center" style="width: 80%;margin: auto;margin-top: 20px;">
 <form method="POST" action="/teachers/createProject" class="form-group form-control">
 
     <label>Name of Project</label>
@@ -56,6 +56,11 @@ window.onload = function(){
     <div id="standardBoxes"></div>
     <label>Max Score</label>
     <input type="number" onChange="updateForm()" value="{{project.maxScore}}" name="maxScore" min="1" max="100" id="maxScore" placeholder="The Maximum Number of Points Students Can Score" class="form-group form-control">
+    <div class="form-group form-check">
+    <input type="checkbox" class="form-check-input" id="pointWeights" name="isPointWeight">
+    <label class="form-check-label" for="pointWeights">Include Point Weighting</label>
+  </div>
+
     <input type="submit" class="btn btn-primary" name="Submit" value="Create Project" class="form-group form-control">
 </form>
 </div>

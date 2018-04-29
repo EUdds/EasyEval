@@ -1,6 +1,7 @@
 
 Dashboard with all results
 
+Button below sliders
 
  for(var i=0; i<groupMemberArray.length; i++){
               document.getElementById(i + "member").innerHTML = groupMemberArray[i];

@@ -170,17 +170,25 @@
 	  });
 	};
 	postCreateProject = function (req, res, next) {
-	  var standards = [];
+		var standards = [];
+		var isPointWeight;
+		if(req.body.isPointWeight === "on"){
+			isPointWeight = true;
+		}else{
+			isPointWeight = false;
+		}
 	  for (var i = 0; i < req.body.numStandards; i++) {
 	    standards[i] = req.body.standard[i];
-	  }
+		}
+		
 	  var project = new Project({
 	    projectTitle: req.body.projectName,
 	    standardsInAssignment: req.body.numStandards,
 	    standards: standards.toString(),
 	    maxScore: req.body.maxScore,
 	    creator: req.user.username,
-	    connectCode: Math.floor(Math.random() * 90000) + 10000
+			connectCode: Math.floor(Math.random() * 90000) + 10000,
+			isPointWeight: isPointWeight
 
 	  });
 
@@ -250,9 +258,6 @@
 	  });
 	}
 
-	function sleep(ms) {
-	  return new Promise(resolve => setTimeout(resolve, ms));
-	}
 	var checkMimeType = true;
 
 	console.log("Starting web server at " + serverUrl + ":" + port);
@@ -263,12 +268,13 @@
 	  res.render('enterPin');
 	});
 
-	app.post('/eval', function (req, res) {
+	app.post('/eval', function (req, res) { 
 		console.log("posting");
 		Project.findOne({
 	    connectCode: req.body.id
 	  }, function (err, project) {
-	    if (err) console.log(err);
+			if (err) console.log(err);
+
 	      Project.update({
 	          connectCode: project.connectCode
 	        }, {	
@@ -282,7 +288,7 @@
 	  });
 		req.flash('success', {msg: 'Successfully Submitted to Teacher!'})
 	  return res.redirect('/');
-
+	
 	});
 
 	io.on('connection', function (socket) {
@@ -459,6 +465,7 @@
 	    done(err, user);
 	  });
 	});
+
 
 
 	module.exports = app;
