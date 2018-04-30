@@ -172,7 +172,7 @@
 	postCreateProject = function (req, res, next) {
 		var standards = [];
 		var isPointWeight;
-		if(req.body.isPointWeight === "on"){
+		if(req.body.isPointWeight == "on"){
 			isPointWeight = true;
 		}else{
 			isPointWeight = false;

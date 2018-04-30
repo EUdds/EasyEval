@@ -4,7 +4,7 @@ google.charts.setOnLoadCallback(drawChart);
   numInGroup = {{numInGroup}} + 1;
   firstName = '{{firstName}}';
 	maxScore = {{project.maxScore}};
-	isPointWeight = {{project.isPointWeight}};
+	isPointWeight = {{project.isPointWeight}} || false;
 	standardsInAssignment = {{project.standardsInAssignment}};
 	standardsString = `{{project.standards}}`;
 	chartTitle = standardsString.split(',');
