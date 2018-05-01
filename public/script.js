@@ -28,6 +28,8 @@ var pointWeightChart;
 var totalPoints = 0;
 var totalInputBox;
 var addingArray = [];
+var pointWeightHeader;
+var weightTotal = numInGroup * 100;
 
 google.charts.load('current', {
 	'packages': ['corechart']
@@ -195,7 +197,7 @@ function updateSliders(chartNumber) {
 
 function createPointWeight() {
 	var pointWeightName = [];
-	var weightTotal = numInGroup * 100;
+	
 	var sliderMax = 100+ (numInGroup*10);
 	var pwSliderDiv = [];
 	var sliderMin = 100 - (numInGroup*10);
@@ -220,6 +222,11 @@ function createPointWeight() {
 		pointWeightDiv.style.position = "absolute";
 		pointWeightDiv.style.left = (chartWidth / 4) + (chart.length * chartWidth) + "px";
 		pointWeightDiv.style.width = chartWidth;
+
+		pointWeightHeader = document.createElement("h3");
+		pointWeightHeader.innerHTML ="Total: " + totalPoints;
+		pointWeightDiv.appendChild(pointWeightHeader);
+		
 		document.getElementById("sliders").appendChild(pointWeightDiv);
 
 		
@@ -233,8 +240,8 @@ function createPointWeight() {
 
 			pointWeightSliders[i] = document.createElement("input");
 			pointWeightSliders[i].setAttribute("type", "range");
-			pointWeightSliders[i].setAttribute("min", sliderMin);
-			pointWeightSliders[i].setAttribute("max", sliderMax);
+			pointWeightSliders[i].setAttribute("min", "80");
+			pointWeightSliders[i].setAttribute("max", "120");
 			pointWeightSliders[i].setAttribute("value", "100");
 			pointWeightSliders[i].setAttribute("class", "slider");
 			pointWeightSliders[i].setAttribute("id", "pointWeightSlider" + i);
@@ -307,6 +314,12 @@ function updateTotal(){
 	totalPoints = addingArray.reduce(add, 0);
 
 	totalInputBox.setAttribute("value", totalPoints);
+	pointWeightHeader.innerHTML ="Total: " + totalPoints;
+	if(totalPoints == weightTotal){
+		pointWeightHeader.style.color = "green";
+	}else{
+		pointWeightHeader.style.color = "red";
+	}
 }
 
 function add(a, b) {

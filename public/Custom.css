@@ -127,4 +127,11 @@ body {
 
 #evalPage {
     background-color: white;
+    height: 100%;
+}
+
+#welcomePage{
+    background-color: white;
+    padding: 10px;
+    
 }

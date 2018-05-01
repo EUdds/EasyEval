@@ -14,6 +14,7 @@
 
 
 	//All libraries were written and owned by their respective owners
+	const nodemailer = require('nodemailer');
 	var express = require('express'),
 	  app = module.exports.app = express();
 	var http = require("http").Server(app);
@@ -453,8 +454,6 @@
       }
 	  })
 	});
-
-
 
 	passport.serializeUser(function (user, done) {
 	  done(null, user.id);
