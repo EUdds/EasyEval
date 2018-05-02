@@ -12,6 +12,8 @@
 	  groupMembers: null
 	};
 
+
+	//All libraries were written and owned by their respective owners
 	var express = require('express'),
 	  app = module.exports.app = express();
 	var http = require("http").Server(app);
@@ -168,17 +170,25 @@
 	  });
 	};
 	postCreateProject = function (req, res, next) {
-	  var standards = [];
+		var standards = [];
+		var isPointWeight;
+		if(req.body.isPointWeight == "on"){
+			isPointWeight = true;
+		}else{
+			isPointWeight = false;
+		}
 	  for (var i = 0; i < req.body.numStandards; i++) {
 	    standards[i] = req.body.standard[i];
-	  }
+		}
+		
 	  var project = new Project({
 	    projectTitle: req.body.projectName,
 	    standardsInAssignment: req.body.numStandards,
 	    standards: standards.toString(),
 	    maxScore: req.body.maxScore,
 	    creator: req.user.username,
-	    connectCode: Math.floor(Math.random() * 90000) + 10000
+			connectCode: Math.floor(Math.random() * 90000) + 10000,
+			isPointWeight: isPointWeight
 
 	  });
 
@@ -248,9 +258,6 @@
 	  });
 	}
 
-	function sleep(ms) {
-	  return new Promise(resolve => setTimeout(resolve, ms));
-	}
 	var checkMimeType = true;
 
 	console.log("Starting web server at " + serverUrl + ":" + port);
@@ -261,11 +268,13 @@
 	  res.render('enterPin');
 	});
 
-	app.post('/eval', function (req, res) {
-	  Project.findOne({
+	app.post('/eval', function (req, res) { 
+		console.log("posting");
+		Project.findOne({
 	    connectCode: req.body.id
 	  }, function (err, project) {
-	    if (err) console.log(err);
+			if (err) console.log(err);
+
 	      Project.update({
 	          connectCode: project.connectCode
 	        }, {	
@@ -279,7 +288,7 @@
 	  });
 		req.flash('success', {msg: 'Successfully Submitted to Teacher!'})
 	  return res.redirect('/');
-
+	
 	});
 
 	io.on('connection', function (socket) {
@@ -298,7 +307,7 @@
 	  }, function (err, project) {
 	    if (!project) {
 	      req.flash('errors', {
-	        msg: 'Game Pin Not Reconized, Try Again'
+	        msg: 'Pin Not Reconized, Try Again'
 	      });
 	      return res.redirect('/');
 	    }
@@ -420,7 +429,7 @@
 	app.post('/teachers/createProject', postCreateProject);
 
   app.get('/teachers/results/:code', function (req, res) {
-    Project.findOne({
+		Project.findOne({
       connectCode: req.params.code
 	  }, function (err, project) {
       if (err) console.log(err);

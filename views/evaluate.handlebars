@@ -4,9 +4,16 @@ google.charts.setOnLoadCallback(drawChart);
   numInGroup = {{numInGroup}} + 1;
   firstName = '{{firstName}}';
 	maxScore = {{project.maxScore}};
+	pointWeightString = "{{project.isPointWeight}}"
+		if(pointWeightString === "true"){
+		isPointWeight = true;
+	}else{
+		isPointWeight = false;
+	}
 	standardsInAssignment = {{project.standardsInAssignment}};
 	standardsString = `{{project.standards}}`;
 	chartTitle = standardsString.split(',');
+	var code= {{project.connectCode}}
 
 	function sendData(){
 		document.getElementById("groupMembers").setAttribute("value", groupMemberNamesString);
@@ -19,11 +26,9 @@ google.charts.setOnLoadCallback(drawChart);
 	groupMemberNamesString = localStorage.getItem("groupMemberNamesString");
 
 	groupMemberNames = groupMemberNamesString.split(`,`);
-
-  updateSliders();
 </script>
 <div class="container-fluid" id="evalPage">
-<form action="/eval" method="POST">
+<form id="submitForm" action="/eval" method="POST">
 
 
 <div class="page-header" align="center">
@@ -32,16 +37,13 @@ google.charts.setOnLoadCallback(drawChart);
 	<h2><em>{{project.projectTitle}}</em></h2>
 </div>
 <div class="row" id="charts"></div>
-<div class="container-fluid" style="margin-bottom: 1%; width: 100%;" align="center"><button style="width: 100%; margin: auto center;" align="center" onclick="sendData()" class="btn btn-lg btn-block btn-primary" name="id" type="submit" value="{{project.connectCode}}">Submit to Teacher</button></div>
 <div class="row" id="sliders" style="height:fit-content"></div>
+<button style="margin: auto center; position:fixed; bottom:0; left:0;" align="center" onclick="sendData()" class="btn btn-lg btn-block btn-primary" name="id" type="submit" value="{{project.connectCode}}">Submit to Teacher</button>
 <br>
 <input name="groupMembers" id="groupMembers" style="display: none;">
 <input name="submitter" id="submitter" value="{{firstName}}" style="display: none;">
 <input name="groupNumber" id="groupNumber" value="{{groupNumber}}" style="display: none;">
-
-	</div>
-
-
+</div>
 
 </form>
   <script>

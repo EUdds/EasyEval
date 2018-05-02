@@ -7,7 +7,7 @@ function updateForm(){
         inputBox[boxesCreated].setAttribute("type", "text");
         inputBox[boxesCreated].setAttribute("name", `groupMember` + boxesCreated);
         inputBox[boxesCreated].setAttribute("id", `groupMember` + boxesCreated );
-        inputBox[boxesCreated].setAttribute("placeholder", `Group Member ` + (boxesCreated+1).toString());
+        inputBox[boxesCreated].setAttribute("placeholder", `Group Member ` + (boxesCreated+1).toString() + ` Name`);
         inputBox[boxesCreated].setAttribute("onchange", "updateForm()");
         inputBox[boxesCreated].style.margin = "5px";
         inputBox[boxesCreated].setAttribute("class", "groupMemberBox form-control mr-sm-2");
@@ -19,6 +19,7 @@ function updateForm(){
         for(var i=boxesCreated; i>input; i--){
         document.getElementById("inputBoxes").removeChild(inputBox[inputBox.length-1]);
         inputBox.pop();
+        groupMemberNames.pop();
         boxesCreated--;
         }
     }
