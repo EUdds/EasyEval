@@ -39,6 +39,7 @@
 	var passportConfig = require('./config/passport');
 	var io = require('socket.io')(http);
 	var xcell = require('./excel');
+	var favicon = require('serve-favicon');
 
 	exphbs = require('express3-handlebars'),
 	  app.engine('handlebars', exphbs({
@@ -56,6 +57,8 @@
 	  saveUninitialized: true,
 	  resave: true
 	}));
+
+	app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 
 	//Passport Austh
 	app.use(passport.initialize());
@@ -183,9 +186,9 @@
 		}
 		
 	  var project = new Project({
-	    projectTitle: req.body.projectName,
+	    projectTitle: String(req.body.projectName),
 	    standardsInAssignment: req.body.numStandards,
-	    standards: standards.toString(),
+	    standards: String(standards),
 	    maxScore: req.body.maxScore,
 	    creator: req.user.username,
 			connectCode: Math.floor(Math.random() * 90000) + 10000,

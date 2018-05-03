@@ -42,6 +42,13 @@
 window.onload = function(){
     updateForm();
 }
+
+$('.popover-dismiss').popover({
+  trigger: 'focus'
+})
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
 </script>
 {{> flash}}
 <div>
@@ -49,7 +56,11 @@ window.onload = function(){
 <form method="POST" action="/teachers/createProject" class="form-group form-control">
 
     <label>Name of Project</label>
-    <input onChange="updateForm()" type="text" value="{{project.projectTitle}}" id="projectName" name="projectName" placeholder="My Totally Awesome Project" class="form-group form-control">
+    {{#if project}}
+    <input onChange="updateForm()" type="text" value="Copy of {{project.projectTitle}}" id="projectName" name="projectName" placeholder="My Totally Awesome Project" class="form-group form-control">
+    {{else}}
+    <input onChange="updateForm()" type="text" id="projectName" name="projectName" placeholder="My Totally Awesome Project" class="form-group form-control">
+    {{/if}}
     <label>Number of Standards</label>
     <input type="number" onChange="updateForm()" value="{{project.standardsInAssignment}}" name="numStandards" id="numStandards" placeholder="Number of Standards" class="form-group form-control" min="1">
     <label>Standard Titles</label>
@@ -58,9 +69,10 @@ window.onload = function(){
     <input type="number" onChange="updateForm()" value="{{project.maxScore}}" name="maxScore" min="1" max="100" id="maxScore" placeholder="The Maximum Number of Points Students Can Score" class="form-group form-control">
     <div class="form-group form-check">
     <input type="checkbox" class="form-check-input" id="pointWeights" name="isPointWeight">
-    <label class="form-check-label" for="pointWeights">Include Point Weighting</label>
+    <label class="form-check-label" for="pointWeights">Include </label>&nbsp;<a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="What is Point Weighing?" data-content="A cool and hip way to show information">Point Weighing</a>
+    {{!-- TODO: Add content to popover --}}
   </div>
-
     <input type="submit" class="btn btn-primary" name="Submit" value="Create Project" class="form-group form-control">
+    <a href="/teachers/dashboard"><input type="button" class="btn btn-danger" name="goBack" value="Cancel" class="form-group form-control"></a>
 </form>
 </div>

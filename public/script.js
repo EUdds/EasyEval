@@ -227,6 +227,7 @@ function createPointWeight() {
 		pointWeightHeader.innerHTML ="Total: " + totalPoints;
 		pointWeightDiv.appendChild(pointWeightHeader);
 		
+		
 		document.getElementById("sliders").appendChild(pointWeightDiv);
 
 		
@@ -255,6 +256,7 @@ function createPointWeight() {
 			pwSliderDiv[i].appendChild(pwSliderLabel[i]);
 
 		}
+		
 
 		pointWeightData = new google.visualization.DataTable();
 
