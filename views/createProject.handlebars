@@ -68,7 +68,7 @@ $(function () {
     <label>Max Score</label>
     <input type="number" onChange="updateForm()" value="{{project.maxScore}}" name="maxScore" min="1" max="100" id="maxScore" placeholder="The Maximum Number of Points Students Can Score" class="form-group form-control">
     <div class="form-group form-check">
-    <input type="checkbox" class="form-check-input" id="pointWeights" name="isPointWeight">
+    <input type="checkbox" class="form-check-input" id="pointWeights" name="isPointWeight" {{#if project.isPointWeight}}checked {{/if}}>
     <label class="form-check-label" for="pointWeights">Include </label>&nbsp;<a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="What is Point Weighing?" data-content="A cool and hip way to show information">Point Weighing</a>
     {{!-- TODO: Add content to popover --}}
   </div>

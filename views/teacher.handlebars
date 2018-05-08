@@ -1,6 +1,6 @@
 {{> flash}}
 <div id="teacherDashboard" class="jumbotron">
-<h1 align="center">{{user.firstName}}'s Dashboard</h1>
+<h1 align="center">{{user.firstName}}'s Projects</h1>
 <br>
 {{#if projects}}
 <div class="container" align="center"><a href="/teachers/createProject"><button type="button" class="btn btn-primary btn-lg" >Start a New Project!</button></a>
@@ -8,8 +8,6 @@
 <br>
 
 <div>
-<h2 align="center">Your Projects</h2>
-<br>
 <div class="container">
     
     {{#each projects}}
@@ -31,6 +29,8 @@
 
 
     {{/each}}
+    <div class="container" align="center"><a href="/teachers/createProject"><button type="button" class="btn btn-primary btn-lg" >Start a New Project!</button></a>
+</div>
     {{else}}
     <h1>You Haven't Created Any Projects!</h1>
     <h4>Make One Now</h4>

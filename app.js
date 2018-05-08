@@ -458,6 +458,31 @@
 	  })
 	});
 
+	app.post('/account/password', function(req,res){
+		req.assert('password', 'Password must be at least 4 characters long').len(4);
+		req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
+		
+		var errors = req.validationErrors();
+
+		if(errors){
+			req.flash('errors', errors);
+			return res.redirect('/teachers/dashboard');
+		}
+		User.findById(req.user.id, function(err, user){
+			if(err){
+				return next(err);
+			}
+			user.password = req.body.password;
+			user.save(function(err){
+				if(err){
+					return next(err);
+				}
+				req.flash('success', {msg: 'Password has been changed'});
+				res.redirect('/teachers/dashboard');
+			});
+		});
+	});
+
 	passport.serializeUser(function (user, done) {
 	  done(null, user.id);
 	});
