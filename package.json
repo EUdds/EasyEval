@@ -18,10 +18,12 @@
     "http": "0.0.0",
     "mongodb": "*",
     "mongoose": "*",
+    "nodemailer": "^4.6.4",
     "passport": "*",
     "passport-http": "*",
     "passport-local": "*",
     "request": "^2.85.0",
+    "serve-favicon": "^2.5.0",
     "socket.io": "^2.1.0"
   },
   "devDependencies": {},

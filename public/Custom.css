@@ -2,7 +2,7 @@
 /* CSS Document */
 
 body {
-    background-color: #5595fc!important;
+    background-color: #06AED5 !important;
     padding: 0 !important;
 }
 
@@ -127,4 +127,11 @@ body {
 
 #evalPage {
     background-color: white;
+    height: 100%;
+}
+
+#welcomePage{
+    background-color: white;
+    padding: 10px;
+    
 }

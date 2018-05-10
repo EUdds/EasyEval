@@ -14,6 +14,7 @@
 
 
 	//All libraries were written and owned by their respective owners
+	const nodemailer = require('nodemailer');
 	var express = require('express'),
 	  app = module.exports.app = express();
 	var http = require("http").Server(app);
@@ -38,6 +39,7 @@
 	var passportConfig = require('./config/passport');
 	var io = require('socket.io')(http);
 	var xcell = require('./excel');
+	var favicon = require('serve-favicon');
 
 	exphbs = require('express3-handlebars'),
 	  app.engine('handlebars', exphbs({
@@ -55,6 +57,8 @@
 	  saveUninitialized: true,
 	  resave: true
 	}));
+
+	app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 
 	//Passport Austh
 	app.use(passport.initialize());
@@ -182,9 +186,9 @@
 		}
 		
 	  var project = new Project({
-	    projectTitle: req.body.projectName,
+	    projectTitle: String(req.body.projectName),
 	    standardsInAssignment: req.body.numStandards,
-	    standards: standards.toString(),
+	    standards: String(standards),
 	    maxScore: req.body.maxScore,
 	    creator: req.user.username,
 			connectCode: Math.floor(Math.random() * 90000) + 10000,
@@ -454,7 +458,30 @@
 	  })
 	});
 
+	app.post('/account/password', function(req,res){
+		req.assert('password', 'Password must be at least 4 characters long').len(4);
+		req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
+		
+		var errors = req.validationErrors();
 
+		if(errors){
+			req.flash('errors', errors);
+			return res.redirect('/teachers/dashboard');
+		}
+		User.findById(req.user.id, function(err, user){
+			if(err){
+				return next(err);
+			}
+			user.password = req.body.password;
+			user.save(function(err){
+				if(err){
+					return next(err);
+				}
+				req.flash('success', {msg: 'Password has been changed'});
+				res.redirect('/teachers/dashboard');
+			});
+		});
+	});
 
 	passport.serializeUser(function (user, done) {
 	  done(null, user.id);
