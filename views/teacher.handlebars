@@ -21,7 +21,7 @@
             {{/if}}
             <h3>{{submissions.length}} Responses</h3>
             <div id="buttonContainer" align="center">
-            <a href="/teachers/results/{{connectCode}}"><button type="button" class="btn btn-success btn-lg">View Results</button></a>
+            <a href="/teachers/results/{{connectCode}}"><button type="button" class="btn btn-success btn-lg"><i class="fa fa-sign-out-alt"></i>View Results</button></a>
             <a href="/teachers/copyProject/{{connectCode}}"><button type="button" class="btn btn-info btn-lg">Copy Project</button></a>
             <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#deleteModal" data-code="{{connectCode}}">Delete Project</button>
             </div>
@@ -51,8 +51,8 @@
         Are you sure you want to delete this project?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">No, take me back!</button>
-        <a id="buttonLink"><button type="button" class="btn btn-success">Yes, delete forever!</button></a>
+        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-arrow-circle-left"></i>&nbsp;No, take me back!</button>
+        <a id="buttonLink"><button type="button" class="btn btn-success"><i class="fa fa-trash"></i>&nbsp;Yes, delete forever!</button></a>
       </div>
     </div>
   </div>
