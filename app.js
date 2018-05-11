@@ -336,7 +336,7 @@
 	    firstName: firstName,
 	    numInGroup: numInGroup,
       project: chosenProject,
-      groupNumber: groupNumber
+			groupNumber: groupNumber
 	  });
 	});
 
