@@ -39,17 +39,15 @@ google.charts.load('current', {
 
 
 function init() {
+	document.getElementById("evalPage").style.height = String(screen.height) + "px";
 	if (isPointWeight) {
 		chartWidth = (document.documentElement.clientWidth / (standardsInAssignment + 1) - 10);
 	} else {
 		chartWidth = (document.documentElement.clientWidth / (standardsInAssignment) - 10);
 	}
 	defineLocations();
-	console.log("defined Location");
 	drawChart();
-	console.log("Drew Charts");
 	defineSliders();
-	console.log("Defined Sliders");
 	//createButton();
 	hasInit = true;
 	if (isPointWeight) {
@@ -59,8 +57,6 @@ function init() {
 	for (var i = 0; i < standardsInAssignment; i++) {
 		updateSliders(i);
 	}
-
-	console.log("Updated Sliders");
 
 }
 

@@ -8,6 +8,7 @@ body {
 
 .slidecontainer {
     width: 100px;
+    height: auto;
     /* Width of the outside container */
 }
 
@@ -132,7 +133,7 @@ body {
 
 #evalPage {
     background-color: white;
-    height: 100%;
+    height: auto;
 }
 
 #welcomePage{

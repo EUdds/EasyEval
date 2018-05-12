@@ -18,7 +18,7 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #E75480 !important;">
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #FFFFFF !important; color: black !important;">
   <a class="navbar-brand" href="/teachers">EasyEval</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -26,28 +26,27 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-       <li class="nav-item">
-        <a class="nav-link" href="/teachers">About<span class="sr-only">(current)</span></a>
+       <li class="nav-item {{#if active.About}}active {{/if}}">
+        <a class="nav-link " href="/teachers">About<span class="sr-only">(current)</span></a>
       </li>
       {{#if user}}
-       <li class="nav-item">
+       <li class="nav-item {{#if active.Projects}}active {{/if}}">
         <a class="nav-link" href="/teachers/dashboard">Projects<span class="sr-only">(current)</span></a>
       </li>
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{user.username}}
-        </a>
-     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" data-toggle="modal" data-target="#changePassModal" href="#">Change Password</a>
-          <a class="dropdown-item disabled" href="#">Contact Support</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="/teachers/logout"><i class="fa fa-sign-out-alt"></i>Log Out</a>
-        </div>
-    </ul>
+         <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{user.username}}</a>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" data-toggle="modal" data-target="#changePassModal">Change Password</a>
+      <a class="dropdown-item disabled">Contact Support</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="/teachers/logout"><i class="fa fa-sign-out-alt"></i>Log Out</a>
+    </div>
+  </li>
         {{else}}
-      <li class="nav-item">
+      <li class="nav-item {{#if active.Register}}active {{/if}}">
         <a class="nav-link" href="/teachers/register">Register</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item {{#if active.Login}}active {{/if}}">
         <a class="nav-link" href="/teachers/login">Login</a>
       </li>
   

@@ -1,27 +1,56 @@
 <h2 class="page-header" style="text-align: center;color: white;">Register</h2>
 <p style="text-align:center; color:white;">Please Register to use Easy Eval</p>
 
-   {{#if errors}} 
-   {{#each errors}}
-   <div class="alert alert-danger">{{this.msg}}</div>
-    {{/each}}
-    {{/if}}
+{{#if errors}} {{#each errors}}
+<div class="alert alert-danger">{{this.msg}}</div>
+{{/each}} {{/if}} {{> flash}}
 
-    {{> flash}}
-    
 
 <form method="POST" action="/teachers/register" class="form-group form-control" id="registerForm">
-    <label>First Name</label>
-    <input type="text" name="firstName" placeholder="John" class="form-group form-control">
-     <label>Last Name</label>
-    <input type="text" name="lastName" placeholder="Doe" class="form-group form-control">
-    <label>Email</label>
-    <input type="email" name="email" placeholder="John.Doe@Gmail.com" class="form-group form-control">
-    <label>Username</label>
-    <input type="text" name="username" placeholder="JohnD" class="form-group form-control">
-    <label>Password</label>
-    <input type="password" name="password" placeholder="Password" class="form-group form-control">
-    <label>Confirm Password</label>
-    <input type="password" name="password2" placeholder="Password" class="form-group form-control">
+
+    <div class="input-group">
+        <div class="input-group-prepend">
+        <span class="input-group-text" id=""><i class="fa fa-user"></i> &nbsp;First and last name</span>
+        </div>
+        <input type="text" name="firstName" placeholder="John" class="form-group form-control">
+        <input type="text" name="lastName" placeholder="Doe" class="form-group form-control">
+    </div>
+    {{!-- <label>Email</label>
+    <input type="email" name="email" placeholder="John.Doe@Gmail.com" class="form-group form-control"> --}}
+    <br>
+    <div class="input-group">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1"><i class="fa fa-envelope"></i> &nbsp;Email</span>
+  </div>
+  <input type="email" name="email" placeholder="John.Doe@Gmail.com" class="form-group form-control">
+</div>
+ <br>
+    <div class="input-group">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i> &nbsp;Username</span>
+  </div>
+  <input type="text" name="username" placeholder="JohnD" class="form-group form-control">
+</div>
+ 
+     <br>
+    <div class="input-group">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1"><i class="fa fa-lock"></i> &nbsp;Password</span>
+  </div>
+  <input type="password" name="password" placeholder="Password" class="form-group form-control">
+</div>
+   
+       &nbsp;
+       <div class="input-group">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1"><i class="fa fa-lock"></i> &nbsp;Confirm Password</span>
+  </div>
+  <input type="password" name="password2" placeholder="Password" class="form-group form-control">
+</div>
+
+    <br>
+    
     <input type="submit" class="btn btn-primary" name="Submit" value="Register" class="form-group form-control">
+
+
 </form>
