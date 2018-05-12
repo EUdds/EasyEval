@@ -32,7 +32,7 @@ userSchema.pre('save', function(next) {
     if (!user.isModified('password')) {
       return next();
     }
-    bcrypt.genSalt(saltRounds, function(err, salt) {
+    bcrypt.genSalt(10, function(err, salt) {
       if (err) {
         return next(err);
       }
@@ -45,6 +45,7 @@ userSchema.pre('save', function(next) {
       });
     });
   });
+  
 
 
 module.exports.getUserById = function(id, callback){

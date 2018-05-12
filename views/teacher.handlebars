@@ -8,7 +8,7 @@
 <br>
 
 <div>
-<div class="container">
+{{!-- <div class="container">
     
     {{#each projects}}
         <div class="projectContainer">
@@ -29,13 +29,49 @@
 
 
     {{/each}}
-    <div class="container" align="center"><a href="/teachers/createProject"><button type="button" class="btn btn-primary btn-lg" >Start a New Project!</button></a>
-</div>
+
+    --}}
+ 
     {{else}}
     <h1>You Haven't Created Any Projects!</h1>
     <h4>Make One Now</h4>
     <a href="/teachers/createProject"><button type="button" class="btn btn-primary btn-lg" >Start a New Project!</button></a>
     {{/if}}
+
+
+
+</div>
+<div id="accordion">
+  {{#each projects}}
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{projectTitle}}" aria-expanded="true" aria-controls="collapseOne">
+          {{projectTitle}}
+        </button>
+      </h5>
+    </div>
+
+    <div id="collapse{{projectTitle}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+         <h3>Students can connect with: {{connectCode}}</h3>
+            <h3>{{standardsInAssignments}} Standards:  <small> {{standards}}</small></h3>
+            <h3>Max Score: {{maxScore}}</h3>
+            {{#if isPointWeight}}
+            <h3><em>Students are Weighing Points</em></h3>
+            {{/if}}
+            <h3>{{submissions.length}} Responses</h3>
+            <div id="buttonContainer" align="center">
+            <a href="/teachers/results/{{connectCode}}"><button type="button" class="btn btn-success btn-lg"><i class="fa fa-sign-out-alt"></i>View Results</button></a>
+            <a href="/teachers/copyProject/{{connectCode}}"><button type="button" class="btn btn-info btn-lg">Copy Project</button></a>
+            <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#deleteModal" data-code="{{connectCode}}">Delete Project</button>
+            </div>
+      </div>
+    </div>
+  </div>
+ {{/each}}
+    <div class="container" align="center"><a href="/teachers/createProject"><button type="button" class="btn btn-primary btn-lg" >Start a New Project!</button></a>
+</div>
 </div>
 </div>
         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">

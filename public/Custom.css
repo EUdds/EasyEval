@@ -8,6 +8,7 @@ body {
 
 .slidecontainer {
     width: 100px;
+    height: auto;
     /* Width of the outside container */
 }
 
@@ -69,6 +70,10 @@ body {
     border-radius: 50%;
 }
 
+.jumboWindow{
+    background: #ffffff;
+}
+
 #chart {
     width: 50%;
 }
@@ -106,6 +111,7 @@ body {
     left: 50%;
     resize: both;
     transform: translate(-50%, -50%);
+    background: #ffffff;
 
 }
 
@@ -127,11 +133,14 @@ body {
 
 #evalPage {
     background-color: white;
-    height: 100%;
+    height: auto;
 }
 
 #welcomePage{
     background-color: white;
     padding: 10px;
     
+}
+#bootstap-overrides #white-prepend{
+    background: #ffffff !important
 }
