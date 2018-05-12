@@ -6,7 +6,7 @@
 {{/each}} {{/if}} {{> flash}}
 
 
-<form method="POST" action="/teachers/register" class="form-group form-control" id="registerForm">
+<form method="POST" action="/teachers/register" class="form-group form-control cardForm" id="registerForm">
 
     <div class="input-group">
         <div class="input-group-prepend">
@@ -15,8 +15,6 @@
         <input type="text" name="firstName" placeholder="John" class="form-group form-control">
         <input type="text" name="lastName" placeholder="Doe" class="form-group form-control">
     </div>
-    {{!-- <label>Email</label>
-    <input type="email" name="email" placeholder="John.Doe@Gmail.com" class="form-group form-control"> --}}
     <br>
     <div class="input-group">
   <div class="input-group-prepend">
@@ -49,8 +47,7 @@
 </div>
 
     <br>
-    
-    <input type="submit" class="btn btn-primary" name="Submit" value="Register" class="form-group form-control">
-
+ <div style=" width: 5%;margin: auto">  <input type="submit" class="btn btn-primary" name="Submit" value="Register" class="form-group form-control"></div>   
+  
 
 </form>
