@@ -1,14 +1,49 @@
 <div class="EEformBg">
-<h2 class="page-header" align="center" style="color: white;">Please Login Below</h2>
-{{> flash}}
-<div align="center" style="width: 80%; margin: 0 auto; ">
-<form method="POST" action="/teachers/login" class="form-group form-control">
-
-    <label>Email</label>
-    <input type="text" id="email" name="email" placeholder="Email" class="form-group form-control">
-    <label>Password</label>
-    <input type="password" name="password" id="password" placeholder="Password" class="form-group form-control">
-    <input type="submit" class="btn btn-primary" name="Submit" value="Login" class="form-group form-control">
-</form>
+    
+    {{> flash}}
+    <div align="center" style="width: 50%; margin: auto; height:100%">
+        <form method="POST" action="/teachers/login" class="form-group form-control cardForm col-sm-5" style="height: auto; margin: 15%;">
+            <h2 class="page-header" align="center" style="color: #E75480;">Please Login Below</h2>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">
+                        <i class="fa fa-envelope"></i> &nbsp;Email</span>
+                </div>
+                <input type="email" id="email" name="email" placeholder="Email" class="form-group form-control" required autofocus>
+            </div>
+            <br>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">
+                        <i class="fa fa-user"></i> &nbsp;Password</span>
+                </div>
+                <input type="password" name="password" id="password" placeholder="Password" class="form-group form-control">
+            </div>
+                <br>
+                <p><a data-toggle="modal" data-target="#forgotPassword">Forgot Password?</a></p>
+            <input type="submit" class="btn btn-primary" name="Submit" value="Login" class="form-group form-control">
+        </form>
+    </div>
 </div>
+
+
+<div class="modal fade" id="forgotPassword" tabindex="-1" role="dialog" aria-labelledby="forgotPassword" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Forgot Password</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <h3 align="center">Please Enter Your Email</h3>
+        <input style=" width: 30%; margin: auto;" type="email">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send Password Recovery</button>
+      </div>
+    </div>
+  </div>
 </div>

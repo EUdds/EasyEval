@@ -336,7 +336,7 @@
 	    firstName: firstName,
 	    numInGroup: numInGroup,
       project: chosenProject,
-      groupNumber: groupNumber
+			groupNumber: groupNumber
 	  });
 	});
 
@@ -348,7 +348,9 @@
 	      layout: 'teacherSide.handlebars',
 	      title: 'EasyEval- Teachers',
 	      projects: projects,
-	      standards: standards
+				standards: standards,
+				active: {Projects: true,
+								 About: false}
 	    });
 	  });
 	});
@@ -356,14 +358,20 @@
 	app.get('/teachers', function(req, res){
 		res.render('welcome',{
 			layout: 'teacherSide.handlebars',
-			title: 'EasyEval - Teachers'
+			title: 'EasyEval - Teachers',
+			active: {Projects: false,
+				About: true}
 		});
 	});
 
 	app.get('/teachers/register', function (req, res) {
 	  res.render('register', {
 	    layout: 'teacherSide.handlebars',
-	    title: 'EasyEval- Register'
+			title: 'EasyEval- Register',
+			active: {Projects: false,
+				About: false,
+				Login: false,
+				Register: true}
 	  });
 	});
 
@@ -372,7 +380,11 @@
 	app.get('/teachers/login', function (req, res) {
 	  res.render('login', {
 	    layout: 'teacherSide.handlebars',
-	    title: 'EasyEval- Login'
+			title: 'EasyEval- Login',
+			active: {Projects: false,
+				About: false,
+				Login: true,
+				Register: false}
 	  });
 	});
 
@@ -495,4 +507,7 @@
 
 
 
+	app.use(function (req, res, next) {
+		res.status(404).render('404');
+	});
 	module.exports = app;

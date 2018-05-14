@@ -10,7 +10,7 @@
 });
 </script>
 <div class="container-fluid">
-    <div class="jumbotron">
+    <div class=" jumboWindow jumbotron ">
         <div id="container" class="" align="center">
             <h1>Easy Eval</h1>
             <p>Evaluate your group members with a click of a button!</p>
@@ -19,8 +19,8 @@
             <div style="width: 55%" align="center">
             <form class="form-inline" action="/evaluate" method="POST">
                 <label class="sr-only" for="inlineFormInputName2">Name</label>
-                <div class="input-group mb-2 mr-sm-2">
-                    <div class="input-group-prepend">
+                <div class="input-group mb-2 mr-sm-2" >
+                    <div class="input-group-prepend" id="white-prepend" >
                         <div class="input-group-text">Name</div>
                     </div>
                     <input type="text" class="form-control"  name="firstName" id="userName">
@@ -32,7 +32,6 @@
                     </div>
                     <input type="number" class="form-control" min="0" max="98" onChange="updateForm()" name="numInGroup" id="numInGroupInput">
                 </div>
-
                 <label class="sr-only" for="groupNumber">Number of Other Group Members</label>
                 <div class="input-group mb-2 mr-sm-2">
                     <div class="input-group-prepend">
@@ -40,7 +39,7 @@
                     </div>
                     <input type="number" class="form-control" min="1" onChange="updateForm()" name="groupNumber" id="groupNumber">
                 </div>
-                    <button type="submit" class="btn btn-primary mb-2">Next</button>
+                    <button type="submit" class="btn btn-primary btn-block mb-2">Next</button>
             </form>
 
             </div>
