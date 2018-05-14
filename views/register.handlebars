@@ -6,11 +6,11 @@
 {{/each}} {{/if}} {{> flash}}
 
 
-<form method="POST" action="/teachers/register" class="form-group form-control cardForm" id="registerForm">
+<form method="POST" action="/teachers/register" class="form-group form-control cardForm col-sm-5" id="registerForm">
 
     <div class="input-group">
         <div class="input-group-prepend">
-        <span class="input-group-text" id=""><i class="fa fa-user"></i> &nbsp;First and last name</span>
+        <span class="input-group-text" id=""><i class="fa fa-user"></i> &nbsp;First and Last Name</span>
         </div>
         <input type="text" name="firstName" placeholder="John" class="form-group form-control">
         <input type="text" name="lastName" placeholder="Doe" class="form-group form-control">
@@ -37,8 +37,7 @@
   </div>
   <input type="password" name="password" placeholder="Password" class="form-group form-control">
 </div>
-   
-       &nbsp;
+<br>
        <div class="input-group">
   <div class="input-group-prepend">
     <span class="input-group-text" id="basic-addon1"><i class="fa fa-lock"></i> &nbsp;Confirm Password</span>

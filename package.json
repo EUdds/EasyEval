@@ -1,6 +1,6 @@
 {
   "name": "easy-eval",
-  "version": "0.0.9",
+  "version": "0.1 ",
   "description": "Evaluating Group Members Made Easy",
   "main": "app.js",
   "dependencies": {
