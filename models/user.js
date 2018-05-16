@@ -25,6 +25,9 @@ var userSchema = mongoose.Schema({
     },
     lastName:{
         type: String
+    },
+    googleId:{
+        type: String
     }
 });
 userSchema.pre('save', function(next) {

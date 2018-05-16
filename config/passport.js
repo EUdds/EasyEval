@@ -2,7 +2,8 @@ var _ = require('lodash');
 var passport = require('passport');
 var request = require('request');
 var LocalStrategy = require('passport-local').Strategy;
-
+var GoogleStrategy = require('passport-google-oauth20').Strategy;
+const keys = require('./keys');
 var User = require('../models/user');
 
 passport.serializeUser(function(user, done) {
@@ -55,3 +56,31 @@ exports.isAuthorized = function(req, res, next) {
     res.redirect('/auth/' + provider);
   }
 };
+
+passport.use(
+  new GoogleStrategy({
+    clientID: keys.google.clientID ,
+    clientSecret: keys.google.clientSecret,
+    callbackURL: '/auth/google/redirect'
+}, (accessToken, refreshToken, profile, done) => {
+
+	User.findOne({googleId: profile.id}).then((currentUser) => {
+		if(currentUser){
+			console.log('Current User is' + currentUser);
+			done(null, currentUser);
+		}else{
+			new User({
+				username: profile.displayName,
+				email: profile.emails[0].value,
+				firstName: profile.name.givenName,
+				lastName: profile.name.familyName,
+				googleId: profile.id
+			}).save().then((newUser) => {
+				console.log('New User Created ' +newUser);
+				done(null,newUser);
+			})
+		}
+	})
+
+})
+)

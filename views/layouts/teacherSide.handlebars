@@ -18,7 +18,7 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #FFFFFF !important; color: black !important;">
+<nav class="navbar navbar-expand-lg navbar-light">
   <a class="navbar-brand" href="/teachers">EasyEval</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -27,11 +27,11 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
        <li class="nav-item {{#if active.About}}active {{/if}}">
-        <a class="nav-link " href="/teachers">About<span class="sr-only">(current)</span></a>
+        <a class="nav-link " href="/teachers">About{{#if active.About}}<span class="sr-only">(current)</span> {{/if}}</a>
       </li>
       {{#if user}}
        <li class="nav-item {{#if active.Projects}}active {{/if}}">
-        <a class="nav-link" href="/teachers/dashboard">Projects<span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/teachers/dashboard">Projects{{#if active.Projects}}<span class="sr-only">(current)</span>{{/if}}</a>
       </li>
          <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{user.username}}</a>
@@ -44,10 +44,10 @@
   </li>
         {{else}}
       <li class="nav-item {{#if active.Register}}active {{/if}}">
-        <a class="nav-link" href="/teachers/register">Register</a>
+        <a class="nav-link" href="/teachers/register">{{#if active.Register}}<span class="sr-only">(current)</span>{{/if}}Register</a>
       </li>
       <li class="nav-item {{#if active.Login}}active {{/if}}">
-        <a class="nav-link" href="/teachers/login">Login</a>
+        <a class="nav-link" href="/teachers/login">{{#if active.Login}}<span class="sr-only">(current)</span>{{/if}}Login</a>
       </li>
   
     {{/if}}
