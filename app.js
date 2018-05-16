@@ -94,11 +94,6 @@
 	  res.locals.user = req.user || null;
 	  next();
 	})
-
-	// app.use(function (req, res, next) {
-	// 	res.status(404).render('404');
-	// })
-
 	postLogin = function (req, res, next) {
 	  req.assert('email', 'Email is not valid').isEmail();
 	  req.assert('password', 'Password cannot be blank').notEmpty();

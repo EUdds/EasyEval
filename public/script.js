@@ -320,6 +320,10 @@ function updateTotal(){
 	}
 }
 
+function checkPointValue(){
+	
+}
+
 function add(a, b) {
     return a + b;
 }

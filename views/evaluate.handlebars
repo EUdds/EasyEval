@@ -17,6 +17,9 @@ google.charts.setOnLoadCallback(drawChart);
 
 	function sendData(){
 		document.getElementById("groupMembers").setAttribute("value", groupMemberNamesString);
+		if(isPointWeight){
+			checkPointWeight();
+		}
 	}
 
 	function getGroupMemberNames(){
@@ -38,7 +41,7 @@ google.charts.setOnLoadCallback(drawChart);
 </div>
 <div class="row" id="charts"></div>
 <div class="row" id="sliders" style="height:fit-content"></div>
-<button style="margin: 5px; position:fixed; bottom:0; left:0;" align="center" onclick="sendData()" class="btn btn-lg btn-block btn-primary" name="id" type="submit" value="{{project.connectCode}}">Submit to Teacher</button>
+<button style="margin: 5px; position:fixed; bottom:0; left:0;" id="submitButton" align="center" onclick="sendData()" class="btn btn-lg btn-block btn-primary" name="id" type="submit" value="{{project.connectCode}}">Submit to Teacher</button>
 <br>
 <input name="groupMembers" id="groupMembers" style="display: none;">
 <input name="submitter" id="submitter" value="{{firstName}}" style="display: none;">

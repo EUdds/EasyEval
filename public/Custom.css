@@ -51,7 +51,7 @@ body {
     /* Set a specific slider handle width */
     height: 25px;
     /* Slider handle height */
-    background: #1E00E1;
+    background: #14A845;
     cursor: pointer;
     /* Cursor on hover */
     border-radius: 50%;
@@ -63,7 +63,7 @@ body {
     /* Set a specific slider handle width */
     height: 25px;
     /* Slider handle height */
-    background: #1E00E1;
+    background: #14A845;
     /* Green background */
     cursor: pointer;
     /* Cursor on hover */
@@ -73,6 +73,9 @@ body {
 .jumboWindow{
     background: #ffffff;
 }
+.jumboWindow h1{
+    color:#E75480; 
+}
 
 #chart {
     width: 50%;
@@ -80,8 +83,7 @@ body {
 
 .groupMemberBox {
     margin: 5%;
-    border: #000000;
-    border-style: solid;
+    border: #000000 solid 1px;
 }
 
 #inputBoxes {
@@ -110,6 +112,15 @@ body {
     background: #ffffff;
     margin:auto center;
 
+}
+#enterPin h1, h2 ,h3 ,h4 ,p{
+    color:#E75480
+}
+#pinNumber{
+    font-size: 24px;
+    width:120px;
+    border: black solid 1px;
+    text-align: center;
 }
 
 #teacherDashboard {
