@@ -1,14 +1,13 @@
-<h2 class="page-header" style="text-align: center;color: white;">Register</h2>
-<p style="text-align:center; color:white;">Please Register to use Easy Eval</p>
 
 {{#if errors}} {{#each errors}}
 <div class="alert alert-danger">{{this.msg}}</div>
 {{/each}} {{/if}} {{> flash}}
 
-
-<form method="POST" action="/teachers/register" class="form-group form-control cardForm col-sm-5" id="registerForm">
-  <a href="/auth/google"><button type="button" class="btn btn-primary form-control"><i class="fa fa-google"></i> Sign Up With Google</button></a>
-    <hr class="seperator">
+<div align="center">
+<form method="POST" action="/teachers/register" class="form-group form-control cardForm col-lg-5" id="registerForm">
+    
+<h2 class="page-header" style="text-align: center;color: #E75480;">Register</h2>
+<p style="text-align:center; color:#E75480;">Please Register to use Easy Eval</p>
     <div class="input-group">
         <div class="input-group-prepend">
         <span class="input-group-text" id=""><i class="fa fa-user"></i> &nbsp;First and Last Name</span>
@@ -47,7 +46,9 @@
 </div>
 
     <br>
- <div style=" width: 5%;margin: auto">  <input type="submit" class="btn btn-primary" name="Submit" value="Register" class="form-group form-control"></div>   
+  <div align="Center">  <a href="/auth/google"><button type="button" class="btn form-group" style="background: #DD4B39; color:white;"><i class="fa fa-google pr-1"></i> Sign Up With Google</button></a>  <button type="submit" class="btn btn-primary form-group" name="Submit" value="Register" class="form-group form-control">Register</button></div>
   
 
 </form>
+
+</div>
