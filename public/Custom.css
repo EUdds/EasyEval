@@ -93,10 +93,6 @@ body {
     margin: auto center;
 }
 
-.center_div {
-    margin: 0 auto;
-    width: 50%/* value of your choice which suits your alignment */
-}
 
 .projectContainer {
     border: solid black;
