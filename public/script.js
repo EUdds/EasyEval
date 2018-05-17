@@ -30,6 +30,8 @@ var totalInputBox;
 var addingArray = [];
 var pointWeightHeader;
 var weightTotal = numInGroup * 100;
+// var bodyHeight =
+// //screen.height + (numInGroup * 48);
 
 google.charts.load('current', {
 	'packages': ['corechart']
@@ -39,7 +41,8 @@ google.charts.load('current', {
 
 
 function init() {
-	document.getElementById("evalPage").style.height = String(screen.height) + "px";
+	// document.getElementById("submitForm").style.height = String(bodyHeight) + "px";
+	document.body.style.background = "white";
 	if (isPointWeight) {
 		chartWidth = (document.documentElement.clientWidth / (standardsInAssignment + 1) - 10);
 	} else {
@@ -60,18 +63,6 @@ function init() {
 
 }
 
-function createButton() {
-	var button = document.createElement('button');
-	button.setAttribute("onClick", "sendData()");
-	button.setAttribute("class", "btn btn-lg btn-block btn-primary");
-	button.style.margin = "auto center";
-	button.style.display = "block";
-	button.setAttribute("name", "id");
-	button.setAttribute("type", "submit");
-	button.setAttribute("value", code);
-	button.innerHTML = "Submit to Teacher"
-	document.getElementById("form").appendChild(button);
-}
 
 function drawSliders(chartNumber) {
 	for (var i = 0; i < numInGroup; i++) {
@@ -221,7 +212,11 @@ function createPointWeight() {
 
 		pointWeightHeader = document.createElement("h3");
 		pointWeightHeader.innerHTML ="Total: " + totalPoints;
-		pointWeightDiv.appendChild(pointWeightHeader);
+		pointWeightHeader.style.position = "absolute";
+		pointWeightHeader.style.left = (chartWidth / 4) + (chart.length * chartWidth) + "px";
+		pointWeightHeader.style.width = chartWidth;
+		document.getElementById("middle").style.height = "40px";
+		document.getElementById("middle").appendChild(pointWeightHeader);
 		
 		
 		document.getElementById("sliders").appendChild(pointWeightDiv);
@@ -321,9 +316,11 @@ function updateTotal(){
 }
 
 function checkPointValue(){
-	
+	if(totalPoints !== weightTotal){
+		document.getElementById("modalBody").innerHTML = "Your total weight needs to be equal to " + String(weightTotal) + "!";
+		$('#pointWeightModal').modal('toggle');
+	}
 }
-
 function add(a, b) {
     return a + b;
 }

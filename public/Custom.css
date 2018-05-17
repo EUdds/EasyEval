@@ -2,7 +2,7 @@
 /* CSS Document */
 
 body {
-    background-color: #06AED5 !important;
+    background-color: #06AED5;
     padding: 0 !important;
 }
 
@@ -171,4 +171,12 @@ body {
 .cardHeader:hover{
     color: #E75480;
     text-decoration: none;
+}
+#middle{
+    margin: 1px;
+    display: block;
+}
+
+#submitForm{
+    height:auto;
 }

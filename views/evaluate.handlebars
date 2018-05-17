@@ -1,3 +1,4 @@
+<script src="/script.js"></script>
 <script>
 google.charts.setOnLoadCallback(drawChart);
 	
@@ -18,7 +19,7 @@ google.charts.setOnLoadCallback(drawChart);
 	function sendData(){
 		document.getElementById("groupMembers").setAttribute("value", groupMemberNamesString);
 		if(isPointWeight){
-			checkPointWeight();
+			checkPointValue();
 		}
 	}
 
@@ -32,14 +33,13 @@ google.charts.setOnLoadCallback(drawChart);
 </script>
 <div class="container-fluid" id="evalPage">
 <form id="submitForm" action="/eval" method="POST">
-
-
 <div class="page-header" align="center">
 	<h1>Easy Eval</h1>
   <h1><small>Evaluate Your Group Members</small></h1>
 	<h2><em>{{project.projectTitle}}</em></h2>
 </div>
 <div class="row" id="charts"></div>
+<div class="row" id="middle"></div>
 <div class="row" id="sliders" style="height:fit-content"></div>
 <button style="margin: 5px; position:fixed; bottom:0; left:0;" id="submitButton" align="center" onclick="sendData()" class="btn btn-lg btn-block btn-primary" name="id" type="submit" value="{{project.connectCode}}">Submit to Teacher</button>
 <br>
@@ -49,6 +49,7 @@ google.charts.setOnLoadCallback(drawChart);
 </div>
 
 </form>
+<script src="/script.js"></script>
   <script>
     window.onload = function(){
 			init(); 	
@@ -69,6 +70,26 @@ google.charts.setOnLoadCallback(drawChart);
 	}
 
 });
-	
+	{{#if project.isPointWeight}}
 
+
+{{/if}}
   </script>
+{{#if project.isPointWeight}}
+	<div class="modal fade" id="pointWeightModal" tabindex="-1" role="dialog" aria-labelledby="pointWeightModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Woah There...</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="modalBody" class="modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal">Got It!</button>
+      </div>
+    </div>
+  </div>
+</div>
+{{/if}}
