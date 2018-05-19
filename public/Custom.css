@@ -93,10 +93,6 @@ body {
     margin: auto center;
 }
 
-.center_div {
-    margin: 0 auto;
-    width: 50%/* value of your choice which suits your alignment */
-}
 
 .projectContainer {
     border: solid black;
@@ -112,6 +108,7 @@ body {
     resize: both;
     transform: translate(-50%, -50%);
     background: #ffffff;
+    margin:auto center;
 
 }
 
@@ -128,7 +125,7 @@ body {
 #registerForm {
     background-color: white !important;
     width: 90%;
-    margin: auto;
+    margin: 5%;
 }
 
 #evalPage {
@@ -143,4 +140,24 @@ body {
 }
 #bootstap-overrides #white-prepend{
     background: #ffffff !important
+}
+
+#createProjectForm{
+    width: 80%;
+    margin: auto;
+    margin-top: 20px;
+}
+
+
+.cardForm{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.cardHeader{
+    color: black;
+}
+
+.cardHeader:hover{
+    color: #E75480;
+    text-decoration: none;
 }

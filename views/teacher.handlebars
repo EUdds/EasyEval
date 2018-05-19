@@ -1,80 +1,75 @@
 {{> flash}}
 <div id="teacherDashboard" class="jumbotron">
-<h1 align="center">{{user.firstName}}'s Projects</h1>
-<br>
-{{#if projects}}
-<div class="container" align="center"><a href="/teachers/createProject"><button type="button" class="btn btn-primary btn-lg" >Start a New Project!</button></a>
-</div>
-<br>
+  <h1 align="center">{{user.firstName}}'s Projects</h1>
+  <br> {{#if projects}}
+  <div class="container" align="center">
+    <a href="/teachers/createProject">
+      <button type="button" class="btn btn-primary btn-lg">Start a New Project!</button>
+    </a>
+  </div>
+  <br>
 
-<div>
-{{!-- <div class="container">
-    
-    {{#each projects}}
-        <div class="projectContainer">
-            <h1>{{projectTitle}}</h1>
-            <h3>Students can connect with: {{connectCode}}</h3>
-            <h3>{{standardsInAssignments}} Standards:  <small> {{standards}}</small></h3>
-            <h3>Max Score: {{maxScore}}</h3>
-            {{#if isPointWeight}}
-            <h3><em>Students are Weighing Points</em></h3>
-            {{/if}}
-            <h3>{{submissions.length}} Responses</h3>
-            <div id="buttonContainer" align="center">
-            <a href="/teachers/results/{{connectCode}}"><button type="button" class="btn btn-success btn-lg"><i class="fa fa-sign-out-alt"></i>View Results</button></a>
-            <a href="/teachers/copyProject/{{connectCode}}"><button type="button" class="btn btn-info btn-lg">Copy Project</button></a>
-            <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#deleteModal" data-code="{{connectCode}}">Delete Project</button>
-            </div>
-        </div>
+  <div>
 
-
-    {{/each}}
-
-    --}}
- 
     {{else}}
     <h1>You Haven't Created Any Projects!</h1>
     <h4>Make One Now</h4>
-    <a href="/teachers/createProject"><button type="button" class="btn btn-primary btn-lg" >Start a New Project!</button></a>
+    <a href="/teachers/createProject">
+      <button type="button" class="btn btn-primary btn-lg">Start a New Project!</button>
+    </a>
     {{/if}}
 
 
 
-</div>
-<div id="accordion">
-  {{#each projects}}
-  <div class="card">
-    <div class="card-header" id="headingOne">
-      <h5 class="mb-0">
-        <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{projectTitle}}" aria-expanded="true" aria-controls="collapseOne">
-          {{projectTitle}}
-        </button>
-      </h5>
-    </div>
+  </div>
+  <div id="accordion">
+    {{#if projects}} {{#each projects}}
+    <div class="card">
+      <div class="card-header" id="heading{{projectTitle}}">
+        <h5 class="mb-0">
+          <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{projectTitle}}" aria-expanded="true" aria-controls="collapse{{projectTitle}}">
+            <h4 class="cardHeader">{{projectTitle}}</h4>
+          </button>
+        </h5>
+      </div>
 
-    <div id="collapse{{projectTitle}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-      <div class="card-body">
-         <h3>Students can connect with: {{connectCode}}</h3>
-            <h3>{{standardsInAssignments}} Standards:  <small> {{standards}}</small></h3>
-            <h3>Max Score: {{maxScore}}</h3>
-            {{#if isPointWeight}}
-            <h3><em>Students are Weighing Points</em></h3>
-            {{/if}}
-            <h3>{{submissions.length}} Responses</h3>
-            <div id="buttonContainer" align="center">
-            <a href="/teachers/results/{{connectCode}}"><button type="button" class="btn btn-success btn-lg"><i class="fa fa-sign-out-alt"></i>View Results</button></a>
-            <a href="/teachers/copyProject/{{connectCode}}"><button type="button" class="btn btn-info btn-lg">Copy Project</button></a>
+      <div id="collapse{{projectTitle}}" class="collapse" aria-labelledby="heading{{projectTitle}}" data-parent="#accordion">
+        <div class="card-body">
+          <h3>Students can connect with: {{connectCode}}</h3>
+          <h3>{{standardsInAssignments}} Standards:
+            <small> {{standards}}</small>
+          </h3>
+          <h3>Max Score: {{maxScore}}</h3>
+          {{#if isPointWeight}}
+          <h3>
+            <em>Students are Weighing Points</em>
+          </h3>
+          {{/if}}
+          <h3>{{submissions.length}} Responses</h3>
+          <div id="buttonContainer" align="center">
+            <a href="/teachers/results/{{connectCode}}">
+              <button type="button" class="btn btn-success btn-lg">
+                <i class="fa fa-sign-out-alt"></i>View Results</button>
+            </a>
+            <a href="/teachers/copyProject/{{connectCode}}">
+              <button type="button" class="btn btn-info btn-lg">Copy Project</button>
+            </a>
             <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#deleteModal" data-code="{{connectCode}}">Delete Project</button>
-            </div>
+          </div>
+        </div>
       </div>
     </div>
+    {{/each}}
+    <br>
+    <div class="container" align="center">
+      <a href="/teachers/createProject">
+        <button type="button" class="btn btn-primary btn-lg">Start a New Project!</button>
+      </a>
+      {{/if}}
+    </div>
   </div>
- {{/each}}
-    <div class="container" align="center"><a href="/teachers/createProject"><button type="button" class="btn btn-primary btn-lg" >Start a New Project!</button></a>
 </div>
-</div>
-</div>
-        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -87,8 +82,12 @@
         Are you sure you want to delete this project?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-arrow-circle-left"></i>&nbsp;No, take me back!</button>
-        <a id="buttonLink"><button type="button" class="btn btn-success"><i class="fa fa-trash"></i>&nbsp;Yes, delete forever!</button></a>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">
+          <i class="fa fa-arrow-circle-left"></i>&nbsp;No, take me back!</button>
+        <a id="buttonLink">
+          <button type="button" class="btn btn-success">
+            <i class="fa fa-trash"></i>&nbsp;Yes, delete forever!</button>
+        </a>
       </div>
     </div>
   </div>
@@ -96,13 +95,13 @@
 
 <script>
   $('#deleteModal').on('show.bs.modal', function (event) {
-  var button = $(event.relatedTarget) // Button that triggered the modal
-  var code = button.data('code') // Extract info from data-* attributes
-  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-  var path = "/teachers/deleteProject/" + code.toString();
-  document.getElementById("buttonLink").setAttribute('href', path);
-})
+    var button = $(event.relatedTarget) // Button that triggered the modal
+    var code = button.data('code') // Extract info from data-* attributes
+    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+    var path = "/teachers/deleteProject/" + code.toString();
+    document.getElementById("buttonLink").setAttribute('href', path);
+  })
 </script>
 
 </div>

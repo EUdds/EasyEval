@@ -2,9 +2,12 @@
     
     {{> flash}}
     <div align="center" style="width: 50%; margin: auto; height:100%">
-        <form method="POST" action="/teachers/login" class="form-group form-control" style="height: auto; margin: 5%;">
+        <form method="POST" action="/teachers/login" class="form-group form-control cardForm col-lg-5" style="height: auto; margin: 15%;">
             <h2 class="page-header" align="center" style="color: #E75480;">Please Login Below</h2>
-            <div class="input-group col-sm-10">
+           
+            <a href="/auth/google"><button type="button" class="btn" style="background: #DD4B39; color:white;"><i class="fa fa-google pr-1"></i> Sign In With Google</button></a>
+    <hr class="seperator">
+            <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">
                         <i class="fa fa-envelope"></i> &nbsp;Email</span>
@@ -12,7 +15,7 @@
                 <input type="email" id="email" name="email" placeholder="Email" class="form-group form-control" required autofocus>
             </div>
             <br>
-            <div class="input-group col-sm-10">
+            <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">
                         <i class="fa fa-user"></i> &nbsp;Password</span>

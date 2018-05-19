@@ -1,4 +1,6 @@
-	var port = 8000;
+	require('dotenv').load();
+
+	var port = 80;
 	var serverUrl = "127.0.0.1";
 	var inputData;
 	var numInGroup;
@@ -14,6 +16,7 @@
 
 
 	//All libraries were written and owned by their respective owners
+	
 	const nodemailer = require('nodemailer');
 	var express = require('express'),
 	  app = module.exports.app = express();
@@ -40,12 +43,15 @@
 	var io = require('socket.io')(http);
 	var xcell = require('./excel');
 	var favicon = require('serve-favicon');
+	var cookieSession = require('cookie-session');
+	var keys = require('./config/keys');
 
 	exphbs = require('express3-handlebars'),
 	  app.engine('handlebars', exphbs({
 	    defaultLayout: 'main'
 	  }));
 	app.set('view engine', 'handlebars');
+	
 
 	app.use(express.static('public'));
 	app.use(bodyParser.urlencoded({
@@ -60,19 +66,16 @@
 
 	app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 
-	//Passport Austh
-	app.use(passport.initialize());
-	app.use(passport.session());
-
+	
 	//Validator
 	app.use(ExpressValidator({
-	  errorFormatter: function (param, msg, value) {
-	    var namespace = param.split('.'),
-	      root = namespace.shift(),
-	      formParam = root;
-
+		errorFormatter: function (param, msg, value) {
+			var namespace = param.split('.'),
+			root = namespace.shift(),
+			formParam = root;
+			
 	    while (namespace.length) {
-	      formParam += '[' * namespace.shift(); + ']';
+				formParam += '[' * namespace.shift(); + ']';
 	    }
 	    return {
 	      param: formParam,
@@ -81,6 +84,10 @@
 	    };
 	  }
 	}));
+		
+	//Passport Auth
+	app.use(passport.initialize());
+	app.use(passport.session());
 
 	app.use(flash());
 	app.get('*', function (req, res, next) {
@@ -265,7 +272,6 @@
 	var checkMimeType = true;
 
 	console.log("Starting web server at " + serverUrl + ":" + port);
-
 	http.listen(port);
 
 	app.get('/', function (req, res) {
@@ -494,17 +500,16 @@
 			});
 		});
 	});
+	app.get('/auth/google', passport.authenticate("google", {
+		scope: ["profile", "email"]
+	}));
 
-	passport.serializeUser(function (user, done) {
-	  done(null, user.id);
+	app.get('/auth/google/redirect', passport.authenticate('google'), (req, res) => {
+		res.redirect('/teachers/dashboard');
+	})
+
+
+	app.use(function (req, res, next) {
+		res.status(404).render('404');
 	});
-
-	passport.deserializeUser(function (id, done) {
-	  User.getUserById(id, function (err, user) {
-	    done(err, user);
-	  });
-	});
-
-
-
 	module.exports = app;
