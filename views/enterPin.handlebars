@@ -2,17 +2,16 @@
 
    <div class="jumbotron" id="enterPin" class="jumboWindow col-md">
       <div id="container" class="" align="center">
-
          <h1>Easy Eval</h1>
          <p>Evaluate your group members with a click of a button!</p>
          {{> flash}}
          <div id="formContainer" class="col-lg" align="center">
-            <form action="/" method="POST" id="form" class="form-inline col-lg" align="center">
+            <form action="/" method="POST" id="form" class="form-group col-lg" align="center">
 
-             <input type="tel" maxlength="5" onchange="updateForm()" class="form-control mb-2 col-md-10" id="pinNumber" name="pinNumber" placeholder="Pin" align="center">
+           <div align="center"><input type="tel" maxlength="5" onchange="updateForm()" class="form-control mb-2" id="pinNumber" name="pinNumber" placeholder="_ _ _ _ _"></div>
                <br>
                
-               <button type="submit" class=" form-control btn btn-primary btn-lg btn-block">Next</button>
+              <button type="submit" class="form-control btn btn-primary btn-lg">Next</button>
       
             </form>
          </div>

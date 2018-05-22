@@ -11,6 +11,7 @@ function updateForm(){
         inputBox[boxesCreated].setAttribute("onchange", "updateForm()");
         inputBox[boxesCreated].style.margin = "5px";
         inputBox[boxesCreated].setAttribute("class", "groupMemberBox form-control mr-sm-2");
+        inputBox[boxesCreated].style.border = "black solid 1px"
         document.getElementById("inputBoxes").appendChild(inputBox[boxesCreated]);
         boxesCreated ++;
         }

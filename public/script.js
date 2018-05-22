@@ -30,6 +30,8 @@ var totalInputBox;
 var addingArray = [];
 var pointWeightHeader;
 var weightTotal = numInGroup * 100;
+var pointWeightValues = [];
+
 
 google.charts.load('current', {
 	'packages': ['corechart']
@@ -39,7 +41,8 @@ google.charts.load('current', {
 
 
 function init() {
-	document.getElementById("evalPage").style.height = String(screen.height) + "px";
+	// document.getElementById("submitForm").style.height = String(bodyHeight) + "px";
+	document.body.style.background = "white";
 	if (isPointWeight) {
 		chartWidth = (document.documentElement.clientWidth / (standardsInAssignment + 1) - 10);
 	} else {
@@ -60,18 +63,6 @@ function init() {
 
 }
 
-function createButton() {
-	var button = document.createElement('button');
-	button.setAttribute("onClick", "sendData()");
-	button.setAttribute("class", "btn btn-lg btn-block btn-primary");
-	button.style.margin = "auto center";
-	button.style.display = "block";
-	button.setAttribute("name", "id");
-	button.setAttribute("type", "submit");
-	button.setAttribute("value", code);
-	button.innerHTML = "Submit to Teacher"
-	document.getElementById("form").appendChild(button);
-}
 
 function drawSliders(chartNumber) {
 	for (var i = 0; i < numInGroup; i++) {
@@ -221,7 +212,11 @@ function createPointWeight() {
 
 		pointWeightHeader = document.createElement("h3");
 		pointWeightHeader.innerHTML ="Total: " + totalPoints;
-		pointWeightDiv.appendChild(pointWeightHeader);
+		pointWeightHeader.style.position = "absolute";
+		pointWeightHeader.style.left = (chartWidth / 4) + (chart.length * chartWidth) + "px";
+		pointWeightHeader.style.width = chartWidth;
+		document.getElementById("middle").style.height = "40px";
+		document.getElementById("middle").appendChild(pointWeightHeader);
 		
 		
 		document.getElementById("sliders").appendChild(pointWeightDiv);
@@ -284,6 +279,9 @@ function createPointWeight() {
 
 function updatePointWeightSliders() {
 	for (var i = 0; i < numInGroup; i++) {
+		if(pointWeightSliders[i].value != null){
+		pointWeightValues[i] = pointWeightSliders[i].value;
+		}
 		pwSliderLabel[i].innerHTML = groupMemberNames[i] + ": " + pointWeightSliders[i].value;
 		pointWeightData.setCell(i, 0, groupMemberNames[i]);
 		pointWeightData.setCell(i, 1, pointWeightSliders[i].value);
@@ -320,6 +318,27 @@ function updateTotal(){
 	}
 }
 
+function checkPointValue(){
+	if(totalPoints !== weightTotal){
+		document.getElementById("modalBody").innerHTML = "Your total weight needs to be equal to " + String(weightTotal) + "!";
+		$('#pointWeightModal').modal('toggle');
+		return false;
+	}
+	for(var i=0; i<numInGroup; i++){
+		for(var z=0; z<numInGroup; z++){
+			if(pointWeightValues[i] == pointWeightValues[z]){
+				if(i == z){
+					continue;
+				}
+				console.log("Found a Match");
+				document.getElementById("modalBody").innerHTML = "Students point weight percentages can not equal each other!";
+				$('#pointWeightModal').modal('toggle');
+				return false;
+			}
+		}
+	}
+	return true;
+}
 function add(a, b) {
     return a + b;
 }
