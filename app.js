@@ -577,11 +577,11 @@
 				var email = {
 					from: keys.sendGrid.supportEmail,
 					to: user.email,
-					subject: '[Do Not Reply] Easy Eval Forgotten Password for ' +user.username ,
+					subject: 'Easy Eval-- Reset your password',
 					text: 'Hello,\n\n' +
 						'Please click on the following link, or paste this into your browser to reset your password:\n\n' +
 						'http://' + req.headers.host + '/reset/' + token + '\n\n' +
-						'If you did not request this, please ignore this email and your password will remain unchanged.\n\n' +
+						'If you did not request this, just ignore this email and your password will remain unchanged.\n\n' +
 						'Thank you for using EasyEval\n\n'+
 						"--\n\n"+
 						"Eric Udlis\n\n"+
@@ -617,7 +617,8 @@
 			}
 			res.render('reset', {
 				user: req.user,
-				layout: 'teacherSide.handlebars'
+				layout: 'teacherSide.handlebars',
+				title: "EasyEval- Reset Password"
 			});
 		});
 	});
