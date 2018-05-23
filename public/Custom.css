@@ -117,11 +117,16 @@ body {
     color:#E75480
 }
 #pinNumber{
-    font-size: 24px;
-    width:120px;
+    font-size: 36px;
+    width:160px;
     border: black solid 1px;
-    text-align: center;
+    -moz-appearance: textfield;
+    -webkit-appearance: none;
 }
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+  }
 
 #teacherDashboard {
     width: 80%;
@@ -162,8 +167,16 @@ body {
 
 .cardForm{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background: #ffffff;
+    margin: 15%;
+    height: auto;
+    padding: 1%;
+    width: auto;
 }
 
+.cardForm h3, p{
+    color: #E75480; 
+}
 .cardHeader{
     color: black;
 }

@@ -3852,6 +3852,7 @@ tbody.collapse.show {
 .nav-link {
   display: block;
   padding: 0.5rem 1rem;
+  cursor: pointer;
 }
 
 .nav-link:hover, .nav-link:focus {
@@ -9044,6 +9045,7 @@ a.text-dark:hover, a.text-dark:focus {
 .navbar .navbar-nav .dropdown-menu .dropdown-item.active {
   color: #ffffff;
   background-color: #e75480;
+  cursor: pointer;
 }
 .navbar .navbar-nav .dropdown-menu .dropdown-divider {
   border-top-color: #e75480;
