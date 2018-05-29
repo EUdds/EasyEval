@@ -551,9 +551,11 @@
 					email: req.body.email
 				}, function (err, user) {
 					if (!user) {
-						req.flash('errors', {
-							msg: 'No account with that email address exists.'
-						});
+						req.flash('errors', {msg: 'No account with that email address exists.'});
+						return res.redirect('/teachers/login');
+					}
+					if(!user.password && user.googleId){
+						req.flash('errors', {msg: 'This account is assoiated with Google, use Google Sign-In'});
 						return res.redirect('/teachers/login');
 					}
 
@@ -613,12 +615,13 @@
 		User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
 			if (!user) {
 				req.flash('error', {msg: 'Password reset token is invalid or has expired.' });
-				return res.redirect('/forgot');
+				return res.redirect('/teachers/login');
 			}
 			res.render('reset', {
 				user: req.user,
 				layout: 'teacherSide.handlebars',
-				title: "EasyEval- Reset Password"
+				title: "EasyEval- Reset Password",
+				token: req.params.token
 			});
 		});
 	});
@@ -627,18 +630,27 @@
 	app.post('/reset', function(req, res) {
 		async.waterfall([
 			function(done) {
-				User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+				User.findOne({ resetPasswordToken: req.body.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
 					if (!user) {
-						req.flash('error', {msg: 'Password reset token is invalid or has expired.'});
-						return res.redirect('back');
+						req.flash('errors', {msg: 'Password reset token is invalid or has expired.'});
+						return res.redirect('/teachers/login');
 					}
-					user.password = req.body.password;
-					user.resetPasswordToken = undefined;
-					user.resetPasswordExpires = undefined;
+
+					user.update({
+						username: user.username
+					}, {
+						$push: {
+							password: req.body.password,
+							resetPasswordToken: undefined,
+							resetPasswordExpires: undefined
+						}
+					},
+					function (err) {
+						if (err) console.log(err);
+					});
 	
 					user.save(function(err) {
 						req.logIn(user, function(err) {
-							done(err, user);
 							res.redirect('/teachers/dashboard');
 						});
 					});
@@ -689,7 +701,8 @@
 			from: req.body.email,
 			to: 'udlis.eric@gmail.com',
 			subject: 'EasyEval Support',
-			text: req.body.message,
+			text: "EasyEval User:" + req.user.username + "\n\n" +
+				req.body.message,
 		  };
 		  
 		  client.sendMail(email, function(err, info){
