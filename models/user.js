@@ -28,7 +28,9 @@ var userSchema = mongoose.Schema({
     },
     googleId:{
         type: String
-    }
+    },
+    resetPasswordToken: String,
+    resetPasswordExpires: Date
 });
 userSchema.pre('save', function(next) {
     var user = this;

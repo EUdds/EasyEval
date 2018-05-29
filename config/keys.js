@@ -4,6 +4,12 @@ module.exports ={
         clientSecret: "fXL5yehF09nKpcIzpRgptUkG"
     },
     session: {
-            cookieKey:"LmaoThisIsNotWhatYouWereExpecting"
+        cookieKey:"LmaoThisIsNotWhatYouWereExpecting"
+    },
+    sendGrid: {
+        username: "Eudds",
+        password: "$@ndCastles1nthe$@nd",
+        key: "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" ,
+        supportEmail: "support@easyeval.me"  
     }
 }

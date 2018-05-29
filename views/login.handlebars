@@ -1,11 +1,12 @@
 <div class="EEformBg">
     
-    {{> flash}}
+   
     <div align="center" style="width: 50%; margin: auto; height:100%">
         <form method="POST" action="/teachers/login" class="form-group form-control cardForm col-lg-5" style="height: auto; margin: 15%;">
             <h2 class="page-header" align="center" style="color: #E75480;">Please Login Below</h2>
+             {{> flash}}
            
-            <a href="/auth/google"><button type="button" class="btn" style="background: #DD4B39; color:white;"><i class="fa fa-google pr-1"></i> Sign In With Google</button></a>
+            <a href="/auth/google"><button type="button" class="btn col-sm" style="background: #DD4B39; color:white;"><i class="fa fa-google pr-1"></i> Google Log In</button></a>
     <hr class="seperator">
             <div class="input-group">
                 <div class="input-group-prepend">
@@ -23,7 +24,7 @@
                 <input type="password" name="password" id="password" placeholder="Password" class="form-group form-control">
             </div>
                 <br>
-                <p><a data-toggle="modal" data-target="#forgotPassword">Forgot Password?</a></p>
+                <p><a data-toggle="modal" data-target="#forgotPassword" style="cursor: pointer">Forgot Password?</a></p>
             <input type="submit" class="btn btn-primary" name="Submit" value="Login" class="form-group form-control">
         </form>
     </div>
@@ -39,14 +40,17 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+          <form method="POST" action="/forgot" class="form-group">
       <div class="modal-body">
           <h3 align="center">Please Enter Your Email</h3>
-        <input style=" width: 30%; margin: auto;" type="email">
+        <input class="form-control" name="email" type="email">
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send Password Recovery</button>
+        <button type="submit" class="btn btn-primary">Send Password Recovery</button>
       </div>
+      </form>
     </div>
   </div>
 </div>
