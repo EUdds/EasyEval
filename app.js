@@ -33,7 +33,7 @@
 	var upload = multer({
 		dest: './uploads'
 	});
-	var sitemap = require('express-sitemap')();
+	var sitemap = require('express-sitemap');
 	var flash = require('express-flash');
 	var mongo = require('mongodb');
 	var mongoose = require('mongoose');
@@ -68,9 +68,7 @@
 		resave: true
 	}));
 
-	app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
-
-	map = sitemap.generate(app)
+	app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 
 	//Validator
@@ -221,54 +219,6 @@
 			});
 		});
 	};
-
-	oldShowResults = function (req, res, next) {
-		Project.findOne({
-			connectCode: req.params.code
-		}, function (err, project) {
-			if (err) {
-				req.flash('errors', {
-					msg: 'Unknown Project'
-				});
-				return res.redirect('/teachers');
-			}
-			if (!req.user) {
-				req.flash('errors', {
-					msg: 'You must sign in to view that'
-				});
-				return res.redirect('/teachers/login');
-			} else {
-				if (project.creator != req.user.username) {
-					req.flash('errors', {
-						msg: 'You are not authorized to access this project!'
-					});
-					return res.redirect('/teachers');
-				}
-				User.findOne({
-					username: project.creator
-				}, function (err, user) {
-					var projectData = [];
-					for (var i = 0; i < user.submissions.length; i++) {
-						console.log(user.submissions[i].id);
-						if (user.submissions[i].id == project.connectCode) {
-							projectData[i] = user.submissions[i];
-							console.log(user.submissions[i].id + ' , ' + project.connectCode);
-						}
-					}
-
-					var standardsArray = project.standards.split(',');
-
-					res.render('results', {
-						layout: 'teacherSide.handlebars',
-						title: 'EasyEval - Results',
-						project: project,
-						evalData: projectData,
-						standards: standardsArray
-					});
-				});
-			}
-		});
-	}
 
 	var checkMimeType = true;
 
@@ -726,6 +676,9 @@
 		res.redirect('/teachers/login');
 	});
 
+	var map = sitemap({
+		generate: app
+	  });
 	app.get('/sitemap.xml', function(req, res) { // send XML map
 
 		map.XMLtoWeb(res);
