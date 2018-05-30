@@ -70,7 +70,7 @@
 
 	app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 
-	sitemap.generate(app)
+	map = sitemap.generate(app)
 
 
 	//Validator
