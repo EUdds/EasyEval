@@ -33,6 +33,7 @@
 	var upload = multer({
 		dest: './uploads'
 	});
+	var sitemap = require('express-sitemap')();
 	var flash = require('express-flash');
 	var mongo = require('mongodb');
 	var mongoose = require('mongoose');
@@ -55,7 +56,7 @@
 		}));
 	app.set('view engine', 'handlebars');
 
-
+	
 	app.use(express.static('public'));
 	app.use(bodyParser.urlencoded({
 		extended: true
@@ -68,6 +69,8 @@
 	}));
 
 	app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
+
+	sitemap.generate(app)
 
 
 	//Validator
@@ -271,6 +274,8 @@
 
 	console.log("Starting web server at " + serverUrl + ":" + port);
 	http.listen(port);
+
+
 
 	app.get('/', function (req, res) {
 		res.render('enterPin');
@@ -721,8 +726,15 @@
 		res.redirect('/teachers/login');
 	});
 
+	app.get('/sitemap.xml', function(req, res) { // send XML map
+
+		map.XMLtoWeb(res);
+	  }).get('/robots.txt', function(req, res) { // send TXT map
+	  
+		map.TXTtoWeb(res);
+	  });
+
 
 	app.use(function (req, res, next) {
 		res.status(404).render('404');
 	});
-	module.exports = app;
