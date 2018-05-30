@@ -726,6 +726,14 @@
 		res.redirect('/teachers/login');
 	});
 
+	app.get('/sitemap.xml', function(req, res) { // send XML map
+
+		map.XMLtoWeb(res);
+	  }).get('/robots.txt', function(req, res) { // send TXT map
+	  
+		map.TXTtoWeb(res);
+	  });
+
 
 	app.use(function (req, res, next) {
 		res.status(404).render('404');
