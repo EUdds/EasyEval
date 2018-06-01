@@ -2,7 +2,7 @@
 /* CSS Document */
 
 body {
-    background-color: #06AED5 !important;
+    background-color: #06AED5;
     padding: 0 !important;
 }
 
@@ -51,7 +51,7 @@ body {
     /* Set a specific slider handle width */
     height: 25px;
     /* Slider handle height */
-    background: #1E00E1;
+    background: #14A845;
     cursor: pointer;
     /* Cursor on hover */
     border-radius: 50%;
@@ -63,7 +63,7 @@ body {
     /* Set a specific slider handle width */
     height: 25px;
     /* Slider handle height */
-    background: #1E00E1;
+    background: #14A845;
     /* Green background */
     cursor: pointer;
     /* Cursor on hover */
@@ -73,6 +73,9 @@ body {
 .jumboWindow{
     background: #ffffff;
 }
+.jumboWindow h1{
+    color:#E75480; 
+}
 
 #chart {
     width: 50%;
@@ -80,8 +83,7 @@ body {
 
 .groupMemberBox {
     margin: 5%;
-    border: #000000;
-    border-style: solid;
+    border: #000000 solid 1px;
 }
 
 #inputBoxes {
@@ -111,6 +113,20 @@ body {
     margin:auto center;
 
 }
+#enterPin h1, h2 ,h3 ,h4 ,p{
+    color:#E75480
+}
+#pinNumber{
+    font-size: 36px;
+    width:160px;
+    border: black solid 1px;
+    -moz-appearance: textfield;
+    -webkit-appearance: none;
+}
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+  }
 
 #teacherDashboard {
     width: 80%;
@@ -151,8 +167,17 @@ body {
 
 .cardForm{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background: #ffffff;
+    margin: auto;
+    margin-top: 15%;
+    height: auto;
+    padding: 1%;
+    width: fit-content;
 }
 
+.cardForm h3, p{
+    color: #E75480; 
+}
 .cardHeader{
     color: black;
 }
@@ -160,4 +185,12 @@ body {
 .cardHeader:hover{
     color: #E75480;
     text-decoration: none;
+}
+#middle{
+    margin: 1px;
+    display: block;
+}
+
+#submitForm{
+    height:auto;
 }

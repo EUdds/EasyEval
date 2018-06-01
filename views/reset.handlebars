@@ -1,0 +1,14 @@
+<div class="cardForm">
+    <div class="col-sm-auto" align="center">
+    <h3>Reset Password</h3>
+    <h3><small>Enter Your New Password</small></h3>
+<form method="POST" action="/reset" class="form-group col-sm-auto">
+    <input type="password" class="form-control" name="password1" placeholder="New Password">
+    <br>
+    <input type="password" class="form-control" name="password2" placeholder="Confirm Password">
+    <br>
+    <input type="hidden" name="token" value="{{token}}">
+    <button type="submit" class="btn btn-primary btn-lg">Submit Password</button> 
+</form>
+</div>
+</div>
