@@ -1,6 +1,6 @@
 	require('dotenv').load();
 
-	var port = 80;
+	var port = 5000;
 	var serverUrl = "127.0.0.1";
 	var inputData;
 	var numInGroup;
@@ -677,7 +677,8 @@
 	});
 
 	var map = sitemap({
-		generate: app
+		generate: app,
+		url: "easyeval.me"
 	  });
 	app.get('/sitemap.xml', function(req, res) { // send XML map
 

@@ -113,20 +113,22 @@ body {
     margin:auto center;
 
 }
+
 #enterPin h1, h2 ,h3 ,h4 ,p{
     color:#E75480
 }
 #pinNumber{
-    font-size: 36px;
+    font-size: 40px;
     width:160px;
-    border: black solid 1px;
-    -moz-appearance: textfield;
-    -webkit-appearance: none;
+    /* border: black solid 1px; */
+    border: .125rem solid rgb(73, 73, 73);
+    text-align: center;
 }
-input[type=number]::-webkit-outer-spin-button { 
-    -webkit-appearance: none; 
-    margin: 0; 
-  }
+
+#pinNumber:active{
+    border: .125rem solid black;
+    outline: none;
+}
 
 #teacherDashboard {
     width: 80%;
@@ -163,7 +165,6 @@ input[type=number]::-webkit-outer-spin-button {
     margin: auto;
     margin-top: 20px;
 }
-
 
 .cardForm{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
