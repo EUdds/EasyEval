@@ -156,8 +156,8 @@
 				});
 				return res.redirect('/teachers/register');
 			}
-			User.findOne({
-				lower: req.body.username.toLowerCase()
+			User.find({
+				username: req.body.username
 			}, function (err, existingUser) {
 				if (existingUser) {
 					req.flash('errors', {
@@ -319,7 +319,7 @@
 	});
 
 	app.get('/teachers', function (req, res) {
-		res.render('welcome', {
+		res.render('landing', {
 			layout: 'teacherSide.handlebars',
 			title: 'EasyEval - Teachers',
 			active: {
@@ -688,6 +688,12 @@
 		map.TXTtoWeb(res);
 	  });
 
+app.get('/landing', function(req,res){
+	res.render('landing', {
+		layout: 'teacherSide.handlebars',
+		title: "EasyEval- Teachers"
+	});
+});
 
 	app.use(function (req, res, next) {
 		res.status(404).render('404');

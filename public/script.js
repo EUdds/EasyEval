@@ -149,6 +149,11 @@ function drawChart() {
 				color: "black",
 				fontSize: 24,
 				bold: true
+			},
+			pieSliceText: "value",
+			backgroundColor :{
+				stroke :"black",
+				strokeWidth : '1px'
 			}
 		};
 
@@ -270,7 +275,7 @@ function createPointWeight() {
 				color: "black",
 				fontSize: 24,
 				bold: true
-			}
+			},
 		};
 		pointWeightChart = new google.visualization.PieChart(pointWeightChartDiv);
 		pointWeightChart.draw(pointWeightData, pointWeightOptions);
@@ -295,8 +300,9 @@ function updatePointWeightSliders() {
 		titleTextStyle: {
 			color: "black",
 			fontSize: 24,
-			bold: true
-		}
+			bold: true,
+			
+		},
 	};
 	pointWeightChart.draw(pointWeightData, pointWeightOptions);
 	updateTotal();

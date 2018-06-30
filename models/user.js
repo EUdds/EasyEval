@@ -11,14 +11,15 @@ var db = mongoose.connection;
 var userSchema = mongoose.Schema({
     username: {
        type: String,
-       index: true
+       index: true,
+       unique: true
     },
     password: {
         type: String
     },
     email: {
         type: String,
-        unique: false
+        unique: true
     },
     firstName: {
         type: String

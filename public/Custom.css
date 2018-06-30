@@ -23,7 +23,7 @@ body {
     height: 15px;
     /* Specified height */
     border-radius: 5px;
-    background: #000000;
+    background: #06AED5;
     /* Grey background */
     outline: none;
     /* Remove outline */
@@ -51,7 +51,7 @@ body {
     /* Set a specific slider handle width */
     height: 25px;
     /* Slider handle height */
-    background: #14A845;
+    background: #E75480;
     cursor: pointer;
     /* Cursor on hover */
     border-radius: 50%;
@@ -63,7 +63,7 @@ body {
     /* Set a specific slider handle width */
     height: 25px;
     /* Slider handle height */
-    background: #14A845;
+    background: #E75480;
     /* Green background */
     cursor: pointer;
     /* Cursor on hover */
@@ -102,7 +102,6 @@ body {
 }
 
 
-
 #enterPin {
     position: absolute;
     top: 50%;
@@ -114,7 +113,7 @@ body {
 
 }
 
-#enterPin h1, h2 ,h3 ,h4 ,p{
+#enterPin h1 h2 h3 h4 p{
     color:#E75480
 }
 #pinNumber{
@@ -176,7 +175,7 @@ body {
     width: fit-content;
 }
 
-.cardForm h3, p{
+.cardForm h3 p{
     color: #E75480; 
 }
 .cardHeader{
@@ -195,3 +194,163 @@ body {
 #submitForm{
     height:auto;
 }
+
+  
+#landing{
+}
+ #landing h1{
+    font-family: 'Arial';
+    font-weight: 800 !important;   
+  }
+
+#landing h2{
+    font-family: 'Arial';
+    font-weight: 800 !important;  
+}
+
+#landing h3{
+    font-family: 'Arial';
+    font-weight: 800 !important;
+}
+
+#landing h4{
+    font-family: 'Arial';
+    font-weight: 800 !important;
+}
+
+#landing h5{
+    font-family: 'Arial';
+    font-weight: 800 !important;
+}
+
+#landing h6{
+    font-family: 'Arial';
+    font-weight: 800 !important;
+}
+
+  #landing p{
+    font-family: 'Arial';
+  }
+  
+  .btn-xl {
+    text-transform: uppercase;
+    padding: 1.5rem 3rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.1rem;
+  }
+  
+  .bg-white {
+    background-color: #000 !important;
+    color: black;
+  }
+  
+  .rounded-pill {
+    border-radius: 5rem;
+  }
+  header.masthead {
+    position: relative;
+    overflow: hidden;
+    padding-top: calc(7rem + 72px);
+    padding-bottom: 7rem;
+    background: linear-gradient(0deg, #E75480 0%, white 100%);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: scroll;
+    background-size: cover;
+  }
+  
+  header.masthead .masthead-content {
+    z-index: 1;
+    position: relative;
+  }
+  
+  header.masthead .masthead-content .masthead-heading {
+    font-size: 4rem;
+  }
+  
+  header.masthead .masthead-content .masthead-subheading {
+    font-size: 2rem;
+  }
+  
+  header.masthead .bg-circle {
+    z-index: 0;
+    position: absolute;
+    border-radius: 100%;
+    background: #E75480;
+  }
+  
+  header.masthead .bg-circle-1 {
+    height: 90rem;
+    width: 90rem;
+    bottom: -55rem;
+    left: -55rem;
+  }
+  
+  header.masthead .bg-circle-2 {
+    height: 50rem;
+    width: 50rem;
+    top: -25rem;
+    right: -25rem;
+  }
+  
+  header.masthead .bg-circle-3 {
+    height: 20rem;
+    width: 20rem;
+    bottom: -10rem;
+    right: 5%;
+  }
+  
+  header.masthead .bg-circle-4 {
+    height: 30rem;
+    width: 30rem;
+    top: -5rem;
+    right: 35%;
+  }
+  
+  @media (min-width: 992px) {
+    header.masthead {
+      padding-top: calc(10rem + 55px);
+      padding-bottom: 10rem;
+    }
+    header.masthead .masthead-content .masthead-heading {
+      font-size: 6rem;
+    }
+    header.masthead .masthead-content .masthead-subheading {
+      font-size: 4rem;
+    }
+  }
+  
+  .bg-primary {
+    background-color: #ee0979 !important;
+  }
+  
+  #landing
+  .btn-primary {
+    background-color: #ee0979;
+    border-color: #ee0979;
+  }
+  
+  #landing
+  .btn-primary:active, #landing .btn-primary:focus, #landing .btn-primary:hover {
+    background-color: #06AED5 !important;
+    border-color: white !important;
+  }
+  #landing
+  .btn-primary:focus {
+    box-shadow: 0 0 0 0.2rem black;
+  }
+  #landing
+  .btn-secondary {
+    background-color: #ff6a00;
+    border-color: #ff6a00;
+  }
+  #landing
+  .btn-secondary:active, .btn-secondary:focus, .btn-secondary:hover {
+    background-color: #cc5500 !important;
+    border-color: #cc5500 !important;
+  }
+  #landing
+  .btn-secondary:focus {
+    box-shadow: 0 0 0 0.2rem rgba(255, 106, 0, 0.5);
+  }
