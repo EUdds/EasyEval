@@ -238,6 +238,7 @@ body {
     font-size: 0.9rem;
     font-weight: 700;
     letter-spacing: 0.1rem;
+    transform: scale(1.5)
   }
   
   .bg-white {
@@ -334,7 +335,7 @@ body {
   
   #landing
   .btn-primary:active, #landing .btn-primary:focus, #landing .btn-primary:hover {
-    background-color: #06AED5 !important;
+    background-color: #14a845 !important;
     border-color: white !important;
   }
   #landing
