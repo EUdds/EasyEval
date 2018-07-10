@@ -43,7 +43,7 @@ google.charts.load('current', {
 
 
 function init() {
-	weightTotal = numInGroup * 100;
+	// document.getElementById("submitForm").style.height = String(bodyHeight) + "px";
 	document.body.style.background = "white";
 	chartWidth = (document.documentElement.clientWidth / (standardsInAssignment) - 10);	
 	if(isPointWeight){

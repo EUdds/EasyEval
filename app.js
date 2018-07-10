@@ -198,7 +198,8 @@
 			maxScore: req.body.maxScore,
 			creator: req.user.username,
 			connectCode: Math.floor(Math.random() * 90000) + 10000,
-			isPointWeight: isPointWeight
+			isPointWeight: isPointWeight,
+			dateCreated: new Date()
 
 		});
 
