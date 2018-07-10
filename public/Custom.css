@@ -195,17 +195,16 @@ body {
     height:auto;
 }
 
-  
-#landing{
-}
  #landing h1{
     font-family: 'Myraid';
     font-weight: 500 !important;   
+    color: white;
   }
 
 #landing h2{
     font-family: 'Myraid';
     font-weight: 250 !important;  
+    color: white;
 }
 
 #landing h3{
@@ -230,7 +229,9 @@ body {
 
   #landing p{
     font-family: 'Arial';
+    color: white;
   }
+  
   
   .btn-xl {
     text-transform: uppercase;

@@ -283,7 +283,22 @@
 		})
 	});
 
-
+	app.get('/demo', function(req,res){
+		Project.findOne({connectCode: 37421}, function(err, project){
+			if(err){
+				res.redirect('/');
+			}
+			res.render('evaluate',{
+				firstName: "John Doe",
+				numInGroup: 2,
+				project: project,
+				groupNumber: 1,
+				demo: true
+				
+			})
+		})
+		
+	})
 	app.get('/evaluate', function (req, res) {
 		res.redirect('/');
 	});
@@ -694,6 +709,17 @@ app.get('/landing', function(req,res){
 		title: "EasyEval- Teachers"
 	});
 });
+
+app.get('/test', function(req,res){
+	Project.findOne({connectCode: 37421}, function(err, project){
+		var splitStandard = []
+		splitStandard = project.standards.split(',');
+		res.render('results',
+		{
+			project: project,
+			standards: splitStandard
+		});
+	})});
 
 	app.use(function (req, res, next) {
 		res.status(404).render('404');
