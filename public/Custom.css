@@ -165,6 +165,10 @@ body {
     margin-top: 20px;
 }
 
+.shadow{
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 .cardForm{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     background: #ffffff;
@@ -196,15 +200,17 @@ body {
 }
 
  #landing h1{
-    font-family: 'Myraid';
+    font-family: 'Verdana';
     font-weight: 500 !important;   
     color: white;
   }
 
 #landing h2{
-    font-family: 'Myraid';
-    font-weight: 250 !important;  
+    font-family: 'Verdana';
+    font-weight: 500 !important; 
+    font-size: 3.5em;   
     color: white;
+    line-height: 2;
 }
 
 #landing h3{
@@ -228,8 +234,9 @@ body {
 }
 
   #landing p{
-    font-family: 'Arial';
+    font-family: 'Verdana';
     color: white;
+    line-height: 2.5;
   }
   
   
@@ -362,3 +369,11 @@ body {
     height: 10px;
     background: white;
 }
+
+blockquote {
+    background: #f9f9f9;
+    border-left: 10px solid #ee0979;
+    margin: 1.5em 10px;
+    padding: 0.5em 10px;
+    quotes: "\201C""\201D""\2018""\2019";
+  }

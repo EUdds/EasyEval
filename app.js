@@ -1,6 +1,6 @@
 	require('dotenv').load();
 
-	var port = 5000;
+	var port = 8000;
 	var serverUrl = "127.0.0.1";
 	var inputData;
 	var numInGroup;
