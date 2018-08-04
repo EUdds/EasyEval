@@ -49,7 +49,11 @@ google.charts.setOnLoadCallback(drawChart);
   <script>
     window.onload = function(){
 			init(); 	
+			{{#if demo}}
+
+			{{else}}
 			document.getElementById("groupMembers").setAttribute('value',groupMemberNamesString);
+			{{/if}}
 			for(var i=0; i<standardsInAssignment; i++){
 				updateSliders(i);
 			};

@@ -73,9 +73,6 @@ body {
 .jumboWindow{
     background: #ffffff;
 }
-.jumboWindow h1{
-    color:#E75480; 
-}
 
 #chart {
     width: 50%;
@@ -111,10 +108,6 @@ body {
     background: #ffffff;
     margin:auto center;
 
-}
-
-#enterPin h1 h2 h3 h4 p{
-    color:#E75480
 }
 #pinNumber{
     font-size: 40px;
@@ -349,20 +342,6 @@ body {
   #landing
   .btn-primary:focus {
     box-shadow: 0 0 0 0.2rem black;
-  }
-  #landing
-  .btn-secondary {
-    background-color: #ff6a00;
-    border-color: #ff6a00;
-  }
-  #landing
-  .btn-secondary:active, .btn-secondary:focus, .btn-secondary:hover {
-    background-color: #cc5500 !important;
-    border-color: #cc5500 !important;
-  }
-  #landing
-  .btn-secondary:focus {
-    box-shadow: 0 0 0 0.2rem rgba(255, 106, 0, 0.5);
   }
   .divider{
     width: 100%;

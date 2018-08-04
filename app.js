@@ -1,6 +1,6 @@
 	require('dotenv').load();
 
-	var port = 8000;
+	var port = 5000;
 	var serverUrl = "127.0.0.1";
 	var inputData;
 	var numInGroup;
@@ -721,7 +721,20 @@ app.get('/test', function(req,res){
 			standards: splitStandard
 		});
 	})});
+	
+	app.get('/terms', function(req,res){
+		res.render('terms',{
+		layout: 'teacherSide.handlebars',
+		title: 'EasyEval- Terms and Conditions'
+	});})
 
+	app.get('/privacypolicy', function(req,res){
+		res.render('privacyPolicy',{
+		layout: 'teacherSide.handlebars',
+		title: 'EasyEval- Privacy Policy'
+	});})
+
+	//Must be last in list
 	app.use(function (req, res, next) {
 		res.status(404).render('404');
 	});

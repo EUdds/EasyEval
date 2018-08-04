@@ -43,12 +43,18 @@
           <form method="POST" action="/forgot" class="form-group">
       <div class="modal-body">
           <h3 align="center">Please Enter Your Email</h3>
-        <input class="form-control" name="email" type="email">
+          <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">
+                        <i class="fa fa-envelope"></i></span>
+                </div>
+                <input type="email" name="email" class="form-group form-control" required autofocus>
+            </div>
         
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Send Password Recovery</button>
+        <button type="submit" class="btn btn-primary">Send Password Recovery Email</button>
       </div>
       </form>
     </div>
