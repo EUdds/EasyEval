@@ -28,6 +28,9 @@ var projectSchema = mongoose.Schema({
     
     isPointWeight:{
         type: Boolean
+    },
+    dateCreated:{
+        type: Date
     }
 });
 

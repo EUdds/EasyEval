@@ -11,7 +11,7 @@ var sliderDiv = [];
 var options = [];
 var chart = [];
 var chartLocation;
-var chartDiv = [];
+var standardDiv = [];
 var sliderGroup = [];
 var chartWidth;
 var maxScore;
@@ -29,8 +29,10 @@ var totalPoints = 0;
 var totalInputBox;
 var addingArray = [];
 var pointWeightHeader;
-var weightTotal = numInGroup * 100;
+var weightTotal;
 var pointWeightValues = [];
+var chartDiv = [];
+var middle;
 
 
 google.charts.load('current', {
@@ -43,11 +45,14 @@ google.charts.load('current', {
 function init() {
 	// document.getElementById("submitForm").style.height = String(bodyHeight) + "px";
 	document.body.style.background = "white";
-	if (isPointWeight) {
-		chartWidth = (document.documentElement.clientWidth / (standardsInAssignment + 1) - 10);
-	} else {
-		chartWidth = (document.documentElement.clientWidth / (standardsInAssignment) - 10);
+	chartWidth = (document.documentElement.clientWidth / (standardsInAssignment) - 10);	
+	if(isPointWeight){
+		chartWidth = (document.documentElement.clientWidth / (standardsInAssignment + 1) - 15);
 	}
+	if(document.documentElement.clientWidth  < 800){
+		chartWidth = (document.documentElement.clientWidth - 10);
+	}
+	
 	defineLocations();
 	drawChart();
 	defineSliders();
@@ -71,8 +76,9 @@ function drawSliders(chartNumber) {
 
 		sliderDiv[temp] = document.createElement("div");
 		sliderDiv[temp].setAttribute('class', 'slidecontainer');
+		sliderDiv[temp].style.marginLeft = String((chartWidth / 4)) + "px";
 
-		document.getElementById("chart" + chartNumber.toString() + "Sliders").appendChild(sliderDiv[temp]);
+		document.getElementById(chartNumber.toString()).appendChild(sliderDiv[temp]);
 		slider[temp] = document.createElement("input");
 		slider[temp].setAttribute("type", "range");
 		slider[temp].setAttribute("min", '0');
@@ -99,26 +105,23 @@ function drawSliders(chartNumber) {
 
 function defineSliders() {
 	for (var i = 0; i < standardsInAssignment; i++) {
+		var	temp = (100* i) + i;
 		sliderGroup[i] = document.createElement("div");
 		sliderGroup[i].setAttribute("id", "chart" + i.toString() + "Sliders");
-		sliderGroup[i].setAttribute("class", 'col-md-1');
-		defineSliderLocation(i);
-		document.getElementById("sliders").appendChild(sliderGroup[i]);
+		sliderGroup[i].style.position = "absolute";
 		drawSliders(i);
 	}
 }
 
-function defineSliderLocation(i) {
-	sliderGroup[i].style.position = "absolute";
-	sliderGroup[i].style.left = (chartWidth / 4) + (i * chartWidth) + "px";
-	sliderGroup[i].style.width = chartWidth;
-}
 
 function defineLocations() {
 	for (var i = 0; i < standardsInAssignment; i++) {
+		standardDiv[i] = document.createElement("div");
+		standardDiv[i].setAttribute("id", + i.toString());
+		//standardDiv[i].setAttribute("class", "col");
+		document.getElementById("container").appendChild(standardDiv[i]);
 		chartDiv[i] = document.createElement("div");
-		chartDiv[i].setAttribute("id", "chart" + i.toString());
-		document.getElementById("charts").appendChild(chartDiv[i]);
+		standardDiv[i].appendChild(chartDiv[i]);
 	}
 }
 
@@ -149,12 +152,16 @@ function drawChart() {
 				color: "black",
 				fontSize: 24,
 				bold: true
+			},
+			pieSliceText: "value",
+			backgroundColor :{
+				stroke :"black",
+				strokeWidth : '1px'
 			}
 		};
 
 
-		chartLocation = "chart" + i.toString();
-		chart[i] = new google.visualization.PieChart(document.getElementById(chartLocation));
+		chart[i] = new google.visualization.PieChart(chartDiv[i]);
 
 		chart[i].draw(data[i], options[i]);
 
@@ -200,35 +207,36 @@ function createPointWeight() {
 	
 	if (isPointWeight) {
 
-		var pointWeightChartDiv = document.createElement("div");
-		document.getElementById("charts").appendChild(pointWeightChartDiv);
-
-		pointWeightDiv = document.createElement("div");
+		
+		var pointWeightDiv = document.createElement("div");
 		pointWeightDiv.setAttribute("id", "pointWeightDiv");
 		pointWeightDiv.setAttribute("class", 'col-md-1');
-		pointWeightDiv.style.position = "absolute";
-		pointWeightDiv.style.left = (chartWidth / 4) + (chart.length * chartWidth) + "px";
 		pointWeightDiv.style.width = chartWidth;
-
+	
+		document.getElementById("container").appendChild(pointWeightDiv);
+		
+		var pointWeightChartDiv = document.createElement("div");
+		pointWeightDiv.appendChild(pointWeightChartDiv);
 		pointWeightHeader = document.createElement("h3");
 		pointWeightHeader.innerHTML ="Total: " + totalPoints;
-		pointWeightHeader.style.position = "absolute";
-		pointWeightHeader.style.left = (chartWidth / 4) + (chart.length * chartWidth) + "px";
+		pointWeightHeader.style.marginLeft = String((chartWidth / 4)) + "px";
 		pointWeightHeader.style.width = chartWidth;
+
+		middle = document.createElement("div");
+		middle.setAttribute("id", "middle");
+		pointWeightDiv.appendChild(middle);
 		document.getElementById("middle").style.height = "40px";
+		middle.style.marginBottom = "30px";
 		document.getElementById("middle").appendChild(pointWeightHeader);
 		
 		
-		document.getElementById("sliders").appendChild(pointWeightDiv);
-
-		
-		var pointWeightDiv;
 
 		for (var i = 0; i < numInGroup; i++) {
 
 			pwSliderDiv[i] = document.createElement("div");
 			pwSliderDiv[i].setAttribute('class', 'slidecontainer');
 			pointWeightDiv.appendChild(pwSliderDiv[i]);
+			pwSliderDiv[i].style.marginLeft = String((chartWidth / 4)) + "px";
 
 			pointWeightSliders[i] = document.createElement("input");
 			pointWeightSliders[i].setAttribute("type", "range");
@@ -270,7 +278,7 @@ function createPointWeight() {
 				color: "black",
 				fontSize: 24,
 				bold: true
-			}
+			},
 		};
 		pointWeightChart = new google.visualization.PieChart(pointWeightChartDiv);
 		pointWeightChart.draw(pointWeightData, pointWeightOptions);
@@ -295,8 +303,9 @@ function updatePointWeightSliders() {
 		titleTextStyle: {
 			color: "black",
 			fontSize: 24,
-			bold: true
-		}
+			bold: true,
+			
+		},
 	};
 	pointWeightChart.draw(pointWeightData, pointWeightOptions);
 	updateTotal();

@@ -1,6 +1,6 @@
 	require('dotenv').load();
 
-	var port = 80;
+	var port = 5000;
 	var serverUrl = "127.0.0.1";
 	var inputData;
 	var numInGroup;
@@ -33,7 +33,7 @@
 	var upload = multer({
 		dest: './uploads'
 	});
-	var sitemap = require('express-sitemap')();
+	var sitemap = require('express-sitemap');
 	var flash = require('express-flash');
 	var mongo = require('mongodb');
 	var mongoose = require('mongoose');
@@ -68,9 +68,7 @@
 		resave: true
 	}));
 
-	app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
-
-	sitemap.generate(app)
+	app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 
 	//Validator
@@ -158,8 +156,8 @@
 				});
 				return res.redirect('/teachers/register');
 			}
-			User.findOne({
-				lower: req.body.username.toLowerCase()
+			User.find({
+				username: req.body.username
 			}, function (err, existingUser) {
 				if (existingUser) {
 					req.flash('errors', {
@@ -200,7 +198,8 @@
 			maxScore: req.body.maxScore,
 			creator: req.user.username,
 			connectCode: Math.floor(Math.random() * 90000) + 10000,
-			isPointWeight: isPointWeight
+			isPointWeight: isPointWeight,
+			dateCreated: new Date()
 
 		});
 
@@ -221,54 +220,6 @@
 			});
 		});
 	};
-
-	oldShowResults = function (req, res, next) {
-		Project.findOne({
-			connectCode: req.params.code
-		}, function (err, project) {
-			if (err) {
-				req.flash('errors', {
-					msg: 'Unknown Project'
-				});
-				return res.redirect('/teachers');
-			}
-			if (!req.user) {
-				req.flash('errors', {
-					msg: 'You must sign in to view that'
-				});
-				return res.redirect('/teachers/login');
-			} else {
-				if (project.creator != req.user.username) {
-					req.flash('errors', {
-						msg: 'You are not authorized to access this project!'
-					});
-					return res.redirect('/teachers');
-				}
-				User.findOne({
-					username: project.creator
-				}, function (err, user) {
-					var projectData = [];
-					for (var i = 0; i < user.submissions.length; i++) {
-						console.log(user.submissions[i].id);
-						if (user.submissions[i].id == project.connectCode) {
-							projectData[i] = user.submissions[i];
-							console.log(user.submissions[i].id + ' , ' + project.connectCode);
-						}
-					}
-
-					var standardsArray = project.standards.split(',');
-
-					res.render('results', {
-						layout: 'teacherSide.handlebars',
-						title: 'EasyEval - Results',
-						project: project,
-						evalData: projectData,
-						standards: standardsArray
-					});
-				});
-			}
-		});
-	}
 
 	var checkMimeType = true;
 
@@ -333,7 +284,22 @@
 		})
 	});
 
-
+	app.get('/demo', function(req,res){
+		Project.findOne({connectCode: 37421}, function(err, project){
+			if(err){
+				res.redirect('/');
+			}
+			res.render('evaluate',{
+				firstName: "John Doe",
+				numInGroup: 2,
+				project: project,
+				groupNumber: 1,
+				demo: true
+				
+			})
+		})
+		
+	})
 	app.get('/evaluate', function (req, res) {
 		res.redirect('/');
 	});
@@ -369,7 +335,7 @@
 	});
 
 	app.get('/teachers', function (req, res) {
-		res.render('welcome', {
+		res.render('landing', {
 			layout: 'teacherSide.handlebars',
 			title: 'EasyEval - Teachers',
 			active: {
@@ -726,6 +692,10 @@
 		res.redirect('/teachers/login');
 	});
 
+	var map = sitemap({
+		generate: app,
+		url: "easyeval.me"
+	  });
 	app.get('/sitemap.xml', function(req, res) { // send XML map
 
 		map.XMLtoWeb(res);
@@ -734,7 +704,37 @@
 		map.TXTtoWeb(res);
 	  });
 
+app.get('/landing', function(req,res){
+	res.render('landing', {
+		layout: 'teacherSide.handlebars',
+		title: "EasyEval- Teachers"
+	});
+});
 
+app.get('/test', function(req,res){
+	Project.findOne({connectCode: 37421}, function(err, project){
+		var splitStandard = []
+		splitStandard = project.standards.split(',');
+		res.render('results',
+		{
+			project: project,
+			standards: splitStandard
+		});
+	})});
+	
+	app.get('/terms', function(req,res){
+		res.render('terms',{
+		layout: 'teacherSide.handlebars',
+		title: 'EasyEval- Terms and Conditions'
+	});})
+
+	app.get('/privacypolicy', function(req,res){
+		res.render('privacyPolicy',{
+		layout: 'teacherSide.handlebars',
+		title: 'EasyEval- Privacy Policy'
+	});})
+
+	//Must be last in list
 	app.use(function (req, res, next) {
 		res.status(404).render('404');
 	});

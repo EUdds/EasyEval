@@ -1,7 +1,5 @@
-<script src="/script.js"></script>
 <script>
 google.charts.setOnLoadCallback(drawChart);
-	
   numInGroup = {{numInGroup}} + 1;
   firstName = '{{firstName}}';
 	maxScore = {{project.maxScore}};
@@ -24,58 +22,43 @@ google.charts.setOnLoadCallback(drawChart);
 			return true;
 		}
 	}
-
-	function getGroupMemberNames(){
-		return localStorage.getItem("groupMemberNamesString");
-	}
-
+	{{#if demo}}
+	groupMemberNames = ['John Doe', 'Jane Doe', "Johnny Appleseed"];
+	{{else}}
 	groupMemberNamesString = localStorage.getItem("groupMemberNamesString");
 
 	groupMemberNames = groupMemberNamesString.split(`,`);
+	{{/if}}
+	
 </script>
 <div class="container-fluid" id="evalPage">
 <form id="submitForm" action="/eval" method="POST">
-<div class="page-header" align="center">
-	<h1>Easy Eval</h1>
-  <h1><small>Evaluate Your Group Members</small></h1>
-	<h2><em>{{project.projectTitle}}</em></h2>
-</div>
-<div class="row" id="charts"></div>
-<div class="row" id="middle"></div>
-<div class="row" id="sliders" style="height:fit-content"></div>
-<button style="margin: 5px; position:fixed; bottom:0; left:0;" id="submitButton" align="center" onclick="event.returnValue=sendData();" class="btn btn-lg btn-block btn-primary" name="id" type="submit" value="{{project.connectCode}}">Submit to Teacher</button>
-<br>
 <input name="groupMembers" id="groupMembers" style="display: none;">
 <input name="submitter" id="submitter" value="{{firstName}}" style="display: none;">
 <input name="groupNumber" id="groupNumber" value="{{groupNumber}}" style="display: none;">
+<div class="page-header" align="center">
+	<h2>{{project.projectTitle}}</h2>
+</div>
+<div class="row" id="container"></div>
+<button  id="submitButton" onclick="event.returnValue=sendData();" class="btn btn-lg btn-block btn-primary" type="submit">Submit to Teacher</button>
+
 </div>
 
 </form>
-<script src="/script.js"></script>
+
   <script>
     window.onload = function(){
 			init(); 	
-			document.getElementById("groupMembers").setAttribute('value', getGroupMemberNames());
+			{{#if demo}}
+
+			{{else}}
+			document.getElementById("groupMembers").setAttribute('value',groupMemberNamesString);
+			{{/if}}
 			for(var i=0; i<standardsInAssignment; i++){
 				updateSliders(i);
 			};
 			};
-
-
-	$(window).resize(function() {
- 	chartWidth = (document.documentElement.clientWidth/standardsInAssignment - 10);
-	drawChart();
-
-
-	for(var i=0; i<standardsInAssignment; i++){
-		defineSliderLocation(i);
-	}
-
-});
-	{{#if project.isPointWeight}}
-
-
-{{/if}}
+	$(window).resize(function(){drawChart();});
   </script>
 {{#if project.isPointWeight}}
 	<div class="modal fade" id="pointWeightModal" tabindex="-1" role="dialog" aria-labelledby="pointWeightModalTitle" aria-hidden="true">

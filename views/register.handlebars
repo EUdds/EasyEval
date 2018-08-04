@@ -1,52 +1,55 @@
-
+<div align="center">
+<form method="POST" action="/teachers/register" class="form-group form-control cardForm col-sm-3" id="registerForm">
 {{#if errors}} {{#each errors}}
 <div class="alert alert-danger">{{this.msg}}</div>
 {{/each}} {{/if}} {{> flash}}
-
-<div align="center">
-<form method="POST" action="/teachers/register" class="form-group form-control cardForm col-lg-5" id="registerForm">
     
-<h2 class="page-header" style="text-align: center;color: #E75480;">Register</h2>
-<p style="text-align:center; color:#E75480;">Please Register to use Easy Eval</p>
-    <div class="input-group">
-        <div class="input-group-prepend">
-        <span class="input-group-text" id=""><i class="fa fa-user"></i> &nbsp;First and Last Name</span>
-        </div>
-        <input type="text" name="firstName" placeholder="John" class="form-group form-control">
-        <input type="text" name="lastName" placeholder="Doe" class="form-group form-control">
+<h2 class="page-header" style="text-align: center;color: black;">Register</h2>
+<p style="text-align:center; color:black;">Please Register to use Easy Eval</p>
+ <a href="/auth/google"><button type="button" class="btn form-group" style="background: #DD4B39; color:white;"><i class="fa fa-google pr-1"></i> Sign Up With Google</button></a>  
+<div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: center">
+      <span style="font-size: 16px; background-color: white; padding: 0 10px;">
+        Or sign up with email 
+      </span>
     </div>
     <br>
     <div class="input-group">
   <div class="input-group-prepend">
-    <span class="input-group-text" id="basic-addon1"><i class="fa fa-envelope"></i> &nbsp;Email</span>
+    <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
   </div>
-  <input type="email" name="email" placeholder="John.Doe@Gmail.com" class="form-group form-control">
+  <input type="text" name="username" placeholder="Username" class="form-group form-control">
+</div>
+     <br>
+    <div class="input-group">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1"><i class="fa fa-envelope"></i></span>
+  </div>
+  <input type="email" name="email" placeholder="Email" class="form-group form-control">
 </div>
  <br>
     <div class="input-group">
   <div class="input-group-prepend">
-    <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i> &nbsp;Username</span>
-  </div>
-  <input type="text" name="username" placeholder="JohnD" class="form-group form-control">
-</div>
- 
-     <br>
-    <div class="input-group">
-  <div class="input-group-prepend">
-    <span class="input-group-text" id="basic-addon1"><i class="fa fa-lock"></i> &nbsp;Password</span>
+    <span class="input-group-text" id="basic-addon1"><i class="fa fa-lock"></i></span>
   </div>
   <input type="password" name="password" placeholder="Password" class="form-group form-control">
 </div>
 <br>
        <div class="input-group">
   <div class="input-group-prepend">
-    <span class="input-group-text" id="basic-addon1"><i class="fa fa-lock"></i> &nbsp;Confirm Password</span>
+    <span class="input-group-text" id="basic-addon1"><i class="fa fa-lock"></i></span>
   </div>
-  <input type="password" name="password2" placeholder="Password" class="form-group form-control">
+  <input type="password" name="password2" placeholder="Confirm Password" class="form-group form-control">
 </div>
+<br>
+ <div class="form-group form-check">
+    <input type="checkbox" class="form-check-input" id="termsCheck" required>
+    <label class="form-check-label" for="termsCheck">I agree to the <a href="/terms">Terms and Conditions</a> and <a href="/privacypolicy">Privacy Policy</a></label>
+  </div>
 
-    <br>
-  <div align="Center">  <a href="/auth/google"><button type="button" class="btn form-group" style="background: #DD4B39; color:white;"><i class="fa fa-google pr-1"></i> Sign Up With Google</button></a>  <button type="submit" class="btn btn-primary form-group" name="Submit" value="Register" class="form-group form-control">Register</button></div>
+
+  <div align="Center"><button type="submit" class="btn btn-primary form-group" name="Submit" value="Register" class="form-group form-control">Register Now</button></div>
+
+  <label class="form-check-label" for="termsCheck">Already registered? <a href="/teachers/login">Log in</a></label>
   
 
 </form>
