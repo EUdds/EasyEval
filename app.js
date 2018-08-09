@@ -294,7 +294,13 @@
 				numInGroup: 2,
 				project: project,
 				groupNumber: 1,
-				demo: true
+				demo: true,
+				project: {
+					maxScore: 10,
+					isPointWeight: 'true',
+					standardsInAssignment: 3,
+					standards: "Communication,Collaberation,Critical Thinking"
+				}
 				
 			})
 		})

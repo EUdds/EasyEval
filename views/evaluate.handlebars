@@ -41,7 +41,7 @@ google.charts.setOnLoadCallback(drawChart);
 	<h2>{{project.projectTitle}}</h2>
 </div>
 <div class="row" id="container"></div>
-<button name="id" value="{{project.connectCode}}" id="submitButton" onclick="event.returnValue=sendData();" class="btn btn-lg btn-block btn-primary" type="submit">Submit to Teacher</button>
+<button name="id" value="{{#if demo}}{{else}}{{project.connectCode}}{{/if}}" id="submitButton" onclick="event.returnValue=sendData();" class="btn btn-lg btn-block btn-primary" type="submit">Submit to Teacher</button>
 
 </div>
 
