@@ -1,6 +1,6 @@
 const { mongo } = require('mongoose');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/EasyEval:27017', {useNewUrlParser: true});
+mongoose.connect('mongodb://localhost:27017/EasyEval', {useNewUrlParser: true});
 var db = mongoose.connection;
 
 //User Scheme
